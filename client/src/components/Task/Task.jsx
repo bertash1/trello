@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
+import classNames from "classnames"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons"
 
@@ -11,9 +12,9 @@ const Task = ({ title }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [isMouseOver, setIsMouseOver] = useState(false)
 
-  const iconClassName = isMouseOver
-    ? "task__icon task__icon_shown"
-    : "task__icon"
+  const iconClassName = classNames("task__icon", {
+    task__icon_shown: isMouseOver,
+  })
 
   return (
     <>
@@ -28,13 +29,13 @@ const Task = ({ title }) => {
           icon={faPencilAlt}
           onClick={() => setIsEdited(!isEdited)}
         />
-        {isEdited ? (
+        {isEdited && (
           <TaskEditor
             isEdited={isEdited}
             setIsEdited={setIsEdited}
             title={title}
           />
-        ) : null}
+        )}
       </div>
       {isEdited ? <Overlay changeComponentVisibility={setIsEdited} /> : null}
     </>
