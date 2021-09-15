@@ -1,0 +1,53 @@
+.add-btn
+  width: 100%
+  padding: 5px 0
+  border: none
+  border-radius: 3px
+  display: flex
+  align-items: center
+  background-color: #ebecf0
+  
+  &:hover
+    background-color: #dddee0
+    cursor: pointer
+
+  &:active
+    background-color: #d1d1d1
+
+  &__hor-line,
+  &__vert-line
+    margin-left: 10px
+    width: 2px
+    height: 12px
+    background-color: #8d97a8
+
+  &__vert-line
+    transform: rotate(90deg) translateY(100%)
+
+
+  &__title
+    height: 100%
+    padding-top: 1px
+    color: #6b778c
+
+.add-form
+  width: 100%
+
+  &__textarea
+    box-sizing: border-box
+    outline: none
+    width: 100%
+    padding: 5px
+    resize: vertical
+    border: none
+    border-radius: 3px
+
+  &__controls
+    margin-top: 5px
+    display: flex
+    justify-content: space-between
+
+  &__btn-wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center

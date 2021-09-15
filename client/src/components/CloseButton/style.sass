@@ -1,0 +1,26 @@
+.close
+  width: 18px
+  height: 18px
+  margin-left: 10px
+  opacity: 0.8
+  position: relative
+  border: none
+
+  &:hover
+    opacity: 1
+    cursor: pointer
+
+  &::before,
+  &::after
+    position: absolute
+    top: 0
+    content: ' '
+    height: 18px
+    width: 2px
+    background-color: #42526e
+
+  &::before
+    transform: rotate(45deg)
+
+  &::after
+    transform: rotate(-45deg)

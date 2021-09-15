@@ -1,0 +1,36 @@
+.task
+  box-sizing: border-box
+  position: relative
+  width: 100%
+  padding: 2px 5px
+  margin-bottom: 8px
+  border-radius: 3px
+  background-color: #fff
+  box-shadow: 0 1px 0 #091e4240
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  &:hover
+    cursor: pointer
+    background-color: #f5f5f5
+
+  &__title
+    font-size: 14px
+
+  &__icon
+    font-size: 12px
+    padding: 7px
+    border-radius: 3px
+    color: #686868
+    visibility: hidden
+
+    &:hover
+      cursor: pointer
+      
+  &__icon_shown
+    background-color: #f5f5f5
+    visibility: visible
+    
+    &:hover
+      background-color: #dddbdb
