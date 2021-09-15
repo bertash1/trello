@@ -1,28 +1,29 @@
-import React, { useRef, useEffect, useState } from "react";
-import ConfirmBtn from "../ConfirmBtn/ConfirmBtn";
-import "./style.sass";
+import React, { useRef, useEffect, useState } from "react"
+import PropTypes from "prop-types"
+import ConfirmButton from "../ConfirmButton/ConfirmButton"
+import "./style.sass"
 
 const TaskEditor = ({ title, isEdited, setIsEdited }) => {
-  const [editedTask, setEditedTask] = useState(title);
+  const [editedTask, setEditedTask] = useState(title)
 
-  const textRef = useRef();
+  const textRef = useRef()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsEdited(false);
-  };
+    e.preventDefault()
+    setIsEdited(false)
+  }
 
   const handleChange = (e) => {
-    setEditedTask(e.target.value);
-  };
+    setEditedTask(e.target.value)
+  }
 
   const handleFocus = (e) => {
-    e.target.select();
-  };
+    e.target.select()
+  }
 
   useEffect(() => {
-    textRef.current.focus();
-  }, [isEdited]);
+    textRef.current.focus()
+  }, [isEdited])
 
   return (
     <>
@@ -35,10 +36,16 @@ const TaskEditor = ({ title, isEdited, setIsEdited }) => {
           onFocus={handleFocus}
           onChange={handleChange}
         />
-        <ConfirmBtn value="Save" />
+        <ConfirmButton value="Save" />
       </form>
     </>
-  );
-};
+  )
+}
 
-export default TaskEditor;
+TaskEditor.propTypes = {
+  title: PropTypes.string,
+  isEdited: PropTypes.bool,
+  setIsEdited: PropTypes.func,
+}
+
+export default TaskEditor
