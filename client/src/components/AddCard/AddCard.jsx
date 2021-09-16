@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react"
-import PropTypes from "prop-types"
 import "./style.sass"
 
 import CloseButton from "../CloseButton/CloseButton"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
+import AddButton from "../AddButton/AddButton"
+import Input from "../Input/Input"
 
-const AddCard = ({ title }) => {
-  const [isOpened, setIsOpened] = useState(false)
+const AddCard = () => {
+  const [isEdited, setIsEdited] = useState(false)
   const [newCard, setNewCard] = useState("")
   const textRef = useRef()
 
@@ -24,35 +25,35 @@ const AddCard = ({ title }) => {
   }
 
   const handleClick = () => {
-    setIsOpened(!isOpened)
+    setIsEdited(!isEdited)
   }
 
   useEffect(() => {
-    if (isOpened && !newCard) {
+    if (isEdited && !newCard) {
       textRef.current.focus()
     }
-    if (!isOpened) {
+    if (!isEdited) {
       setNewCard("")
     }
-  }, [isOpened, newCard])
+  }, [isEdited, newCard])
 
   return (
     <>
-      {!isOpened ? (
-        <button className="addCard-btn" type="button" onClick={handleClick}>
-          <span className="addCard-btn__hor-line" />
-          <span className="addCard-btn__vert-line" />
-          <span className="addCard-btn__title">{title}</span>
-        </button>
+      {!isEdited ? (
+        <AddButton
+          title="Add another card"
+          handleClick={handleClick}
+          buttonType="card"
+        />
       ) : (
         <form className="addCard-form" onSubmit={handleSubmit}>
-          <input
-            className="addCard-form__input"
-            type="text"
+          <Input
             placeholder="Enter card title..."
-            ref={textRef}
-            onChange={handleInputChange}
+            textRef={textRef}
+            handleInputChange={handleInputChange}
             value={newCard}
+            componentType="card"
+            setIsEdited={setIsEdited}
           />
           <div className="addCard-form__controls">
             <div className="addCard-form__btn-wrapper">
@@ -64,10 +65,6 @@ const AddCard = ({ title }) => {
       )}
     </>
   )
-}
-
-AddCard.propTypes = {
-  title: PropTypes.string,
 }
 
 export default AddCard

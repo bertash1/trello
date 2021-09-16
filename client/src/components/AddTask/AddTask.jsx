@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react"
-import PropTypes from "prop-types"
 import CloseButton from "../CloseButton/CloseButton"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
-import Options from "../Options/Options"
+import Input from "../Input/Input"
+import AddButton from "../AddButton/AddButton"
 import "./style.sass"
 
-const AddTask = ({ title }) => {
-  const [isOpened, setIsOpened] = useState(false)
+const AddTask = () => {
+  const [isEdited, setIsEdited] = useState(false)
   const [newTask, setNewTask] = useState("")
   const textRef = useRef()
 
@@ -24,51 +24,47 @@ const AddTask = ({ title }) => {
   }
 
   const handleClick = () => {
-    setIsOpened(!isOpened)
+    setIsEdited(!isEdited)
   }
 
   useEffect(() => {
-    if (isOpened && !newTask) {
+    if (isEdited && !newTask) {
       textRef.current.focus()
     }
-    if (!isOpened) {
+    if (!isEdited) {
       setNewTask("")
     }
-  }, [isOpened, newTask])
+  }, [isEdited, newTask])
 
   return (
     <>
-      {!isOpened ? (
-        <button className="add-btn" type="button" onClick={handleClick}>
-          <span className="add-btn__hor-line" />
-          <span className="add-btn__vert-line" />
-          <span className="add-btn__title">{title}</span>
-        </button>
+      {!isEdited ? (
+        <AddButton
+          title="Add a task"
+          handleClick={handleClick}
+          buttonType="task"
+          componentType="task"
+        />
       ) : (
         <form className="add-form" onSubmit={handleSubmit}>
-          <textarea
-            className="add-form__textarea"
-            type="text"
+          <Input
             placeholder="Enter a title for this task..."
-            ref={textRef}
-            onChange={handleInputChange}
+            textRef={textRef}
+            handleInputChange={handleInputChange}
             value={newTask}
+            setIsEdited={setIsEdited}
+            componentType="task"
           />
           <div className="add-form__controls">
             <div className="add-form__btn-wrapper">
               <ConfirmButton value="Add task" />
               <CloseButton handleClick={handleClick} />
             </div>
-            <Options />
           </div>
         </form>
       )}
     </>
   )
-}
-
-AddTask.propTypes = {
-  title: PropTypes.string,
 }
 
 export default AddTask

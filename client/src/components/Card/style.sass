@@ -1,15 +1,26 @@
 .card
   width: 250px
   margin: 8px
-  padding: 8px
+  padding: 0 8px 8px 8px
   border-radius: 3px
   background-color: #ebecf0
 
+  &__form
+    flex-grow: 1
+    margin-right: 10px
+    height: 100%
+
   &__header
-    padding: 2px 
+    box-sizing: border-box
+    height: 45px
+    padding: 8px 2px 5px 2px
     display: flex
     justify-content: space-between
     align-items: center
 
+    &:hover
+      cursor: pointer
+
   &__title
+    width: 100%
     color: #52617a

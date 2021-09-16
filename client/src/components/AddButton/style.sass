@@ -1,0 +1,52 @@
+.add-btn
+  border: none
+  border-radius: 3px
+  display: flex
+  align-items: center
+  
+  &_task
+    width: 100%
+    padding: 5px 0
+    background-color: #ebecf0
+
+    &:hover
+      background-color: #dddee0
+
+    &__hor-line_task,
+    &__vert-line_task
+      background-color: #8d97a8
+
+    &__title_task
+      color: #6b778c
+  
+  &_card
+    width: 300px
+    margin: 8px
+    padding: 10px
+    background-color: #ffffff3d
+
+    &__hor-line_card,
+    &__vert-line_card
+      background-color: #ece9e8
+
+    &__title_card
+      color: #ece9e8
+
+  &:hover
+    cursor: pointer
+
+  &:active
+    background-color: #d1d1d1
+
+  &__hor-line,
+  &__vert-line
+    margin-left: 10px
+    width: 2px
+    height: 12px
+
+  &__vert-line
+    transform: rotate(90deg) translateY(100%)
+
+  &__title
+    height: 100%
+    padding-top: 1px

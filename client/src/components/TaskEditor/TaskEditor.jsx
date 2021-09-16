@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
+import Input from "../Input/Input"
 import "./style.sass"
 
 const TaskEditor = ({ title, isEdited, setIsEdited }) => {
@@ -13,7 +14,7 @@ const TaskEditor = ({ title, isEdited, setIsEdited }) => {
     setIsEdited(false)
   }
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setEditedTask(e.target.value)
   }
 
@@ -28,13 +29,15 @@ const TaskEditor = ({ title, isEdited, setIsEdited }) => {
   return (
     <>
       <form className="edit-form" onSubmit={handleSubmit}>
-        <textarea
+        <Input
           className="edit-form__textarea"
           type="text"
-          ref={textRef}
+          textRef={textRef}
           value={editedTask}
-          onFocus={handleFocus}
-          onChange={handleChange}
+          handleFocus={handleFocus}
+          handleInputChange={handleInputChange}
+          setIsEdited={setIsEdited}
+          componentType="task"
         />
         <ConfirmButton value="Save" />
       </form>
