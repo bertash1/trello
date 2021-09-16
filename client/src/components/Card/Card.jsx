@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
-import AddTask from "../AddTask/AddTask"
 import Options from "../Options/Options"
 import Task from "../Task/Task"
 import Input from "../Input/Input"
 import "./style.sass"
+import AddItem from "../AddItem/AddItem"
 
 const Card = ({ title }) => {
   const [isEdited, setIsEdited] = useState(false)
@@ -55,7 +55,7 @@ const Card = ({ title }) => {
 
       <Task title="Test1" />
 
-      <AddTask title="Add a task" />
+      <AddItem componentType="task" />
 
       <div className="card__tasks-wrapper" />
     </div>
