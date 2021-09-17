@@ -14,14 +14,14 @@ const {
   replaceTask,
 } = require("../controllers/task");
 
-router.post("/add-card", addCard);
-router.patch("/edit-card/:id", editCard);
-router.patch("/edit-task/:id", editTask);
+router.get("/cards", getCards);
+router.get("/tasks/:id", getTasksByCard);
+router.post("/card", addCard);
+router.patch("/card/:id", editCard);
+router.patch("/task/:id", editTask);
 router.patch("/replace-task/:prev/:cur", replaceTask);
-router.get("/get-cards", getCards);
-router.post("/add-task/:id", addTask);
-router.delete("/delete-task/:cardId/:id", deleteTask);
-router.get("/get-tasks/:id", getTasksByCard);
-router.delete("/delete-card/:id", deleteCard);
+router.post("/task/:id", addTask);
+router.delete("/task/:cardId/:id", deleteTask);
+router.delete("/card/:id", deleteCard);
 
 module.exports = router;

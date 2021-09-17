@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
+
 import Options from "../Options/Options"
-import Task from "../Task/Task"
+// import Task from "../Task/Task"
 import Input from "../Input/Input"
 import "./style.sass"
 import AddItem from "../AddItem/AddItem"
@@ -52,8 +54,6 @@ const Card = ({ title }) => {
         )}
         <Options />
       </div>
-
-      <Task title="Test1" />
 
       <AddItem componentType="task" />
 
