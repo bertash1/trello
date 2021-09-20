@@ -30,7 +30,7 @@ const Input = ({
       }
       return null
     },
-    [setIsEdited, dispatch, value, parentId]
+    [setIsEdited, dispatch, value, parentId, componentType]
   )
 
   useEffect(() => {
