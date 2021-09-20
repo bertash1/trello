@@ -1,10 +1,8 @@
-/* eslint-disable import/prefer-default-export */
-import { FETCH_CARDS, FETCH_TASKS } from "./types"
-import { URL } from "../constants"
+import { FETCH_CARDS, POST_ITEM } from "./types"
 
 export const fetchCards = () => async (dispatch) => {
   try {
-    const data = await fetch(`${URL}/cards/`)
+    const data = await fetch(`${process.env.REACT_APP_URL}/cards/`)
     const cards = await data.json()
 
     dispatch({
@@ -15,17 +13,25 @@ export const fetchCards = () => async (dispatch) => {
     console.log(err)
   }
 }
+export const postItem =
+  (title, type, id = "") =>
+  async (dispatch) => {
+    try {
+      await fetch(`${process.env.REACT_APP_URL}/${type}/${id}`, {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
 
-export const fetchTasks = () => async (dispatch) => {
-  try {
-    const data = await fetch(`${URL}/tasks/`)
-    const tasks = await data.json()
-
-    dispatch({
-      type: FETCH_TASKS,
-      payload: tasks,
-    })
-  } catch (err) {
-    console.log(err)
+      dispatch({
+        type: POST_ITEM,
+      })
+      dispatch(fetchCards())
+    } catch (err) {
+      console.log(err)
+    }
   }
-}

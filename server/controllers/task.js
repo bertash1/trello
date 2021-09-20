@@ -20,16 +20,6 @@ const addTask = async (req, res) => {
   }
 };
 
-// const getTasksByCard = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const card = await Card.findById(id).populate("tasks");
-//     res.status(200).json(card.tasks);
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 const getTasks = async (req, res) => {
   try {
     const tasks = await Task.find();

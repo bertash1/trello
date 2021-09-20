@@ -6,8 +6,7 @@ import { useDispatch } from "react-redux"
 import CloseButton from "../CloseButton/CloseButton"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
-import { URL } from "../../constants"
-import { fetchTasks, fetchCards } from "../../actions"
+import { postItem } from "../../actions"
 import "./style.sass"
 
 const AddForm = ({
@@ -31,23 +30,10 @@ const AddForm = ({
     setNewItem(e.target.value)
   }
 
-  const postItem = async (type, title, parentId = "") => {
-    await fetch(`${URL}/${type}/${parentId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-    dispatch(fetchCards())
-    dispatch(fetchTasks())
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newItem) {
-      postItem(componentType, newItem, _id)
-
+      dispatch(postItem(newItem, componentType, _id))
       setNewItem("")
     } else {
       textRef.current.focus()

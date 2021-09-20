@@ -12,7 +12,7 @@ const addCard = async (req, res) => {
 
 const getCards = async (req, res) => {
   try {
-    const cards = await Card.find();
+    const cards = await Card.find().populate("tasks")
     res.status(200).json(cards);
   } catch (error) {
     throw error;

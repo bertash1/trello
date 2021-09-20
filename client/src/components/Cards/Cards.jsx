@@ -2,7 +2,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { fetchCards, fetchTasks } from "../../actions"
+import { fetchCards } from "../../actions"
 import Card from "../Card/Card"
 import "./style.sass"
 
@@ -13,7 +13,6 @@ const Cards = () => {
 
   useEffect(() => {
     dispatch(fetchCards())
-    dispatch(fetchTasks())
   }, [dispatch])
 
   return (

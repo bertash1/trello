@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
-import { fetchTasks } from "../../actions"
+import { fetchCards } from "../../actions"
 
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
-import { URL } from "../../constants"
 import "./style.sass"
 
 const TaskEditor = ({
@@ -20,7 +19,7 @@ const TaskEditor = ({
   const dispatch = useDispatch()
 
   const changeTask = async (id) => {
-    await fetch(`${URL}/task/${id}`, {
+    await fetch(`${process.env.REACT_APP_URL}/task/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         title,
@@ -29,7 +28,7 @@ const TaskEditor = ({
         "Content-type": "application/json",
       },
     })
-    dispatch(fetchTasks())
+    dispatch(fetchCards())
     setIsMouseOver(false)
   }
 

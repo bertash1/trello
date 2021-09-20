@@ -1,6 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -13,17 +11,16 @@ import Task from "../Task/Task"
 import Input from "../Input/Input"
 import AddItem from "../AddItem/AddItem"
 import { fetchCards } from "../../actions"
-import { URL } from "../../constants"
 import "./style.sass"
 
-const Card = ({ title, cardTasks, allTasks, _id }) => {
+const Card = ({ title, cardTasks, _id }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
   const textRef = useRef()
   const dispatch = useDispatch()
 
   const editCard = async (id) => {
-    await fetch(`${URL}/card/${id}`, {
+    await fetch(`${process.env.REACT_APP_URL}/card/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         title: inputValue,
@@ -84,12 +81,9 @@ const Card = ({ title, cardTasks, allTasks, _id }) => {
       </div>
 
       {cardTasks &&
-        allTasks &&
-        allTasks.map((item) => {
-          if (cardTasks.indexOf(item._id) !== -1) {
-            return <Task title={item.title} _id={item._id} key={item._id} />
-          }
-        })}
+        cardTasks.map((item) => (
+          <Task title={item.title} _id={item._id} key={item._id} />
+        ))}
 
       <AddItem componentType="task" _id={_id} />
 
@@ -102,7 +96,6 @@ Card.propTypes = {
   title: PropTypes.string,
   _id: PropTypes.string,
   cardTasks: PropTypes.array,
-  allTasks: PropTypes.array,
 }
 
 export default Card
