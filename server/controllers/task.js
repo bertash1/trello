@@ -1,5 +1,5 @@
-const Card = require("../models/Card");
-const Task = require("../models/Task");
+const Card = require('../models/Card');
+const Task = require('../models/Task');
 
 const addTask = async (req, res) => {
   try {
@@ -20,11 +20,10 @@ const addTask = async (req, res) => {
   }
 };
 
-const getTasksByCard = async (req, res) => {
+const getTasks = async (req, res) => {
   try {
-    const { id } = req.params;
-    const card = await Card.findById(id).populate("tasks");
-    res.status(200).json(card.tasks);
+    const tasks = await Task.find();
+    res.status(200).json(tasks);
   } catch (error) {
     throw error;
   }
@@ -32,12 +31,12 @@ const getTasksByCard = async (req, res) => {
 
 const editTask = async (req, res) => {
   const { title } = req.body;
-  const id = req.params;
+  const {id} = req.params;
 
-  const filter = { id };
+  const filter =  id;
   const update = { title };
 
-  const changedTask = await Task.findOneAndUpdate(filter, update, {
+  const changedTask = await Task.findByIdAndUpdate(filter, update, {
     new: true,
   });
 
@@ -79,5 +78,5 @@ const replaceTask = async (req, res) => {
 exports.editTask = editTask;
 exports.addTask = addTask;
 exports.deleteTask = deleteTask;
-exports.getTasksByCard = getTasksByCard;
+exports.getTasks = getTasks;
 exports.replaceTask = replaceTask;

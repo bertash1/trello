@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
-import "./style.sass"
+import { useDispatch } from "react-redux"
 
 import CloseButton from "../CloseButton/CloseButton"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
+import { postItem } from "../../actions"
+import "./style.sass"
 
 const AddForm = ({
   isEdited,
@@ -13,9 +15,11 @@ const AddForm = ({
   handleClick,
   componentType,
   placeholder,
+  _id,
 }) => {
-  const [newCard, setNewCard] = useState("")
+  const [newItem, setNewItem] = useState("")
   const textRef = useRef()
+  const dispatch = useDispatch()
 
   const formClassName = classNames([
     "add-form",
@@ -23,26 +27,27 @@ const AddForm = ({
   ])
 
   const handleInputChange = (e) => {
-    setNewCard(e.target.value)
+    setNewItem(e.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (newCard) {
-      setNewCard("")
+    if (newItem) {
+      dispatch(postItem(newItem, componentType, _id))
+      setNewItem("")
     } else {
       textRef.current.focus()
     }
   }
 
   useEffect(() => {
-    if (isEdited && !newCard) {
+    if (isEdited && !newItem) {
       textRef.current.focus()
     }
     if (!isEdited) {
-      setNewCard("")
+      setNewItem("")
     }
-  }, [isEdited, newCard])
+  }, [isEdited, newItem])
 
   return (
     <form className={formClassName} onSubmit={handleSubmit}>
@@ -50,7 +55,7 @@ const AddForm = ({
         placeholder={placeholder}
         textRef={textRef}
         handleInputChange={handleInputChange}
-        value={newCard}
+        value={newItem}
         componentType={componentType}
         setIsEdited={setIsEdited}
       />
@@ -69,6 +74,7 @@ AddForm.propTypes = {
   setIsEdited: PropTypes.func,
   handleClick: PropTypes.func,
   componentType: PropTypes.string,
+  _id: PropTypes.string,
   placeholder: PropTypes.string,
 }
 

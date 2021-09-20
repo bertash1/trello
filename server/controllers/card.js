@@ -12,7 +12,7 @@ const addCard = async (req, res) => {
 
 const getCards = async (req, res) => {
   try {
-    const cards = await Card.find();
+    const cards = await Card.find().populate("tasks")
     res.status(200).json(cards);
   } catch (error) {
     throw error;
@@ -33,12 +33,12 @@ const deleteCard = async (req, res) => {
 
 const editCard = async (req, res) => {
   const { title } = req.body;
-  const id = req.params;
+  const {id} = req.params;
 
-  const filter = { id };
+  const filter = id;
   const update = { title };
 
-  const changedCard = await Card.findOneAndUpdate(filter, update, {
+  const changedCard = await Card.findByIdAndUpdate(filter, update, {
     new: true,
   });
 
