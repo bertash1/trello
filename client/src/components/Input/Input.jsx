@@ -25,7 +25,7 @@ const Input = ({
   const handleKeyPress = useCallback(
     (e) => {
       if (e.keyCode === 27) {
-        dispatch(changeItem(parentId, value))
+        dispatch(changeItem(parentId, value, componentType))
         setIsEdited(false)
       }
       return null

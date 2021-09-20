@@ -17,7 +17,7 @@ const Card = ({ title, cardTasks = [], _id }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(changeItem(_id, inputValue))
+    dispatch(changeItem(_id, inputValue, "card"))
     setIsEdited(false)
   }
 
@@ -67,7 +67,7 @@ const Card = ({ title, cardTasks = [], _id }) => {
       </div>
 
       {cardTasks.map((item) => (
-        <Task title={item.title} _id={item._id} key={item._id} />
+        <Task title={item.title} _id={item._id} key={item._id} type="task" />
       ))}
 
       <AddItem componentType="task" _id={_id} />

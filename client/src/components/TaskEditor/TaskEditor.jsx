@@ -20,7 +20,7 @@ const TaskEditor = ({
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(changeItem(parentId, title))
+    dispatch(changeItem(parentId, title, "task"))
     setIsMouseOver(false)
     setIsEdited(false)
   }
