@@ -1,4 +1,4 @@
-import { FETCH_CARDS, POST_ITEM } from "./types"
+import { FETCH_CARDS, POST_ITEM, CHANGE_ITEM } from "./types"
 
 export const fetchCards = () => async (dispatch) => {
   try {
@@ -35,3 +35,21 @@ export const postItem =
       console.log(err)
     }
   }
+
+export const changeItem = (id, title) => async (dispatch) => {
+  try {
+    await fetch(`${process.env.REACT_APP_URL}/task/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+    dispatch({ type: CHANGE_ITEM })
+    dispatch(fetchCards())
+  } catch (err) {
+    console.log(err)
+  }
+}

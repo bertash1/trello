@@ -42,7 +42,9 @@
     "rules": {
       "semi": 0,
       "react/require-default-props": "off",
+      "no-underscore-dangle": "off",
       "no-console": "off",
+      "react/forbid-prop-types": 0,
       "react/jsx-filename-extension": [
         1,
         {

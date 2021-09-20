@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -8,7 +7,7 @@ import "./style.sass"
 
 const Cards = () => {
   const dispatch = useDispatch()
-  const { cards } = useSelector((state) => state.cards)
+  const { cards = [] } = useSelector((state) => state.cards)
   const allTasks = useSelector((state) => state.cards.tasks)
 
   useEffect(() => {
@@ -17,19 +16,18 @@ const Cards = () => {
 
   return (
     <div className="cards-wrapper">
-      {cards &&
-        cards.map((item) => {
-          const { title, _id, tasks } = item
-          return (
-            <Card
-              title={title}
-              _id={_id}
-              key={_id}
-              cardTasks={tasks}
-              allTasks={allTasks}
-            />
-          )
-        })}
+      {cards.map((item) => {
+        const { title, _id, tasks } = item
+        return (
+          <Card
+            title={title}
+            _id={_id}
+            key={_id}
+            cardTasks={tasks}
+            allTasks={allTasks}
+          />
+        )
+      })}
     </div>
   )
 }

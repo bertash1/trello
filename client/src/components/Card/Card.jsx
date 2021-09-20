@@ -1,7 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
@@ -10,31 +6,18 @@ import Options from "../Options/Options"
 import Task from "../Task/Task"
 import Input from "../Input/Input"
 import AddItem from "../AddItem/AddItem"
-import { fetchCards } from "../../actions"
+import { changeItem } from "../../actions"
 import "./style.sass"
 
-const Card = ({ title, cardTasks, _id }) => {
+const Card = ({ title, cardTasks = [], _id }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
   const textRef = useRef()
   const dispatch = useDispatch()
 
-  const editCard = async (id) => {
-    await fetch(`${process.env.REACT_APP_URL}/card/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        title: inputValue,
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-    dispatch(fetchCards())
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    editCard(_id)
+    dispatch(changeItem(_id, inputValue))
     setIsEdited(false)
   }
 
@@ -60,13 +43,16 @@ const Card = ({ title, cardTasks, _id }) => {
     <div className="card">
       <div className="card__header">
         {!isEdited ? (
-          <span className="card__title" onClick={handleClick}>
+          <span
+            className="card__title"
+            role="presentation"
+            onClick={handleClick}
+          >
             {inputValue}
           </span>
         ) : (
           <form className="card__form" onSubmit={handleSubmit}>
             <Input
-              editCard={editCard}
               parentId={_id}
               componentType="card"
               textRef={textRef}
@@ -80,10 +66,9 @@ const Card = ({ title, cardTasks, _id }) => {
         <Options />
       </div>
 
-      {cardTasks &&
-        cardTasks.map((item) => (
-          <Task title={item.title} _id={item._id} key={item._id} />
-        ))}
+      {cardTasks.map((item) => (
+        <Task title={item.title} _id={item._id} key={item._id} />
+      ))}
 
       <AddItem componentType="task" _id={_id} />
 

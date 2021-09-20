@@ -1,10 +1,11 @@
 import React, { useEffect, useCallback } from "react"
+import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import "./style.sass"
+import { changeItem } from "../../actions"
 
 const Input = ({
-  editCard = () => null,
   parentId,
   placeholder,
   textRef,
@@ -15,19 +16,21 @@ const Input = ({
   setIsEdited,
 }) => {
   const textareaClassName = classNames([
-    "textarea",
-    { [`textarea_${componentType}`]: true },
+    "input",
+    { [`input_${componentType}`]: true },
   ])
+
+  const dispatch = useDispatch()
 
   const handleKeyPress = useCallback(
     (e) => {
       if (e.keyCode === 27) {
-        editCard(parentId)
+        dispatch(changeItem(parentId, value))
         setIsEdited(false)
       }
       return null
     },
-    [setIsEdited, editCard, parentId]
+    [setIsEdited, dispatch, value, parentId]
   )
 
   useEffect(() => {
@@ -55,7 +58,6 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   parentId: PropTypes.string,
   handleInputChange: PropTypes.func,
-  editCard: PropTypes.func,
   handleFocus: PropTypes.func,
   setIsEdited: PropTypes.func,
   textRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
