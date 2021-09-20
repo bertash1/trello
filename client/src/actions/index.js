@@ -30,6 +30,7 @@ export const postItem =
       dispatch({
         type: POST_ITEM,
       })
+      dispatch(fetchCards())
     } catch (err) {
       console.log(err)
     }
