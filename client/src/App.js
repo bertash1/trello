@@ -1,15 +1,14 @@
 import React from "react"
 import { Provider } from "react-redux"
+import Board from "./components/Board/Board"
 import Header from "./components/Header/Header"
-import AddItem from "./components/AddItem/AddItem"
+
 import store from "./store"
-import Cards from "./components/Cards/Cards"
 
 const App = () => (
   <Provider store={store}>
     <Header />
-    <Cards />
-    <AddItem componentType="card" />
+    <Board />
   </Provider>
 )
 

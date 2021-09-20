@@ -1,21 +1,46 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
+import { useDispatch } from "react-redux"
+import { fetchTasks } from "../../actions"
+
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
+import { URL } from "../../constants"
 import "./style.sass"
 
-const TaskEditor = ({ title, isEdited, setIsEdited }) => {
-  const [editedTask, setEditedTask] = useState(title)
-
+const TaskEditor = ({
+  title,
+  setTaskTitle,
+  isEdited,
+  setIsEdited,
+  parentId,
+  setIsMouseOver,
+}) => {
   const textRef = useRef()
+  const dispatch = useDispatch()
+
+  const changeTask = async (id) => {
+    await fetch(`${URL}/task/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+    dispatch(fetchTasks())
+    setIsMouseOver(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    changeTask(parentId)
     setIsEdited(false)
   }
 
   const handleInputChange = (e) => {
-    setEditedTask(e.target.value)
+    setTaskTitle(e.target.value)
   }
 
   const handleFocus = (e) => {
@@ -33,7 +58,7 @@ const TaskEditor = ({ title, isEdited, setIsEdited }) => {
           className="edit-form__textarea"
           type="text"
           textRef={textRef}
-          value={editedTask}
+          value={title}
           handleFocus={handleFocus}
           handleInputChange={handleInputChange}
           setIsEdited={setIsEdited}
@@ -47,8 +72,11 @@ const TaskEditor = ({ title, isEdited, setIsEdited }) => {
 
 TaskEditor.propTypes = {
   title: PropTypes.string,
+  parentId: PropTypes.string,
   isEdited: PropTypes.bool,
   setIsEdited: PropTypes.func,
+  setTaskTitle: PropTypes.func,
+  setIsMouseOver: PropTypes.func,
 }
 
 export default TaskEditor

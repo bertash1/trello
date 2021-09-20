@@ -16,9 +16,9 @@ export const fetchCards = () => async (dispatch) => {
   }
 }
 
-export const fetchTasks = (_id) => async (dispatch) => {
+export const fetchTasks = () => async (dispatch) => {
   try {
-    const data = await fetch(`${URL}/tasks/${_id}`)
+    const data = await fetch(`${URL}/tasks/`)
     const tasks = await data.json()
 
     dispatch({

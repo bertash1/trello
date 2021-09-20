@@ -4,6 +4,8 @@ import classNames from "classnames"
 import "./style.sass"
 
 const Input = ({
+  editCard = () => null,
+  parentId,
   placeholder,
   textRef,
   handleInputChange,
@@ -20,11 +22,12 @@ const Input = ({
   const handleKeyPress = useCallback(
     (e) => {
       if (e.keyCode === 27) {
+        editCard(parentId)
         setIsEdited(false)
       }
       return null
     },
-    [setIsEdited]
+    [setIsEdited, editCard, parentId]
   )
 
   useEffect(() => {
@@ -50,7 +53,9 @@ const Input = ({
 
 Input.propTypes = {
   placeholder: PropTypes.string,
+  parentId: PropTypes.string,
   handleInputChange: PropTypes.func,
+  editCard: PropTypes.func,
   handleFocus: PropTypes.func,
   setIsEdited: PropTypes.func,
   textRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),

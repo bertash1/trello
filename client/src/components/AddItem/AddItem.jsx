@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import AddButton from "../AddButton/AddButton"
 import AddForm from "../AddForm/AddForm"
 
-const AddItem = ({ componentType }) => {
+const AddItem = ({ componentType, _id }) => {
   const [isEdited, setIsEdited] = useState(false)
 
   const placeholderData =
@@ -34,6 +34,7 @@ const AddItem = ({ componentType }) => {
           handleClick={handleClick}
           componentType={componentType}
           placeholder={placeholderData}
+          _id={_id}
         />
       )}
     </>
@@ -42,6 +43,7 @@ const AddItem = ({ componentType }) => {
 
 AddItem.propTypes = {
   componentType: PropTypes.string,
+  _id: PropTypes.string,
 }
 
 export default AddItem

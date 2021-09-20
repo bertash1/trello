@@ -8,8 +8,9 @@ import "./style.sass"
 import TaskEditor from "../TaskEditor/TaskEditor"
 import Overlay from "../Overlay/Overlay"
 
-const Task = ({ title }) => {
+const Task = ({ title, _id }) => {
   const [isEdited, setIsEdited] = useState(false)
+  const [taskTitle, setTaskTitle] = useState(title)
   const [isMouseOver, setIsMouseOver] = useState(false)
 
   const iconClassName = classNames("task__icon", {
@@ -23,7 +24,7 @@ const Task = ({ title }) => {
         onMouseEnter={() => setIsMouseOver(true)}
         onMouseLeave={() => setIsMouseOver(false)}
       >
-        <span className="task__title">{title}</span>
+        <span className="task__title">{taskTitle}</span>
         <FontAwesomeIcon
           className={iconClassName}
           icon={faPencilAlt}
@@ -33,17 +34,21 @@ const Task = ({ title }) => {
           <TaskEditor
             isEdited={isEdited}
             setIsEdited={setIsEdited}
-            title={title}
+            title={taskTitle}
+            setTaskTitle={setTaskTitle}
+            parentId={_id}
+            setIsMouseOver={setIsMouseOver}
           />
         )}
       </div>
-      {isEdited ? <Overlay changeComponentVisibility={setIsEdited} /> : null}
+      {isEdited && <Overlay changeComponentVisibility={setIsEdited} />}
     </>
   )
 }
 
 Task.propTypes = {
   title: PropTypes.string,
+  _id: PropTypes.string,
 }
 
 export default Task

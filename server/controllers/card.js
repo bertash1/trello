@@ -33,12 +33,12 @@ const deleteCard = async (req, res) => {
 
 const editCard = async (req, res) => {
   const { title } = req.body;
-  const id = req.params;
+  const {id} = req.params;
 
-  const filter = { id };
+  const filter = id;
   const update = { title };
 
-  const changedCard = await Card.findOneAndUpdate(filter, update, {
+  const changedCard = await Card.findByIdAndUpdate(filter, update, {
     new: true,
   });
 
