@@ -8,10 +8,12 @@ import Input from "../Input/Input"
 import AddItem from "../AddItem/AddItem"
 import { changeItem } from "../../actions"
 import "./style.sass"
+import CardMenu from "../CardMenu/CardMenu"
 
 const Card = ({ title, cardTasks = [], _id }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
+  const [isMenuShown, setIsMenuShown] = useState(false)
   const textRef = useRef()
   const dispatch = useDispatch()
 
@@ -23,6 +25,10 @@ const Card = ({ title, cardTasks = [], _id }) => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
+  }
+
+  const handleShowMenu = () => {
+    setIsMenuShown((prev) => !prev)
   }
 
   const handleClick = () => {
@@ -63,11 +69,13 @@ const Card = ({ title, cardTasks = [], _id }) => {
             />
           </form>
         )}
-        <Options />
+
+        <Options handleShowMenu={handleShowMenu} />
+        {isMenuShown && <CardMenu handleShowMenu={handleShowMenu} id={_id} />}
       </div>
 
       {cardTasks.map((item) => (
-        <Task title={item.title} _id={item._id} key={item._id} type="task" />
+        <Task title={item.title} _id={item._id} key={item._id} cardId={_id} />
       ))}
 
       <AddItem componentType="task" _id={_id} />

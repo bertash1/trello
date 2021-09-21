@@ -5,6 +5,7 @@ import { changeItem } from "../../actions"
 
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
+import TaskMenu from "../TaskMenu/TaskMenu"
 import "./style.sass"
 
 const TaskEditor = ({
@@ -14,6 +15,7 @@ const TaskEditor = ({
   setIsEdited,
   parentId,
   setIsMouseOver,
+  cardId,
 }) => {
   const textRef = useRef()
   const dispatch = useDispatch()
@@ -52,6 +54,7 @@ const TaskEditor = ({
         />
         <ConfirmButton value="Save" />
       </form>
+      <TaskMenu parentId={parentId} type="task" cardId={cardId} />
     </>
   )
 }
@@ -59,6 +62,7 @@ const TaskEditor = ({
 TaskEditor.propTypes = {
   title: PropTypes.string,
   parentId: PropTypes.string,
+  cardId: PropTypes.string,
   isEdited: PropTypes.bool,
   setIsEdited: PropTypes.func,
   setTaskTitle: PropTypes.func,

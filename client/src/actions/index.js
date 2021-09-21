@@ -1,4 +1,4 @@
-import { FETCH_CARDS, POST_ITEM, CHANGE_ITEM } from "./types"
+import { FETCH_CARDS, POST_ITEM, CHANGE_ITEM, DELETE_ITEM } from "./types"
 
 export const fetchCards = () => async (dispatch) => {
   try {
@@ -55,5 +55,22 @@ export const changeItem =
       } catch (err) {
         console.log(err)
       }
+    }
+  }
+
+export const deleteItem =
+  (type, cardId, id = "") =>
+  async (dispatch) => {
+    try {
+      await fetch(`${process.env.REACT_APP_URL}/${type}/${cardId}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+      dispatch({ type: DELETE_ITEM })
+      dispatch(fetchCards())
+    } catch (err) {
+      console.log(err)
     }
   }

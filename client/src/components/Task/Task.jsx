@@ -8,7 +8,7 @@ import "./style.sass"
 import TaskEditor from "../TaskEditor/TaskEditor"
 import Overlay from "../Overlay/Overlay"
 
-const Task = ({ title, _id }) => {
+const Task = ({ title, _id, cardId }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [taskTitle, setTaskTitle] = useState(title)
   const [isMouseOver, setIsMouseOver] = useState(false)
@@ -37,6 +37,7 @@ const Task = ({ title, _id }) => {
             title={taskTitle}
             setTaskTitle={setTaskTitle}
             parentId={_id}
+            cardId={cardId}
             setIsMouseOver={setIsMouseOver}
           />
         )}
@@ -49,6 +50,7 @@ const Task = ({ title, _id }) => {
 Task.propTypes = {
   title: PropTypes.string,
   _id: PropTypes.string,
+  cardId: PropTypes.string,
 }
 
 export default Task

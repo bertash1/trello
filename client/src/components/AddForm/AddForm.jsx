@@ -62,7 +62,7 @@ const AddForm = ({
       <div className="add-form__controls">
         <div className="add-form__btn-wrapper">
           <ConfirmButton value="Add card" />
-          <CloseButton handleClick={handleClick} />
+          <CloseButton handleClose={handleClick} />
         </div>
       </div>
     </form>
