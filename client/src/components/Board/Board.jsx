@@ -1,13 +1,13 @@
 import React from "react"
+import AddCard from "../AddCard/AddCard"
 
-import AddItem from "../AddItem/AddItem"
 import Cards from "../Cards/Cards"
 import "./style.sass"
 
 const Board = () => (
   <div className="board">
     <Cards />
-    <AddItem componentType="card" />
+    <AddCard type="card" />
   </div>
 )
 

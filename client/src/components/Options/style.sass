@@ -1,3 +1,5 @@
+@import ../../constants/colors
+    
 .options
     width: 30px
     height: 30px
@@ -5,8 +7,9 @@
     display: flex
     justify-content: center
     align-items: center
-    background-color: #ebecf0
+    background-color: $mainBg
     border: none
+    outline: none
     
     &:hover
         background-color: #dddee0
@@ -15,14 +18,5 @@
     &:active
         background-color: #d1d1d1
 
-    &__dots-wrapper
-        width: 13px
-        display: flex
-        justify-content: space-between
-
-    &__dot
-        width: 3px
-        height: 3px
-        border-radius: 50%
-        background-color: #52617a
-
+.dots
+  color: $greyText

@@ -1,0 +1,38 @@
+.task
+  &__menu
+    position: absolute
+    top: 0
+    z-index: 2
+
+  &__list
+    display: flex
+    flex-direction: column
+
+  &__list-item
+    width: max-content
+    margin: 0 5px 5px 0
+    padding: 8px 12px
+    border-radius: 3px
+    color: #e6e6e6
+    background-color: rgba(0,0,0,0.75)
+    list-style-type: none
+    transition: 0.2s
+
+    &:hover
+      background-color: rgba(0,0,0,0.9)
+      cursor: pointer
+
+.task
+  &__menu_left
+    left: -90px
+
+  &__list_left
+    align-items: flex-end
+
+.task
+  &__menu_right
+    right: -95px
+
+  &__list_right
+    align-items: flex-start
+    

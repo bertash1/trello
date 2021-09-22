@@ -1,0 +1,44 @@
+@import ../../constants/colors
+  
+.card
+  &__menu
+    position: absolute
+    top: 49px
+    left: 223px
+    min-width: 250px
+    padding: 10px
+    border-radius: 3px
+    z-index: 2
+    background-color: #fff
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214
+
+  &__menu-header
+    width: 100%
+    height: 30px
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &__menu-title
+    text-align: center
+    width: 100%
+    padding: 5px
+    flex-grow: 1
+    color: $greyText
+
+  &__line
+    height: 1px
+    width: 100%
+    margin-bottom: 5px
+    display: block
+    background-color: $mainBg
+
+  &__list-item
+    padding: 5px 
+    color: #172b4d
+    list-style-type: none
+    font-size: 15px
+    &:hover
+      cursor: pointer
+      background-color: #eeeef0
+      

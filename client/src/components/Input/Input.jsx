@@ -1,40 +1,41 @@
-import React, { useEffect, useCallback } from "react"
-import { useDispatch } from "react-redux"
+import React, { useEffect, useRef, useCallback } from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import "./style.sass"
-import { changeItem } from "../../actions"
 
 const Input = ({
-  parentId,
+  setIsEdited = () => null,
   placeholder,
-  textRef,
-  handleInputChange,
+  handleInputChange = () => null,
   value,
   componentType,
-  handleFocus,
-  setIsEdited,
 }) => {
+  const textRef = useRef()
+
   const textareaClassName = classNames([
     "input",
     { [`input_${componentType}`]: true },
   ])
 
-  const dispatch = useDispatch()
-
   const handleKeyPress = useCallback(
     (e) => {
-      if (e.keyCode === 27) {
-        dispatch(changeItem(parentId, value, componentType))
+      if (e.keyCode === 27 && value) {
+        setIsEdited(false)
+      } else if (e.keyCode === 27) {
         setIsEdited(false)
       }
       return null
     },
-    [setIsEdited, dispatch, value, parentId, componentType]
+    [setIsEdited, value]
   )
+
+  const handleFocus = (e) => {
+    e.target.select()
+  }
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress)
+    textRef.current.focus()
 
     return () => {
       document.removeEventListener("keydown", handleKeyPress)
@@ -56,9 +57,7 @@ const Input = ({
 
 Input.propTypes = {
   placeholder: PropTypes.string,
-  parentId: PropTypes.string,
   handleInputChange: PropTypes.func,
-  handleFocus: PropTypes.func,
   setIsEdited: PropTypes.func,
   textRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
   value: PropTypes.string,

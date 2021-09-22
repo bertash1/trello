@@ -1,14 +1,17 @@
 import React from "react"
+import PropTypes from "prop-types"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons"
 import "./style.sass"
 
-const Options = () => (
-  <div className="options" role="button">
-    <span className="options__dots-wrapper">
-      <span className="options__dot" />
-      <span className="options__dot" />
-      <span className="options__dot" />
-    </span>
-  </div>
+const Options = ({ handleShowMenu = () => null }) => (
+  <button className="options" type="button" onClick={handleShowMenu}>
+    <FontAwesomeIcon className="dots" icon={faEllipsisH} />
+  </button>
 )
+
+Options.propTypes = {
+  handleShowMenu: PropTypes.func,
+}
 
 export default Options

@@ -1,43 +1,40 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
 import Options from "../Options/Options"
 import Task from "../Task/Task"
 import Input from "../Input/Input"
-import AddItem from "../AddItem/AddItem"
-import { changeItem } from "../../actions"
+import { changeCard } from "../../actions/card"
 import "./style.sass"
+import CardMenu from "../CardMenu/CardMenu"
+import AddTask from "../AddTask/AddTask"
 
 const Card = ({ title, cardTasks = [], _id }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
-  const textRef = useRef()
+  const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(changeItem(_id, inputValue, "card"))
-    setIsEdited(false)
+    if (inputValue) {
+      dispatch(changeCard(_id, inputValue))
+      setIsEdited(false)
+    }
   }
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }
 
+  const handleShowMenu = () => {
+    setIsMenuShown((prev) => !prev)
+  }
+
   const handleClick = () => {
     setIsEdited(true)
   }
-
-  const handleFocus = (e) => {
-    e.target.select()
-  }
-
-  useEffect(() => {
-    if (isEdited) {
-      textRef.current.focus()
-    }
-  }, [isEdited])
 
   return (
     <div className="card">
@@ -48,29 +45,34 @@ const Card = ({ title, cardTasks = [], _id }) => {
             role="presentation"
             onClick={handleClick}
           >
-            {inputValue}
+            {title}
           </span>
         ) : (
           <form className="card__form" onSubmit={handleSubmit}>
             <Input
               parentId={_id}
               componentType="card"
-              textRef={textRef}
               value={inputValue}
               handleInputChange={handleInputChange}
-              handleFocus={handleFocus}
               setIsEdited={setIsEdited}
             />
           </form>
         )}
-        <Options />
+
+        <Options handleShowMenu={handleShowMenu} />
+        {isMenuShown && <CardMenu handleShowMenu={handleShowMenu} id={_id} />}
       </div>
 
       {cardTasks.map((item) => (
-        <Task title={item.title} _id={item._id} key={item._id} type="task" />
+        <Task
+          title={item.title}
+          taskId={item._id}
+          key={item._id}
+          cardId={_id}
+        />
       ))}
 
-      <AddItem componentType="task" _id={_id} />
+      <AddTask _id={_id} />
 
       <div className="card__tasks-wrapper" />
     </div>

@@ -2,12 +2,14 @@ import React from "react"
 import PropTypes from "prop-types"
 import "./style.sass"
 
-const CloseButton = ({ handleClick }) => (
-  <button type="button" onClick={handleClick} className="close" />
+const CloseButton = ({ handleClose = () => null }) => (
+  <button type="button" onClick={handleClose} className="close">
+    <span className="close__icon">+</span>
+  </button>
 )
 
 CloseButton.propTypes = {
-  handleClick: PropTypes.func,
+  handleClose: PropTypes.func,
 }
 
 export default CloseButton
