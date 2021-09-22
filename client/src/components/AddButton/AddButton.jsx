@@ -3,40 +3,32 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import "./style.sass"
 
-const AddButton = ({ title, handleClick, buttonType }) => {
-  const buttonClassName = classNames([
-    "add-btn",
-    { [`add-btn_${buttonType}`]: true },
-  ])
+const AddButton = ({ handleClick = () => null, type }) => {
+  const buttonTitle = type === "card" ? "Add another card" : "Add a task"
 
-  const horLineClassName = classNames([
-    "add-btn__hor-line",
-    { [`add-btn_${buttonType}__hor-line_${buttonType}`]: true },
-  ])
+  const buttonClassName = classNames(["add-btn", { [`add-btn_${type}`]: true }])
 
-  const vertLineClassName = classNames([
-    "add-btn__vert-line",
-    { [`add-btn_${buttonType}__vert-line_${buttonType}`]: true },
+  const plusClassName = classNames([
+    "add-btn__plus",
+    { [`add-btn__plus_${type}`]: true },
   ])
 
   const titleClassName = classNames([
     "add-btn__title",
-    { [`add-btn_${buttonType}__title_${buttonType}`]: true },
+    { [`add-btn_${type}__title_${type}`]: true },
   ])
 
   return (
     <button className={buttonClassName} type="button" onClick={handleClick}>
-      <span className={horLineClassName} />
-      <span className={vertLineClassName} />
-      <span className={titleClassName}>{title}</span>
+      <span className={plusClassName}>+</span>
+      <span className={titleClassName}>{buttonTitle}</span>
     </button>
   )
 }
 
 AddButton.propTypes = {
-  title: PropTypes.string,
   handleClick: PropTypes.func,
-  buttonType: PropTypes.string,
+  type: PropTypes.string,
 }
 
 export default AddButton

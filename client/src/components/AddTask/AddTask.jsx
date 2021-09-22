@@ -1,0 +1,54 @@
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { useDispatch } from "react-redux"
+
+import AddButton from "../AddButton/AddButton"
+import Form from "../Form/Form"
+import { postTask } from "../../actions/task"
+
+const AddTask = ({ _id }) => {
+  const [isEdited, setIsEdited] = useState(false)
+  const [newItem, setNewItem] = useState("")
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    setIsEdited(!isEdited)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (newItem) {
+      dispatch(postTask(newItem, _id))
+      setNewItem("")
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setNewItem(e.target.value)
+  }
+
+  return (
+    <>
+      {!isEdited ? (
+        <AddButton handleClick={handleClick} type="task" />
+      ) : (
+        <Form
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          setNewItem={setNewItem}
+          newItem={newItem}
+          isEdited={isEdited}
+          setIsEdited={setIsEdited}
+          handleClick={handleClick}
+          type="task"
+        />
+      )}
+    </>
+  )
+}
+
+AddTask.propTypes = {
+  _id: PropTypes.string,
+}
+
+export default AddTask

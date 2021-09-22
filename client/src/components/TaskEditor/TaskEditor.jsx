@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
-import { changeItem } from "../../actions"
+import { changeTask } from "../../actions/task"
 
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
@@ -10,62 +10,47 @@ import "./style.sass"
 
 const TaskEditor = ({
   title,
-  setTaskTitle,
-  isEdited,
-  setIsEdited,
-  parentId,
-  setIsMouseOver,
+  setIsEdited = () => null,
+  taskId,
+  setIsMouseOver = () => null,
   cardId,
 }) => {
-  const textRef = useRef()
+  const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(changeItem(parentId, title, "task"))
-    setIsMouseOver(false)
-    setIsEdited(false)
+    if (editedTitle) {
+      dispatch(changeTask(taskId, editedTitle))
+      setIsMouseOver(false)
+      setIsEdited(false)
+    }
   }
 
   const handleInputChange = (e) => {
-    setTaskTitle(e.target.value)
+    setEditedTitle(e.target.value)
   }
-
-  const handleFocus = (e) => {
-    e.target.select()
-  }
-
-  useEffect(() => {
-    textRef.current.focus()
-  }, [isEdited])
-
   return (
     <>
       <form className="edit-form" onSubmit={handleSubmit}>
         <Input
-          className="edit-form__textarea"
-          type="text"
-          textRef={textRef}
-          value={title}
-          handleFocus={handleFocus}
+          value={editedTitle}
           handleInputChange={handleInputChange}
           setIsEdited={setIsEdited}
           componentType="task"
         />
         <ConfirmButton value="Save" />
       </form>
-      <TaskMenu parentId={parentId} type="task" cardId={cardId} />
+      <TaskMenu taskId={taskId} cardId={cardId} />
     </>
   )
 }
 
 TaskEditor.propTypes = {
   title: PropTypes.string,
-  parentId: PropTypes.string,
+  taskId: PropTypes.string,
   cardId: PropTypes.string,
-  isEdited: PropTypes.bool,
   setIsEdited: PropTypes.func,
-  setTaskTitle: PropTypes.func,
   setIsMouseOver: PropTypes.func,
 }
 

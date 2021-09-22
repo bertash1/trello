@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { fetchCards } from "../../actions"
+import { fetchCards } from "../../actions/card"
 import Card from "../Card/Card"
 import "./style.sass"
 

@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
-import { deleteItem } from "../../actions"
+import { deleteTask } from "../../actions/task"
 import "./style.sass"
 
-const TaskMenu = ({ parentId, type, cardId }) => {
+const TaskMenu = ({ taskId, cardId }) => {
   const [menuPosition, setMenuPosition] = useState("right")
   const menu = useRef()
   const dispatch = useDispatch()
@@ -35,7 +35,7 @@ const TaskMenu = ({ parentId, type, cardId }) => {
         <li
           className="task__list-item"
           role="menuitem"
-          onClick={() => dispatch(deleteItem(type, cardId, parentId))}
+          onClick={() => dispatch(deleteTask(cardId, taskId))}
         >
           Archive
         </li>
@@ -45,9 +45,8 @@ const TaskMenu = ({ parentId, type, cardId }) => {
 }
 
 TaskMenu.propTypes = {
-  parentId: PropTypes.string,
+  taskId: PropTypes.string,
   cardId: PropTypes.string,
-  type: PropTypes.string,
 }
 
 export default TaskMenu

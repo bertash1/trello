@@ -3,10 +3,10 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
 import "./style.sass"
-import { deleteItem } from "../../actions"
+import { deleteCard } from "../../actions/card"
 import CloseButton from "../CloseButton/CloseButton"
 
-const CardMenu = ({ handleShowMenu, id }) => {
+const CardMenu = ({ handleShowMenu = () => null, id }) => {
   const dispatch = useDispatch()
 
   const handleKeyPress = useCallback(
@@ -38,7 +38,7 @@ const CardMenu = ({ handleShowMenu, id }) => {
         <li
           className="card__list-item"
           role="menuitem"
-          onClick={() => dispatch(deleteItem("card", id))}
+          onClick={() => dispatch(deleteCard(id))}
         >
           Archive card
         </li>

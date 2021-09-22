@@ -1,14 +1,12 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons"
 import "./style.sass"
 
-const Options = ({ handleShowMenu }) => (
+const Options = ({ handleShowMenu = () => null }) => (
   <button className="options" type="button" onClick={handleShowMenu}>
-    <span className="options__dots-wrapper">
-      <span className="options__dot" />
-      <span className="options__dot" />
-      <span className="options__dot" />
-    </span>
+    <FontAwesomeIcon className="dots" icon={faEllipsisH} />
   </button>
 )
 
