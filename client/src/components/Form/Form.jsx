@@ -16,10 +16,25 @@ const Form = ({
   handleClick = () => null,
   type,
 }) => {
-  const cofirmButtonValue = type === "card" ? "Add card" : "Add task"
-
-  const placeholder =
-    type === "card" ? "Enter card title..." : "Enter a title for this task..."
+  const configureTitles = (componentType) => {
+    switch (componentType) {
+      case "card":
+        return {
+          placeholder: "Enter card title...",
+          cofirmButtonValue: "Add card",
+        }
+      case "task":
+        return {
+          placeholder: "Enter a title for this task...",
+          cofirmButtonValue: "Add task",
+        }
+      default:
+        return {
+          placeholder: "Type something...",
+          cofirmButtonValue: "Confirm",
+        }
+    }
+  }
 
   const formClassName = classNames(["add-form", { [`add-form_${type}`]: true }])
 
@@ -32,7 +47,7 @@ const Form = ({
   return (
     <form className={formClassName} onSubmit={handleSubmit}>
       <Input
-        placeholder={placeholder}
+        placeholder={configureTitles(type).placeholder}
         handleInputChange={handleInputChange}
         value={newItem}
         componentType={type}
@@ -40,7 +55,7 @@ const Form = ({
       />
       <div className="add-form__controls">
         <div className="add-form__btn-wrapper">
-          <ConfirmButton value={cofirmButtonValue} />
+          <ConfirmButton value={configureTitles(type).cofirmButtonValue} />
           <CloseButton handleClose={handleClick} />
         </div>
       </div>

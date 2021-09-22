@@ -26,23 +26,21 @@ const AddCard = () => {
     setNewItem(e.target.value)
   }
 
+  if (!isEdited) {
+    return <AddButton handleClick={handleClick} type="card" />
+  }
+
   return (
-    <>
-      {!isEdited ? (
-        <AddButton handleClick={handleClick} type="card" />
-      ) : (
-        <Form
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          setNewItem={setNewItem}
-          newItem={newItem}
-          isEdited={isEdited}
-          setIsEdited={setIsEdited}
-          handleClick={handleClick}
-          type="card"
-        />
-      )}
-    </>
+    <Form
+      handleInputChange={handleInputChange}
+      handleSubmit={handleSubmit}
+      setNewItem={setNewItem}
+      newItem={newItem}
+      isEdited={isEdited}
+      setIsEdited={setIsEdited}
+      handleClick={handleClick}
+      type="card"
+    />
   )
 }
 

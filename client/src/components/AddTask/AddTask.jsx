@@ -27,23 +27,21 @@ const AddTask = ({ _id }) => {
     setNewItem(e.target.value)
   }
 
+  if (!isEdited) {
+    return <AddButton handleClick={handleClick} type="task" />
+  }
+
   return (
-    <>
-      {!isEdited ? (
-        <AddButton handleClick={handleClick} type="task" />
-      ) : (
-        <Form
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          setNewItem={setNewItem}
-          newItem={newItem}
-          isEdited={isEdited}
-          setIsEdited={setIsEdited}
-          handleClick={handleClick}
-          type="task"
-        />
-      )}
-    </>
+    <Form
+      handleInputChange={handleInputChange}
+      handleSubmit={handleSubmit}
+      setNewItem={setNewItem}
+      newItem={newItem}
+      isEdited={isEdited}
+      setIsEdited={setIsEdited}
+      handleClick={handleClick}
+      type="task"
+    />
   )
 }
 
