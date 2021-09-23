@@ -5,8 +5,10 @@ import PropTypes from "prop-types"
 
 import { deleteTask } from "../../actions/task"
 import "./style.sass"
+import Portal from "../Portal/Portal"
+import Overlay from "../Overlay/Overlay"
 
-const TaskMenu = ({ taskId, cardId }) => {
+const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
   const [menuPosition, setMenuPosition] = useState("right")
   const menu = useRef()
   const dispatch = useDispatch()
@@ -30,23 +32,29 @@ const TaskMenu = ({ taskId, cardId }) => {
   }, [])
 
   return (
-    <div className={menuClassName} ref={menu}>
-      <ul className={listClassName}>
-        <li
-          className="task__list-item"
-          role="menuitem"
-          onClick={() => dispatch(deleteTask(cardId, taskId))}
-        >
-          Archive
-        </li>
-      </ul>
-    </div>
+    <>
+      <Portal>
+        <Overlay changeComponentVisibility={setIsEdited} />
+      </Portal>
+      <div className={menuClassName} ref={menu}>
+        <ul className={listClassName}>
+          <li
+            className="task__list-item"
+            role="menuitem"
+            onClick={() => dispatch(deleteTask(cardId, taskId))}
+          >
+            Archive
+          </li>
+        </ul>
+      </div>
+    </>
   )
 }
 
 TaskMenu.propTypes = {
   taskId: PropTypes.string,
   cardId: PropTypes.string,
+  setIsEdited: PropTypes.func,
 }
 
 export default TaskMenu

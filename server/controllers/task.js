@@ -30,11 +30,11 @@ const getTasks = async (req, res) => {
 };
 
 const editTask = async (req, res) => {
-  const { title } = req.body;
+  const { title, description } = req.body;
   const {id} = req.params;
 
   const filter =  id;
-  const update = { title };
+  const update = { title, description };
 
   const changedTask = await Task.findByIdAndUpdate(filter, update, {
     new: true,

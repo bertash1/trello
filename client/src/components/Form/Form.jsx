@@ -28,6 +28,11 @@ const Form = ({
           placeholder: "Enter a title for this task...",
           cofirmButtonValue: "Add task",
         }
+      case "description":
+        return {
+          placeholder: "Add a more detailed description...",
+          cofirmButtonValue: "Save",
+        }
       default:
         return {
           placeholder: "Type something...",

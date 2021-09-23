@@ -41,7 +41,7 @@ const TaskEditor = ({
         />
         <ConfirmButton value="Save" />
       </form>
-      <TaskMenu taskId={taskId} cardId={cardId} />
+      <TaskMenu taskId={taskId} cardId={cardId} setIsEdited={setIsEdited} />
     </>
   )
 }

@@ -1,4 +1,9 @@
-import { POST_TASK, CHANGE_TASK, DELETE_TASK } from "./types"
+import {
+  POST_TASK,
+  CHANGE_TASK,
+  DELETE_TASK,
+  CHANGE_DESCRIPTION,
+} from "./types"
 import { fetchCards } from "./card"
 
 export const postTask = (title, cardId) => async (dispatch) => {
@@ -22,20 +27,39 @@ export const postTask = (title, cardId) => async (dispatch) => {
   }
 }
 
-export const changeTask =
-  (taskId, title = "") =>
+export const changeTask = (taskId, title, description) => async (dispatch) => {
+  try {
+    await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+    dispatch({ type: CHANGE_TASK })
+    dispatch(fetchCards())
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const changeDescription =
+  (taskId, description = "") =>
   async (dispatch) => {
     try {
       await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
         method: "PATCH",
         body: JSON.stringify({
-          title,
+          description,
         }),
         headers: {
           "Content-type": "application/json",
         },
       })
-      dispatch({ type: CHANGE_TASK })
+      dispatch({ type: CHANGE_DESCRIPTION })
       dispatch(fetchCards())
     } catch (err) {
       console.log(err)
