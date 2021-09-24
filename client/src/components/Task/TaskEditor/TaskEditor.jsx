@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
-import { changeTask } from "../../actions/task"
+import { changeTask } from "../../../actions/task"
 
-import ConfirmButton from "../ConfirmButton/ConfirmButton"
-import Input from "../Input/Input"
+import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
+import Input from "../../Common/Input/Input"
 import TaskMenu from "../TaskMenu/TaskMenu"
 import "./style.sass"
 

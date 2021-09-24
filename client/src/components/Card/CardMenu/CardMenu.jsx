@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
 import "./style.sass"
-import { deleteCard } from "../../actions/card"
-import CloseButton from "../CloseButton/CloseButton"
+import { deleteCard } from "../../../actions/card"
+import CloseButton from "../../Common/CloseButton/CloseButton"
 
 const CardMenu = ({ handleShowMenu = () => null, id }) => {
   const dispatch = useDispatch()

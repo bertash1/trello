@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons"
 
 import "./style.sass"
-import TaskEditor from "../TaskEditor/TaskEditor"
+import TaskEditor from "./TaskEditor/TaskEditor"
 import TaskModal from "../TaskModal/TaskModal"
 
-const Task = ({ title, taskId, cardId, description }) => {
+const Task = ({ title, taskId, cardId, description, cardTitle }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [isMouseOver, setIsMouseOver] = useState(false)
   const [isModalShown, setIsModalShown] = useState(false)
@@ -56,6 +56,7 @@ const Task = ({ title, taskId, cardId, description }) => {
           title={title}
           description={description}
           cardId={cardId}
+          cardTitle={cardTitle}
         />
       )}
     </>
@@ -67,6 +68,7 @@ Task.propTypes = {
   taskId: PropTypes.string,
   cardId: PropTypes.string,
   description: PropTypes.string,
+  cardTitle: PropTypes.string,
 }
 
 export default Task

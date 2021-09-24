@@ -1,12 +1,11 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
-import AddButton from "../AddButton/AddButton"
-import Form from "../Form/Form"
-import { postTask } from "../../actions/task"
+import AddButton from "../../Common/AddButton/AddButton"
+import Form from "../../Common/Form/Form"
+import { postCard } from "../../../actions/card"
 
-const AddTask = ({ _id }) => {
+const AddCard = () => {
   const [isEdited, setIsEdited] = useState(false)
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
@@ -18,7 +17,7 @@ const AddTask = ({ _id }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newItem) {
-      dispatch(postTask(newItem, _id))
+      dispatch(postCard(newItem))
       setNewItem("")
     }
   }
@@ -28,7 +27,7 @@ const AddTask = ({ _id }) => {
   }
 
   if (!isEdited) {
-    return <AddButton handleClick={handleClick} type="task" />
+    return <AddButton handleClick={handleClick} type="card" />
   }
 
   return (
@@ -40,13 +39,9 @@ const AddTask = ({ _id }) => {
       isEdited={isEdited}
       setIsEdited={setIsEdited}
       handleClick={handleClick}
-      type="task"
+      type="card"
     />
   )
 }
 
-AddTask.propTypes = {
-  _id: PropTypes.string,
-}
-
-export default AddTask
+export default AddCard

@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
-import { deleteTask } from "../../actions/task"
+import { deleteTask } from "../../../actions/task"
 import "./style.sass"
-import Portal from "../Portal/Portal"
-import Overlay from "../Overlay/Overlay"
+import Portal from "../../Common/Portal/Portal"
+import Overlay from "../../Common/Overlay/Overlay"
 
 const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
   const [menuPosition, setMenuPosition] = useState("right")
