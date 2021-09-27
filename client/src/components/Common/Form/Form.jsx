@@ -4,6 +4,7 @@ import classNames from "classnames"
 import CloseButton from "../CloseButton/CloseButton"
 import ConfirmButton from "../ConfirmButton/ConfirmButton"
 import Input from "../Input/Input"
+import OutsideClickHandler from "../OutsideClickHandler/OutsideClickHandler"
 import "./style.sass"
 
 const Form = ({
@@ -50,21 +51,23 @@ const Form = ({
   }, [isEdited, setNewItem])
 
   return (
-    <form className={formClassName} onSubmit={handleSubmit}>
-      <Input
-        placeholder={configureTitles(type).placeholder}
-        handleInputChange={handleInputChange}
-        value={newItem}
-        componentType={type}
-        setIsEdited={setIsEdited}
-      />
-      <div className="add-form__controls">
-        <div className="add-form__btn-wrapper">
-          <ConfirmButton value={configureTitles(type).cofirmButtonValue} />
-          <CloseButton handleClose={handleClick} />
+    <OutsideClickHandler handleClose={handleClick}>
+      <form className={formClassName} onSubmit={handleSubmit}>
+        <Input
+          placeholder={configureTitles(type).placeholder}
+          handleInputChange={handleInputChange}
+          value={newItem}
+          componentType={type}
+          setIsEdited={setIsEdited}
+        />
+        <div className="add-form__controls">
+          <div className="add-form__btn-wrapper">
+            <ConfirmButton value={configureTitles(type).cofirmButtonValue} />
+            <CloseButton handleClose={handleClick} />
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </OutsideClickHandler>
   )
 }
 

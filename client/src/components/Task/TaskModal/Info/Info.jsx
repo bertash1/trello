@@ -1,23 +1,48 @@
-import React from "react"
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
+import classNames from "classnames"
 import LineWeightOutlinedIcon from "@mui/icons-material/LineWeightOutlined"
 import { grey } from "@mui/material/colors"
 
-import Form from "../../Common/Form/Form"
+import Form from "../../../Common/Form/Form"
 import ModalButton from "../ModalButton/ModalButton"
 import "./style.sass"
+import {
+  changeDescription,
+  postTaskDescription,
+} from "../../../../actions/task"
 
 const Info = ({
   isDescriptionEdited,
-  descriptionClassName,
   description,
-  editedDescription,
+  taskId,
   handleCloseDescription,
-  handleDescriptionSubmit,
-  handleDescriptionChange,
+  descriptionId,
 }) => {
-  const a = 1
-  console.log(a)
+  const [editedDescription, setEditedDescription] = useState("")
+  const dispatch = useDispatch()
+
+  const descriptionClassName = classNames([
+    "task-modal__description",
+    { "task-modal__description_edited": !!editedDescription },
+  ])
+
+  const handleDescriptionSubmit = (e) => {
+    e.preventDefault()
+    if (descriptionId) {
+      dispatch(changeDescription(descriptionId, editedDescription, taskId))
+      setEditedDescription("")
+    } else {
+      dispatch(postTaskDescription(editedDescription, taskId))
+      setEditedDescription("")
+    }
+    handleCloseDescription()
+  }
+
+  const handleDescriptionChange = (e) => {
+    setEditedDescription(e.target.value)
+  }
 
   return (
     <div className="task-modal__info">
@@ -51,12 +76,10 @@ const Info = ({
 
 Info.propTypes = {
   isDescriptionEdited: PropTypes.bool,
-  descriptionClassName: PropTypes.string,
   description: PropTypes.string,
-  editedDescription: PropTypes.string,
+  taskId: PropTypes.string,
+  descriptionId: PropTypes.string,
   handleCloseDescription: PropTypes.func,
-  handleDescriptionSubmit: PropTypes.func,
-  handleDescriptionChange: PropTypes.func,
 }
 
 export default Info

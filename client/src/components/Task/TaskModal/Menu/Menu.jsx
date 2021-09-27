@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined"
 
-import { deleteTask } from "../../../actions/task"
+import { deleteTask } from "../../../../actions/task"
 import "./style.sass"
 
 const Menu = ({ cardId, taskId }) => {

@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react"
+import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 
-import Portal from "../Common/Portal/Portal"
-import Overlay from "../Common/Overlay/Overlay"
+import Portal from "../../Common/Portal/Portal"
+import Overlay from "../../Common/Overlay/Overlay"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
+import { fetchTaskDescription } from "../../../actions/task"
 import "./style.sass"
 
-const TaskModal = ({
-  setIsModalShown,
-  title,
-  taskId,
-  description = "",
-  cardId,
-  cardTitle,
-}) => {
+const TaskModal = ({ setIsModalShown, title, taskId, cardId, cardTitle }) => {
   const [isTitleEdited, setIsTitleEdited] = useState(false)
+
+  const dispatch = useDispatch()
 
   const handleKeyPress = useCallback(
     (e) => {
@@ -35,6 +32,10 @@ const TaskModal = ({
     }
   }, [handleKeyPress])
 
+  useEffect(() => {
+    dispatch(fetchTaskDescription(taskId))
+  }, [dispatch, taskId])
+
   return (
     <Portal>
       <div className="modal">
@@ -48,7 +49,7 @@ const TaskModal = ({
             cardTitle={cardTitle}
             taskId={taskId}
           />
-          <Content description={description} cardId={cardId} taskId={taskId} />
+          <Content cardId={cardId} taskId={taskId} />
         </div>
       </div>
     </Portal>
@@ -59,7 +60,6 @@ TaskModal.propTypes = {
   setIsModalShown: PropTypes.func,
   title: PropTypes.string,
   taskId: PropTypes.string,
-  description: PropTypes.string,
   cardId: PropTypes.string,
   cardTitle: PropTypes.string,
 }

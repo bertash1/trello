@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 
 import "./style.sass"
 import { deleteCard } from "../../../actions/card"
+import OutsideClickHandler from "../../Common/OutsideClickHandler/OutsideClickHandler"
 import CloseButton from "../../Common/CloseButton/CloseButton"
 
 const CardMenu = ({ handleShowMenu = () => null, id }) => {
@@ -28,22 +29,24 @@ const CardMenu = ({ handleShowMenu = () => null, id }) => {
   }, [handleKeyPress])
 
   return (
-    <div className="card__menu">
-      <div className="card__menu-header">
-        <span className="card__menu-title">List actions</span>
-        <CloseButton handleClose={handleShowMenu} />
+    <OutsideClickHandler handleClose={handleShowMenu}>
+      <div className="card__menu">
+        <div className="card__menu-header">
+          <span className="card__menu-title">List actions</span>
+          <CloseButton handleClose={handleShowMenu} />
+        </div>
+        <span className="card__line" />
+        <ul className="card__list">
+          <li
+            className="card__list-item"
+            role="menuitem"
+            onClick={() => dispatch(deleteCard(id))}
+          >
+            Archive card
+          </li>
+        </ul>
       </div>
-      <span className="card__line" />
-      <ul className="card__list">
-        <li
-          className="card__list-item"
-          role="menuitem"
-          onClick={() => dispatch(deleteCard(id))}
-        >
-          Archive card
-        </li>
-      </ul>
-    </div>
+    </OutsideClickHandler>
   )
 }
 

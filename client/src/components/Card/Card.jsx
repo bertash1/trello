@@ -66,7 +66,6 @@ const Card = ({ title, cardTasks = [], _id }) => {
       {cardTasks.map((item) => (
         <Task
           title={item.title}
-          description={item.description}
           taskId={item._id}
           key={item._id}
           cardId={_id}

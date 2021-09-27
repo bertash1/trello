@@ -3,6 +3,8 @@ import {
   CHANGE_TASK,
   DELETE_TASK,
   CHANGE_DESCRIPTION,
+  FETCH_TASK_DESCRIPTION,
+  POST_TASK_DESCRIPTION,
 } from "./types"
 import { fetchCards } from "./card"
 
@@ -22,6 +24,22 @@ export const postTask = (title, cardId) => async (dispatch) => {
       type: POST_TASK,
     })
     dispatch(fetchCards())
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const fetchTaskDescription = (taskId) => async (dispatch) => {
+  try {
+    const data = await fetch(
+      `${process.env.REACT_APP_URL}/description/${taskId}`
+    )
+    const description = await data.json()
+
+    dispatch({
+      type: FETCH_TASK_DESCRIPTION,
+      payload: description,
+    })
   } catch (err) {
     console.log(err)
   }
@@ -47,10 +65,10 @@ export const changeTask = (taskId, title, description) => async (dispatch) => {
 }
 
 export const changeDescription =
-  (taskId, description = "") =>
+  (descriptionId, description = "", taskId) =>
   async (dispatch) => {
     try {
-      await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
+      await fetch(`${process.env.REACT_APP_URL}/description/${descriptionId}`, {
         method: "PATCH",
         body: JSON.stringify({
           description,
@@ -60,7 +78,27 @@ export const changeDescription =
         },
       })
       dispatch({ type: CHANGE_DESCRIPTION })
-      dispatch(fetchCards())
+      dispatch(fetchTaskDescription(taskId))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+export const postTaskDescription =
+  (description = "", taskId) =>
+  async (dispatch) => {
+    try {
+      await fetch(`${process.env.REACT_APP_URL}/description/${taskId}`, {
+        method: "POST",
+        body: JSON.stringify({
+          description,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+      dispatch({ type: POST_TASK_DESCRIPTION })
+      dispatch(fetchTaskDescription(taskId))
     } catch (err) {
       console.log(err)
     }

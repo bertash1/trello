@@ -6,9 +6,9 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons"
 
 import "./style.sass"
 import TaskEditor from "./TaskEditor/TaskEditor"
-import TaskModal from "../TaskModal/TaskModal"
+import TaskModal from "./TaskModal/TaskModal"
 
-const Task = ({ title, taskId, cardId, description, cardTitle }) => {
+const Task = ({ title, taskId, cardId, cardTitle }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [isMouseOver, setIsMouseOver] = useState(false)
   const [isModalShown, setIsModalShown] = useState(false)
@@ -54,7 +54,6 @@ const Task = ({ title, taskId, cardId, description, cardTitle }) => {
           taskId={taskId}
           setIsModalShown={handleOpenModal}
           title={title}
-          description={description}
           cardId={cardId}
           cardTitle={cardTitle}
         />
@@ -67,7 +66,6 @@ Task.propTypes = {
   title: PropTypes.string,
   taskId: PropTypes.string,
   cardId: PropTypes.string,
-  description: PropTypes.string,
   cardTitle: PropTypes.string,
 }
 

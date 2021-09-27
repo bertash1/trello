@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux"
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import { grey } from "@mui/material/colors"
 
-import CloseButton from "../../Common/CloseButton/CloseButton"
-import Input from "../../Common/Input/Input"
-import { changeTask } from "../../../actions/task"
+import CloseButton from "../../../Common/CloseButton/CloseButton"
+import Input from "../../../Common/Input/Input"
+import { changeTask } from "../../../../actions/task"
 import "./style.sass"
 
 const Header = ({
