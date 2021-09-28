@@ -47,7 +47,14 @@ const deleteTask = async (req, res) => {
   try {
     const id = req.params.id;
     const cardId = req.params.cardId;
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedTask = await Task.findById(id);
+    const description = await deletedTask.populate("description");
+    
+    for (let item of description.description) {
+      await item.remove();
+    }
+
+    deletedTask.remove();
     const cardById = await Card.findById(cardId);
     cardById.tasks.splice(cardById.tasks.indexOf(id), 1);
     cardById.save();
