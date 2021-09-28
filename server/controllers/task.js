@@ -8,6 +8,7 @@ const addTask = async (req, res) => {
 
     const task = await Task.create({
       title,
+      description: "",
     });
     await task.save();
 
@@ -15,6 +16,16 @@ const addTask = async (req, res) => {
     cardById.tasks.push(task);
     await cardById.save();
     res.status(200).json(cardById);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getDescription = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {description} = await Task.findById(id).populate("description");
+    res.status(200).json(description);
   } catch (error) {
     throw error;
   }
@@ -48,12 +59,7 @@ const deleteTask = async (req, res) => {
     const id = req.params.id;
     const cardId = req.params.cardId;
     const deletedTask = await Task.findById(id);
-    const description = await deletedTask.populate("description");
     
-    for (let item of description.description) {
-      await item.remove();
-    }
-
     deletedTask.remove();
     const cardById = await Card.findById(cardId);
     cardById.tasks.splice(cardById.tasks.indexOf(id), 1);
@@ -87,3 +93,4 @@ exports.addTask = addTask;
 exports.deleteTask = deleteTask;
 exports.getTasks = getTasks;
 exports.replaceTask = replaceTask;
+exports.getDescription = getDescription;

@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors"
 
 import CloseButton from "../../../Common/CloseButton/CloseButton"
 import Input from "../../../Common/Input/Input"
-import { changeTask } from "../../../../actions/task"
+import { changeTaskTitle } from "../../../../actions/task"
 import "./style.sass"
 
 const Header = ({
@@ -27,7 +27,7 @@ const Header = ({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (editedTitle) {
-      dispatch(changeTask(taskId, editedTitle))
+      dispatch(changeTaskTitle(taskId, editedTitle))
       setIsTitleEdited(false)
     }
   }

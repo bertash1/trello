@@ -1,12 +1,17 @@
 import {
   POST_TASK,
-  CHANGE_TASK,
   DELETE_TASK,
-  CHANGE_DESCRIPTION,
   FETCH_TASK_DESCRIPTION,
-  POST_TASK_DESCRIPTION,
+  CHANGE_TASK_TITLE,
+  CHANGE_TASK_DESCRIPTION,
+  CANCEL_TASK_DESCRIPTION,
 } from "./types"
 import { fetchCards } from "./card"
+
+export const cancelDescription = () => ({
+  type: CANCEL_TASK_DESCRIPTION,
+  payload: "",
+})
 
 export const postTask = (title, cardId) => async (dispatch) => {
   try {
@@ -45,30 +50,28 @@ export const fetchTaskDescription = (taskId) => async (dispatch) => {
   }
 }
 
-export const changeTask = (taskId, title, description) => async (dispatch) => {
+export const changeTaskTitle = (taskId, title) => async (dispatch) => {
   try {
     await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
       method: "PATCH",
       body: JSON.stringify({
         title,
-        description,
       }),
       headers: {
         "Content-type": "application/json",
       },
     })
-    dispatch({ type: CHANGE_TASK })
+    dispatch({ type: CHANGE_TASK_TITLE })
     dispatch(fetchCards())
   } catch (err) {
     console.log(err)
   }
 }
 
-export const changeDescription =
-  (descriptionId, description = "", taskId) =>
-  async (dispatch) => {
+export const changeTaskDescription =
+  (taskId, description) => async (dispatch) => {
     try {
-      await fetch(`${process.env.REACT_APP_URL}/description/${descriptionId}`, {
+      await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
         method: "PATCH",
         body: JSON.stringify({
           description,
@@ -77,29 +80,7 @@ export const changeDescription =
           "Content-type": "application/json",
         },
       })
-      dispatch({ type: CHANGE_DESCRIPTION })
-      dispatch(fetchTaskDescription(taskId))
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-export const postTaskDescription =
-  (description = "", taskId, cardId) =>
-  async (dispatch) => {
-    try {
-      await fetch(`${process.env.REACT_APP_URL}/description/${taskId}`, {
-        method: "POST",
-        body: JSON.stringify({
-          description,
-          cardId,
-        }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
-      dispatch({ type: POST_TASK_DESCRIPTION })
-      dispatch(fetchTaskDescription(taskId))
+      dispatch({ type: CHANGE_TASK_DESCRIPTION, payload: description })
     } catch (err) {
       console.log(err)
     }

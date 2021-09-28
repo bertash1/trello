@@ -5,13 +5,8 @@ const TaskSchema = new Schema({
     type: String,
     required: true
   },
-  description: [{
-    type: Schema.Types.ObjectId,
-    ref: "TaskDescription"
-  }],
-  card: {
-    type: Schema.Types.ObjectId,
-    ref: "Card"
+  description: {
+    type: String,
   }
 });
 
