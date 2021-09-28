@@ -30,6 +30,7 @@ const Content = ({ cardId, taskId }) => {
         <Info
           isDescriptionEdited={isDescriptionEdited}
           taskId={taskId}
+          cardId={cardId}
           description=""
           handleCloseDescription={handleCloseDescription}
         />

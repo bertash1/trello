@@ -17,6 +17,7 @@ const Info = ({
   isDescriptionEdited,
   description,
   taskId,
+  cardId,
   handleCloseDescription,
   descriptionId,
 }) => {
@@ -34,7 +35,7 @@ const Info = ({
       dispatch(changeDescription(descriptionId, editedDescription, taskId))
       setEditedDescription("")
     } else {
-      dispatch(postTaskDescription(editedDescription, taskId))
+      dispatch(postTaskDescription(editedDescription, taskId, cardId))
       setEditedDescription("")
     }
     handleCloseDescription()
@@ -78,6 +79,7 @@ Info.propTypes = {
   isDescriptionEdited: PropTypes.bool,
   description: PropTypes.string,
   taskId: PropTypes.string,
+  cardId: PropTypes.string,
   descriptionId: PropTypes.string,
   handleCloseDescription: PropTypes.func,
 }

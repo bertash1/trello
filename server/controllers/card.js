@@ -23,6 +23,11 @@ const deleteCard = async (req, res) => {
   const { id } = req.params;
   const deletedCard = await Card.findById(id);
   const deletedTasks = await deletedCard.populate("tasks");
+  const deletedDescription = await deletedCard.populate("taskDescriptions");
+
+  for (let item of deletedDescription.taskDescriptions) {
+    await item.remove();
+  }
 
   for (let item of deletedTasks.tasks) {
     await item.remove();

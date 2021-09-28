@@ -85,13 +85,14 @@ export const changeDescription =
   }
 
 export const postTaskDescription =
-  (description = "", taskId) =>
+  (description = "", taskId, cardId) =>
   async (dispatch) => {
     try {
       await fetch(`${process.env.REACT_APP_URL}/description/${taskId}`, {
         method: "POST",
         body: JSON.stringify({
           description,
+          cardId,
         }),
         headers: {
           "Content-type": "application/json",

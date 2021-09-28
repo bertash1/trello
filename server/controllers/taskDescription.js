@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const Card = require('../models/Card');
 const TaskDescription = require('../models/TaskDescription');
 
 const getDescription = async (req, res) => {
@@ -14,7 +15,7 @@ const getDescription = async (req, res) => {
 const addDescription = async (req, res) => {
   try {
     const { id } = req.params;
-    const { description } = req.body;
+    const { description, cardId } = req.body;
 
     const taskDescription = await TaskDescription.create({
       description,
@@ -22,7 +23,11 @@ const addDescription = async (req, res) => {
     await taskDescription.save();
 
     const task = await Task.findById(id);
+    const card = await Card.findById(cardId);
+
     task.description.push(taskDescription);
+    card.taskDescriptions.push(taskDescription);
+    await card.save();
     await task.save();
     res.status(200).json(task);
   } catch (error) {
