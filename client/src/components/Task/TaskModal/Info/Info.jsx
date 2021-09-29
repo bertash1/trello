@@ -7,7 +7,7 @@ import { grey } from "@mui/material/colors"
 
 import Form from "../../../Common/Form/Form"
 import ModalButton from "../ModalButton/ModalButton"
-import { changeTaskDescription } from "../../../../actions/task"
+import { changeTask } from "../../../../actions/task"
 import "./style.sass"
 
 const Info = ({
@@ -30,7 +30,7 @@ const Info = ({
 
   const handleDescriptionSubmit = async (e) => {
     e.preventDefault()
-    dispatch(changeTaskDescription(taskId, editedDescription))
+    dispatch(changeTask(taskId, { description: editedDescription }))
     handleCloseDescription()
   }
 

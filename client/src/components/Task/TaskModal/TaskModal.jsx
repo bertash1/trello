@@ -6,7 +6,7 @@ import Portal from "../../Common/Portal/Portal"
 import Overlay from "../../Common/Overlay/Overlay"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
-import { fetchTaskDescription, cancelDescription } from "../../../actions/task"
+import { fetchTask, cancelPickedTask } from "../../../actions/task"
 import "./style.sass"
 
 const TaskModal = ({ setIsModalShown, title, taskId, cardId, cardTitle }) => {
@@ -33,9 +33,9 @@ const TaskModal = ({ setIsModalShown, title, taskId, cardId, cardTitle }) => {
   }, [handleKeyPress])
 
   useEffect(() => {
-    dispatch(fetchTaskDescription(taskId))
+    dispatch(fetchTask(taskId))
     return () => {
-      dispatch(cancelDescription())
+      dispatch(cancelPickedTask())
     }
   }, [dispatch, taskId])
 

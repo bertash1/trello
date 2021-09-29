@@ -21,11 +21,11 @@ const addTask = async (req, res) => {
   }
 };
 
-const getDescription = async (req, res) => {
+const fetchTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const {description} = await Task.findById(id).populate("description");
-    res.status(200).json(description);
+    const task = await Task.findById(id);
+    res.status(200).json(task);
   } catch (error) {
     throw error;
   }
@@ -93,4 +93,4 @@ exports.addTask = addTask;
 exports.deleteTask = deleteTask;
 exports.getTasks = getTasks;
 exports.replaceTask = replaceTask;
-exports.getDescription = getDescription;
+exports.fetchTask = fetchTask;

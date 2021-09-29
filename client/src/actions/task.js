@@ -1,16 +1,15 @@
 import {
   POST_TASK,
   DELETE_TASK,
-  FETCH_TASK_DESCRIPTION,
-  CHANGE_TASK_TITLE,
-  CHANGE_TASK_DESCRIPTION,
-  CANCEL_TASK_DESCRIPTION,
+  FETCH_TASK,
+  CHANGE_TASK,
+  CANCEL_PICKED_TASK,
 } from "./types"
 import { fetchCards } from "./card"
 
-export const cancelDescription = () => ({
-  type: CANCEL_TASK_DESCRIPTION,
-  payload: "",
+export const cancelPickedTask = () => ({
+  type: CANCEL_PICKED_TASK,
+  payload: [],
 })
 
 export const postTask = (title, cardId) => async (dispatch) => {
@@ -34,57 +33,39 @@ export const postTask = (title, cardId) => async (dispatch) => {
   }
 }
 
-export const fetchTaskDescription = (taskId) => async (dispatch) => {
+export const fetchTask = (taskId) => async (dispatch) => {
   try {
-    const data = await fetch(
-      `${process.env.REACT_APP_URL}/description/${taskId}`
-    )
-    const description = await data.json()
+    const data = await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`)
+    const task = await data.json()
 
     dispatch({
-      type: FETCH_TASK_DESCRIPTION,
-      payload: description,
+      type: FETCH_TASK,
+      payload: task,
     })
   } catch (err) {
     console.log(err)
   }
 }
 
-export const changeTaskTitle = (taskId, title) => async (dispatch) => {
+export const changeTask = (taskId, newTask) => async (dispatch) => {
   try {
     await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
       method: "PATCH",
       body: JSON.stringify({
-        title,
+        title: newTask.title,
+        description: newTask.description,
       }),
       headers: {
         "Content-type": "application/json",
       },
     })
-    dispatch({ type: CHANGE_TASK_TITLE })
+    dispatch({ type: CHANGE_TASK })
+    dispatch(fetchTask(taskId))
     dispatch(fetchCards())
   } catch (err) {
     console.log(err)
   }
 }
-
-export const changeTaskDescription =
-  (taskId, description) => async (dispatch) => {
-    try {
-      await fetch(`${process.env.REACT_APP_URL}/task/${taskId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          description,
-        }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
-      dispatch({ type: CHANGE_TASK_DESCRIPTION, payload: description })
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
 export const deleteTask = (cardId, id) => async (dispatch) => {
   try {

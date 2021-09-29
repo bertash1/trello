@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
 
@@ -10,7 +9,7 @@ import "./style.sass"
 const Content = ({ cardId, taskId }) => {
   const [isDescriptionEdited, setIsDescriptionEdited] = useState(false)
 
-  const { description } = useSelector((state) => state.description)
+  const { description } = useSelector((state) => state.task.pickedTask)
 
   const handleCloseDescription = () => {
     setIsDescriptionEdited((prev) => !prev)

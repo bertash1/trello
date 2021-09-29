@@ -4,7 +4,7 @@ import { tasksReducer } from "./tasksReducer"
 
 const rootReducer = combineReducers({
   cards: cardsReducer,
-  description: tasksReducer,
+  task: tasksReducer,
 })
 
 export default rootReducer
