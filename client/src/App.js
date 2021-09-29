@@ -7,7 +7,7 @@ import store from "./store"
 
 const App = () => (
   <Provider store={store}>
-    <Header />
+    <Header theme="light" />
     <Board />
   </Provider>
 )
