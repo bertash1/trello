@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import ConfirmButton from "../../ConfirmButton/ConfirmButton"
+import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
 import "./style.sass"
 
 const Registration = () => {
