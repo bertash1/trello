@@ -1,0 +1,32 @@
+@import ../../../../constants/colors
+  
+.task-modal
+  
+  &__info
+    width: 70%
+    display: flex
+    flex-direction: column
+
+  &__description-title
+    margin: 0 10px
+    font-size: 18px
+    color: $greyText
+
+  &__description-wrapper
+    height: 30px
+    display: flex
+    align-items: center
+    margin-bottom: 10px
+
+  &__description
+    padding: 10px
+    font-size: 13px
+    border-radius: 3px
+    word-wrap: break-word
+    background-color: rgba(0, 0, 0, 0.06)
+    color: $greyText
+    &:hover
+      cursor: pointer
+
+  &__description_edited
+    background-color: rgba(0, 0, 0, 0)

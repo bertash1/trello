@@ -5,16 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons"
 
 import "./style.sass"
-import TaskEditor from "../TaskEditor/TaskEditor"
-import Overlay from "../Overlay/Overlay"
+import TaskEditor from "./TaskEditor/TaskEditor"
+import TaskModal from "./TaskModal/TaskModal"
 
-const Task = ({ title, taskId, cardId }) => {
+const Task = ({ title, taskId, cardId, cardTitle }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [isMouseOver, setIsMouseOver] = useState(false)
+  const [isModalShown, setIsModalShown] = useState(false)
 
   const iconClassName = classNames("task__icon", {
     task__icon_shown: isMouseOver,
   })
+
+  const handleOpenModal = () => {
+    setIsModalShown((prev) => !prev)
+  }
 
   return (
     <>
@@ -23,7 +28,9 @@ const Task = ({ title, taskId, cardId }) => {
         onMouseEnter={() => setIsMouseOver(true)}
         onMouseLeave={() => setIsMouseOver(false)}
       >
-        <span className="task__title">{title}</span>
+        <span className="task__title" role="none" onClick={handleOpenModal}>
+          {title}
+        </span>
         <FontAwesomeIcon
           className={iconClassName}
           icon={faPencilAlt}
@@ -41,7 +48,16 @@ const Task = ({ title, taskId, cardId }) => {
           />
         )}
       </div>
-      {isEdited && <Overlay changeComponentVisibility={setIsEdited} />}
+
+      {isModalShown && (
+        <TaskModal
+          taskId={taskId}
+          setIsModalShown={handleOpenModal}
+          title={title}
+          cardId={cardId}
+          cardTitle={cardTitle}
+        />
+      )}
     </>
   )
 }
@@ -50,6 +66,7 @@ Task.propTypes = {
   title: PropTypes.string,
   taskId: PropTypes.string,
   cardId: PropTypes.string,
+  cardTitle: PropTypes.string,
 }
 
 export default Task

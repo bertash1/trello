@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
-import Options from "../Options/Options"
+import Options from "../Common/Options/Options"
 import Task from "../Task/Task"
-import Input from "../Input/Input"
+import Input from "../Common/Input/Input"
 import { changeCard } from "../../actions/card"
 import "./style.sass"
-import CardMenu from "../CardMenu/CardMenu"
-import AddTask from "../AddTask/AddTask"
+import CardMenu from "./CardMenu/CardMenu"
+import AddTask from "../Task/AddTask/AddTask"
 
 const Card = ({ title, cardTasks = [], _id }) => {
   const [isEdited, setIsEdited] = useState(false)
@@ -69,6 +69,7 @@ const Card = ({ title, cardTasks = [], _id }) => {
           taskId={item._id}
           key={item._id}
           cardId={_id}
+          cardTitle={title}
         />
       ))}
 

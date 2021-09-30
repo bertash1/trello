@@ -1,5 +1,5 @@
 import React from "react"
-import AddCard from "../AddCard/AddCard"
+import AddCard from "../Card/AddCard/AddCard"
 
 import Cards from "../Cards/Cards"
 import "./style.sass"

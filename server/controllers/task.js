@@ -8,6 +8,7 @@ const addTask = async (req, res) => {
 
     const task = await Task.create({
       title,
+      description: "",
     });
     await task.save();
 
@@ -15,6 +16,16 @@ const addTask = async (req, res) => {
     cardById.tasks.push(task);
     await cardById.save();
     res.status(200).json(cardById);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const fetchTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    res.status(200).json(task);
   } catch (error) {
     throw error;
   }
@@ -30,11 +41,11 @@ const getTasks = async (req, res) => {
 };
 
 const editTask = async (req, res) => {
-  const { title } = req.body;
+  const { title, description } = req.body;
   const {id} = req.params;
 
   const filter =  id;
-  const update = { title };
+  const update = { title, description };
 
   const changedTask = await Task.findByIdAndUpdate(filter, update, {
     new: true,
@@ -47,7 +58,9 @@ const deleteTask = async (req, res) => {
   try {
     const id = req.params.id;
     const cardId = req.params.cardId;
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedTask = await Task.findById(id);
+    
+    deletedTask.remove();
     const cardById = await Card.findById(cardId);
     cardById.tasks.splice(cardById.tasks.indexOf(id), 1);
     cardById.save();
@@ -80,3 +93,4 @@ exports.addTask = addTask;
 exports.deleteTask = deleteTask;
 exports.getTasks = getTasks;
 exports.replaceTask = replaceTask;
+exports.fetchTask = fetchTask;
