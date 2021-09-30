@@ -2,8 +2,8 @@ import React from "react"
 import "./style.sass"
 
 const Header = () => (
-  <header className="header">
-    <span className="header__logo">Custom Trello</span>
+  <header className="start-page__main-header">
+    <span className="start-page__logo">Custom Trello</span>
   </header>
 )
 
