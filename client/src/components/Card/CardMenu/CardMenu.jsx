@@ -7,7 +7,7 @@ import { deleteCard } from "../../../actions/card"
 import OutsideClickHandler from "../../Common/OutsideClickHandler/OutsideClickHandler"
 import CloseButton from "../../Common/CloseButton/CloseButton"
 
-const CardMenu = ({ handleShowMenu = () => null, id }) => {
+const CardMenu = ({ handleShowMenu = () => null, id, userId }) => {
   const dispatch = useDispatch()
 
   const handleKeyPress = useCallback(
@@ -40,7 +40,7 @@ const CardMenu = ({ handleShowMenu = () => null, id }) => {
           <li
             className="card__list-item"
             role="menuitem"
-            onClick={() => dispatch(deleteCard(id))}
+            onClick={() => dispatch(deleteCard(id, userId))}
           >
             Archive card
           </li>
@@ -53,6 +53,7 @@ const CardMenu = ({ handleShowMenu = () => null, id }) => {
 CardMenu.propTypes = {
   handleShowMenu: PropTypes.func,
   id: PropTypes.string,
+  userId: PropTypes.string,
 }
 
 export default CardMenu

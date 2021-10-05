@@ -1,10 +1,17 @@
-const Card = require("../models/Card");
+const Card = require('../models/Card');
+const User = require('../models/User');
 
 const addCard = async (req, res) => {
   try {
     const { title } = req.body;
+    const { id } = req.params;
     const card = await Card.create({ title });
-    res.status(200).json(card);
+    await card.save();
+
+    const user = await User.findById(id);
+    user.cards.push(card);
+    await user.save();
+    res.status(200).json(user);
   } catch (err) {
     throw err;
   }
@@ -12,7 +19,15 @@ const addCard = async (req, res) => {
 
 const getCards = async (req, res) => {
   try {
-    const cards = await Card.find().populate("tasks", {description: 0})
+    const { id } = req.params;
+    const user = await User.findById(id);
+    const cards = [];
+
+    for (const cardId of user.cards) {
+      cards.push(
+        await Card.findById(cardId).populate('tasks', { description: 0 })
+      );
+    }
     res.status(200).json(cards);
   } catch (error) {
     throw error;
@@ -20,9 +35,13 @@ const getCards = async (req, res) => {
 };
 
 const deleteCard = async (req, res) => {
-  const { id } = req.params;
+  const { id, userId } = req.params;
+
+  const user = await User.findById(userId);
+  user.cards.splice(user.cards.indexOf(id), 1);
+  await user.save();
   const deletedCard = await Card.findById(id);
-  const deletedTasks = await deletedCard.populate("tasks");
+  const deletedTasks = await deletedCard.populate('tasks');
 
   for (let item of deletedTasks.tasks) {
     await item.remove();
@@ -33,7 +52,7 @@ const deleteCard = async (req, res) => {
 
 const editCard = async (req, res) => {
   const { title } = req.body;
-  const {id} = req.params;
+  const { id } = req.params;
 
   const filter = id;
   const update = { title };

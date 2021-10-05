@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import AddButton from "../../Common/AddButton/AddButton"
 import Form from "../../Common/Form/Form"
@@ -10,6 +10,10 @@ const AddCard = () => {
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
 
+  const userId = useSelector((state) => state.user.user.user._id)
+
+  // console.log(userId)
+
   const handleClick = () => {
     setIsEdited(!isEdited)
   }
@@ -17,7 +21,7 @@ const AddCard = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newItem) {
-      dispatch(postCard(newItem))
+      dispatch(postCard(newItem, userId))
       setNewItem("")
     }
   }
