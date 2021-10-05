@@ -12,8 +12,6 @@ const AddCard = () => {
 
   const userId = useSelector((state) => state.user.user.user._id)
 
-  // console.log(userId)
-
   const handleClick = () => {
     setIsEdited(!isEdited)
   }
