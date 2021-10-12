@@ -16,7 +16,7 @@ const Card = ({ title, cardTasks = [], _id }) => {
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
 
-  const userId = useSelector((state) => state.user.user.user._id)
+  const userId = useSelector((state) => state.userData.user._id)
 
   const handleSubmit = (e) => {
     e.preventDefault()

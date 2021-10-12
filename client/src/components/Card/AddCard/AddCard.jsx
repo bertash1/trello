@@ -10,7 +10,7 @@ const AddCard = () => {
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
 
-  const userId = useSelector((state) => state.user.user.user._id)
+  const userId = useSelector((state) => state.userData.user._id)
 
   const handleClick = () => {
     setIsEdited(!isEdited)

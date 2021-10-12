@@ -5,11 +5,11 @@ const initialState = {}
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_REGISTRATION:
-      return { user: action.payload }
+      return action.payload
     case USER_LOGOUT:
       return state
     case USER_LOGIN:
-      return { user: action.payload }
+      return action.payload
     default:
       return state
   }

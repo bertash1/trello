@@ -8,10 +8,11 @@ import Board from "../../components/Board/Board"
 import "./style.sass"
 
 const StartPage = () => {
-  const { user } = useSelector((state) => state.user)
+  const userData = useSelector((state) => state.userData)
 
-  if (user) {
-    return <Board userId={user.user._id} />
+  if (userData.user) {
+    console.log(userData.user._id)
+    return <Board userId={userData.user._id} />
   }
 
   return (
