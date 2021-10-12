@@ -1,5 +1,6 @@
 const {validateAccessToken} = require("../service/token")
 const ApiError = require("../exceptions/api-error")
+
 module.exports = function (req, res, next) {
   try {
     const authorizationHeader = req.headers.authorization;

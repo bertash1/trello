@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import Options from "../Common/Options/Options"
 import Task from "../Task/Task"
@@ -16,10 +16,12 @@ const Card = ({ title, cardTasks = [], _id }) => {
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
 
+  const userId = useSelector((state) => state.userData.user._id)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (inputValue) {
-      dispatch(changeCard(_id, inputValue))
+      dispatch(changeCard(_id, inputValue, userId))
       setIsEdited(false)
     }
   }
@@ -60,7 +62,9 @@ const Card = ({ title, cardTasks = [], _id }) => {
         )}
 
         <Options handleShowMenu={handleShowMenu} />
-        {isMenuShown && <CardMenu handleShowMenu={handleShowMenu} id={_id} />}
+        {isMenuShown && (
+          <CardMenu handleShowMenu={handleShowMenu} id={_id} userId={userId} />
+        )}
       </div>
 
       {cardTasks.map((item) => (
