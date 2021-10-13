@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
-const router = require("./routes/router");
+const cardRouter = require("./routes/card");
+const taskRouter = require("./routes/task");
+const userRouter = require("./routes/user");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const errorMiddleware = require("./middlewares/error-middleware");
@@ -14,7 +16,9 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(morgan("common"));
 app.use(cors());
-app.use("/api", router);
+app.use("/api", userRouter);
+app.use("/api", cardRouter);
+app.use("/api", taskRouter);
 app.use(errorMiddleware);
 
 (async function connectDB() {
