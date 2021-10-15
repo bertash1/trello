@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
@@ -12,6 +12,8 @@ const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
   const [menuPosition, setMenuPosition] = useState("right")
   const menu = useRef()
   const dispatch = useDispatch()
+
+  const userId = useSelector((state) => state.userData.user._id)
 
   const menuClassName = classNames([
     "task__menu",
@@ -41,7 +43,7 @@ const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
           <li
             className="task__list-item"
             role="menuitem"
-            onClick={() => dispatch(deleteTask(cardId, taskId))}
+            onClick={() => dispatch(deleteTask(cardId, taskId, userId))}
           >
             Archive
           </li>
