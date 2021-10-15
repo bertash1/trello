@@ -17,8 +17,8 @@ app.use(cookieParser())
 app.use(morgan("common"));
 app.use(cors());
 app.use("/api", userRouter);
-app.use("/api", cardRouter);
-app.use("/api", taskRouter);
+app.use("/api/card", cardRouter);
+app.use("/api/task", taskRouter);
 app.use(errorMiddleware);
 
 (async function connectDB() {

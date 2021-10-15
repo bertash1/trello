@@ -2,7 +2,7 @@ import { FETCH_CARDS, POST_CARD, CHANGE_CARD, DELETE_CARD } from "./types"
 
 export const fetchCards = (userId) => async (dispatch) => {
   try {
-    const data = await fetch(`${process.env.REACT_APP_URL}/cards/${userId}`, {
+    const data = await fetch(`${process.env.REACT_APP_URL}/card/${userId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

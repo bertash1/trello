@@ -11,9 +11,9 @@ const {
 } = require('../controllers/card');
 
 
-router.get('/cards/:id', authMiddleware, getCards);
-router.post('/card/:id', authMiddleware, addCard);
-router.patch('/card/:id', authMiddleware, editCard);
-router.delete('/card/:id/:userId', authMiddleware, deleteCard);
+router.get('/:id', authMiddleware, getCards);
+router.post('/:id', authMiddleware, addCard);
+router.patch('/:id', authMiddleware, editCard);
+router.delete('/:id/:userId', authMiddleware, deleteCard);
 
 module.exports = router;

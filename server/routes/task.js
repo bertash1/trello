@@ -12,11 +12,11 @@ const {
   fetchTask,
 } = require('../controllers/task');
 
-router.get('/tasks', authMiddleware, getTasks);
-router.get('/task/:id', authMiddleware, fetchTask);
-router.post('/task/:id', authMiddleware, addTask);
-router.patch('/replace-task/:prev/:cur', authMiddleware, replaceTask);
-router.delete('/task/:cardId/:id', authMiddleware, deleteTask);
-router.patch('/task/:id', authMiddleware, editTask);
+router.get('/', authMiddleware, getTasks);
+router.get('/:id', authMiddleware, fetchTask);
+router.post('/:id', authMiddleware, addTask);
+router.patch('/:prev/:cur', authMiddleware, replaceTask);
+router.delete('/:cardId/:id', authMiddleware, deleteTask);
+router.patch('/:id', authMiddleware, editTask);
 
 module.exports = router;
