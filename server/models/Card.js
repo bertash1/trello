@@ -5,10 +5,9 @@ const CardSchema = new Schema({
     type: String,
     required: true,
   },
-  tasks: [{
-    type: Schema.Types.ObjectId, 
-    ref: "Task"
-  }],
+  user: {
+    type: Schema.Types.ObjectId, ref: "User",
+  },
 });
 
 module.exports = Card = model("Card", CardSchema);

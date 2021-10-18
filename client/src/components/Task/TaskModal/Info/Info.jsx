@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import LineWeightOutlinedIcon from "@mui/icons-material/LineWeightOutlined"
@@ -19,6 +19,8 @@ const Info = ({
   const [editedDescription, setEditedDescription] = useState(null)
   const dispatch = useDispatch()
 
+  const userId = useSelector((state) => state.userData.user._id)
+
   useEffect(() => {
     setEditedDescription(description)
   }, [description])
@@ -30,7 +32,7 @@ const Info = ({
 
   const handleDescriptionSubmit = async (e) => {
     e.preventDefault()
-    dispatch(changeTask(taskId, { description: editedDescription }))
+    dispatch(changeTask(taskId, { description: editedDescription }, userId))
     handleCloseDescription()
   }
 

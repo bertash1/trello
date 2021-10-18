@@ -5,13 +5,8 @@ const addCard = async (req, res) => {
   try {
     const { title } = req.body;
     const { id } = req.params;
-    const card = await Card.create({ title });
-    await card.save();
-
-    const user = await User.findById(id);
-    user.cards.push(card);
-    await user.save();
-    res.status(200).json(user);
+    const card = await Card.create({ title, user: id });
+    res.status(200).json(card);
   } catch (err) {
     throw err;
   }
@@ -20,14 +15,7 @@ const addCard = async (req, res) => {
 const getCards = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    const cards = [];
-
-    for (const cardId of user.cards) {
-      cards.push(
-        await Card.findById(cardId).populate('tasks', { description: 0 })
-      );
-    }
+    const cards = await Card.find({user: {_id: id}}).populate({path: 'user', match: {_id: id}, select: '_id'})
     res.status(200).json(cards);
   } catch (error) {
     throw error;
