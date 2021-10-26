@@ -3,7 +3,7 @@ const Task = require("../models/Task");
 
 //It will be changed in future: when we'll add Board model and oppotunity to add another users as board users.
 
-const addCard = async (req, res) => {
+const postCard = async (req, res) => {
   try {
     const { title } = req.body;
     const { id } = req.params;
@@ -58,4 +58,4 @@ const editCard = async (req, res) => {
 exports.editCard = editCard;
 exports.deleteCard = deleteCard;
 exports.getCards = getCards;
-exports.addCard = addCard;
+exports.postCard = postCard;

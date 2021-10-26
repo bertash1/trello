@@ -1,7 +1,7 @@
 import {
   POST_TASK,
-  FETCH_TASK,
-  CHANGE_TASK,
+  GET_TASK,
+  EDIT_TASK,
   CANCEL_PICKED_TASK,
   DELETE_TASK,
   GET_TASKS,
@@ -11,11 +11,11 @@ const initialState = { pickedTask: {}, tasks: [] }
 
 export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_TASK:
+    case EDIT_TASK:
       return state
     case GET_TASKS:
       return { ...state, tasks: action.payload }
-    case FETCH_TASK:
+    case GET_TASK:
       return { ...state, pickedTask: action.payload }
     case CANCEL_PICKED_TASK:
       return { ...state, pickedTask: {} }

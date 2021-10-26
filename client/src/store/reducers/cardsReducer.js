@@ -1,19 +1,17 @@
 import {
-  FETCH_CARDS,
+  GET_CARDS,
   POST_CARD,
-  CHANGE_CARD,
+  EDIT_CARD,
   DELETE_CARD,
 } from "../../actions/types"
 
-const initialState = {
-  cards: [],
-}
+const initialState = []
 
 export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CARDS:
-      return { ...state, cards: action.payload }
-    case CHANGE_CARD:
+    case GET_CARDS:
+      return action.payload
+    case EDIT_CARD:
       return state
     case POST_CARD:
       return state

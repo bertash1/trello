@@ -2,17 +2,17 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 
-import { fetchCards } from "../../actions/card"
+import { getCards } from "../../actions/card"
 import { getTasks } from "../../actions/task"
 import Card from "../Card/Card"
 import "./style.sass"
 
 const Cards = ({ userId }) => {
   const dispatch = useDispatch()
-  const { cards = [] } = useSelector((state) => state.cards)
+  const cards = useSelector((state) => state.cards)
 
   useEffect(() => {
-    dispatch(fetchCards(userId))
+    dispatch(getCards(userId))
     dispatch(getTasks())
   }, [dispatch, userId])
 
