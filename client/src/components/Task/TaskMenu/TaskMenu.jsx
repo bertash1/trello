@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
@@ -8,12 +8,10 @@ import "./style.sass"
 import Portal from "../../Common/Portal/Portal"
 import Overlay from "../../Common/Overlay/Overlay"
 
-const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
+const TaskMenu = ({ taskId, setIsEdited }) => {
   const [menuPosition, setMenuPosition] = useState("right")
   const menu = useRef()
   const dispatch = useDispatch()
-
-  const userId = useSelector((state) => state.userData.user._id)
 
   const menuClassName = classNames([
     "task__menu",
@@ -43,7 +41,7 @@ const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
           <li
             className="task__list-item"
             role="menuitem"
-            onClick={() => dispatch(deleteTask(cardId, taskId, userId))}
+            onClick={() => dispatch(deleteTask(taskId))}
           >
             Archive
           </li>
@@ -55,7 +53,6 @@ const TaskMenu = ({ taskId, cardId, setIsEdited }) => {
 
 TaskMenu.propTypes = {
   taskId: PropTypes.string,
-  cardId: PropTypes.string,
   setIsEdited: PropTypes.func,
 }
 
