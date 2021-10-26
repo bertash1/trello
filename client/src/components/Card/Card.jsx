@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Options from "../Common/Options/Options"
 import Task from "../Task/Task"
 import Input from "../Common/Input/Input"
-import { changeCard } from "../../actions/card"
+import { editCard } from "../../actions/card"
 import "./style.sass"
 import CardMenu from "./CardMenu/CardMenu"
 import AddTask from "../Task/AddTask/AddTask"
@@ -23,7 +23,7 @@ const Card = ({ title, _id }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (inputValue) {
-      dispatch(changeCard(_id, inputValue, userId))
+      dispatch(editCard(_id, inputValue, userId))
       setIsEdited(false)
     }
   }

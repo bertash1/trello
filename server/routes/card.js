@@ -1,19 +1,18 @@
-const express = require('express');
+const express = require("express");
 
-const authMiddleware = require('../middlewares/auth-middleware');
+const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 const {
-  addCard,
+  postCard,
   getCards,
   deleteCard,
   editCard,
-} = require('../controllers/card');
+} = require("../controllers/card");
 
-
-router.get('/:id', authMiddleware, getCards);
-router.post('/:id', authMiddleware, addCard);
-router.patch('/:id', authMiddleware, editCard);
-router.delete('/:id/:userId', authMiddleware, deleteCard);
+router.get("/:id", authMiddleware, getCards);
+router.post("/:id", authMiddleware, postCard);
+router.patch("/:id", authMiddleware, editCard);
+router.delete("/:id", authMiddleware, deleteCard);
 
 module.exports = router;

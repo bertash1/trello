@@ -1,6 +1,6 @@
 const Task = require("../models/Task");
 
-const addTask = async (req, res) => {
+const postTask = async (req, res) => {
   try {
     const { id } = req.params;
     const { title } = req.body;
@@ -17,11 +17,11 @@ const addTask = async (req, res) => {
   }
 };
 
-const fetchTask = async (req, res) => {
+const getTask = async (req, res) => {
   try {
-    const { taskId } = req.params;
+    const { id } = req.params;
 
-    const task = await Task.findById(taskId);
+    const task = await Task.findById(id);
 
     res.status(200).json(task);
   } catch (error) {
@@ -66,7 +66,7 @@ const deleteTask = async (req, res) => {
 };
 
 exports.editTask = editTask;
-exports.addTask = addTask;
+exports.postTask = postTask;
 exports.deleteTask = deleteTask;
 exports.getTasks = getTasks;
-exports.fetchTask = fetchTask;
+exports.getTask = getTask;

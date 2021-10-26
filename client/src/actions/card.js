@@ -1,10 +1,10 @@
-import { FETCH_CARDS, POST_CARD, CHANGE_CARD, DELETE_CARD } from "./types"
+import { GET_CARDS, POST_CARD, EDIT_CARD, DELETE_CARD } from "./types"
 import { $api } from "../http"
 
-export const fetchCards = (userId) => async (dispatch) => {
+export const getCards = (userId) => async (dispatch) => {
   const cards = await $api.get(`card/${userId}`)
   dispatch({
-    type: FETCH_CARDS,
+    type: GET_CARDS,
     payload: cards,
   })
 }
@@ -14,19 +14,19 @@ export const postCard = (title, userId) => async (dispatch) => {
   dispatch({
     type: POST_CARD,
   })
-  dispatch(fetchCards(userId))
+  dispatch(getCards(userId))
 }
 
-export const changeCard =
+export const editCard =
   (id, title = "", userId) =>
   async (dispatch) => {
     await $api.patch(`card/${id}`, { title })
-    dispatch({ type: CHANGE_CARD })
-    dispatch(fetchCards(userId))
+    dispatch({ type: EDIT_CARD })
+    dispatch(getCards(userId))
   }
 
 export const deleteCard = (cardId, userId) => async (dispatch) => {
   await $api.delete(`card/${cardId}/${userId}`)
   dispatch({ type: DELETE_CARD })
-  dispatch(fetchCards(userId))
+  dispatch(getCards(userId))
 }

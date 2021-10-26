@@ -1,8 +1,8 @@
 import {
   POST_TASK,
   DELETE_TASK,
-  FETCH_TASK,
-  CHANGE_TASK,
+  GET_TASK,
+  EDIT_TASK,
   CANCEL_PICKED_TASK,
   GET_TASKS,
 } from "./types"
@@ -29,19 +29,19 @@ export const postTask = (title, cardId) => async (dispatch) => {
   dispatch(getTasks())
 }
 
-export const fetchTask = (taskId) => async (dispatch) => {
+export const getTask = (taskId) => async (dispatch) => {
   const task = await $api.get(`task/${taskId}`)
   dispatch({
-    type: FETCH_TASK,
+    type: GET_TASK,
     payload: task,
   })
 }
 
-export const changeTask = (taskId, newTask) => async (dispatch) => {
+export const editTask = (taskId, newTask) => async (dispatch) => {
   const { title, description } = newTask
   await $api.patch(`task/${taskId}`, { title, description })
-  dispatch({ type: CHANGE_TASK })
-  dispatch(fetchTask(taskId))
+  dispatch({ type: EDIT_TASK })
+  dispatch(getTask(taskId))
   dispatch(getTasks())
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
-import { changeTask } from "../../../actions/task"
+import { editTask } from "../../../actions/task"
 
 import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
 import Input from "../../Common/Input/Input"
@@ -21,7 +21,7 @@ const TaskEditor = ({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (editedTitle) {
-      dispatch(changeTask(taskId, { title: editedTitle }))
+      dispatch(editTask(taskId, { title: editedTitle }))
       setIsMouseOver(false)
       setIsEdited(false)
     }
