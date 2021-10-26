@@ -10,13 +10,15 @@ import "./style.sass"
 import CardMenu from "./CardMenu/CardMenu"
 import AddTask from "../Task/AddTask/AddTask"
 
-const Card = ({ title, cardTasks = [], _id }) => {
+const Card = ({ title, _id }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
 
   const userId = useSelector((state) => state.userData.user._id)
+  const taskData = useSelector((state) => state.task.tasks)
+  const tasks = taskData.filter((item) => item.card === _id)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -67,7 +69,7 @@ const Card = ({ title, cardTasks = [], _id }) => {
         )}
       </div>
 
-      {cardTasks.map((item) => (
+      {tasks.map((item) => (
         <Task
           title={item.title}
           taskId={item._id}
@@ -87,7 +89,6 @@ const Card = ({ title, cardTasks = [], _id }) => {
 Card.propTypes = {
   title: PropTypes.string,
   _id: PropTypes.string,
-  cardTasks: PropTypes.array,
 }
 
 export default Card

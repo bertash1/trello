@@ -1,5 +1,6 @@
 export const FETCH_CARDS = "FETCH_CARDS"
 export const FETCH_TASK = "FETCH_TASK"
+export const GET_TASKS = "GET TASKS"
 export const CHANGE_TASK = "CHANGE_TASK"
 export const CANCEL_PICKED_TASK = "CANCEL_PICKED_TASK"
 export const CHANGE_CARD = "CHANGE_CARD"

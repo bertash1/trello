@@ -17,10 +17,6 @@ const UserSchema = new Schema({
   activationLink: {
     type: String,
   },
-  cards: [{
-    type: Schema.Types.ObjectId, 
-    ref: "Card"
-  }],
 })
 
 module.exports = User = model("User", UserSchema);

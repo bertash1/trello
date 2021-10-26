@@ -4,21 +4,29 @@ import {
   FETCH_TASK,
   CHANGE_TASK,
   CANCEL_PICKED_TASK,
+  GET_TASKS,
 } from "./types"
-import { fetchCards } from "./card"
 import { $api } from "../http"
+
+export const getTasks = () => async (dispatch) => {
+  const tasks = await $api.get(`task`)
+  dispatch({
+    type: GET_TASKS,
+    payload: tasks,
+  })
+}
 
 export const cancelPickedTask = () => ({
   type: CANCEL_PICKED_TASK,
   payload: [],
 })
 
-export const postTask = (title, cardId, userId) => async (dispatch) => {
+export const postTask = (title, cardId) => async (dispatch) => {
   await $api.post(`task/${cardId}`, { title })
   await dispatch({
     type: POST_TASK,
   })
-  dispatch(fetchCards(userId))
+  dispatch(getTasks())
 }
 
 export const fetchTask = (taskId) => async (dispatch) => {
@@ -29,16 +37,16 @@ export const fetchTask = (taskId) => async (dispatch) => {
   })
 }
 
-export const changeTask = (taskId, newTask, userId) => async (dispatch) => {
+export const changeTask = (taskId, newTask) => async (dispatch) => {
   const { title, description } = newTask
   await $api.patch(`task/${taskId}`, { title, description })
   dispatch({ type: CHANGE_TASK })
   dispatch(fetchTask(taskId))
-  dispatch(fetchCards(userId))
+  dispatch(getTasks())
 }
 
-export const deleteTask = (cardId, id, userId) => async (dispatch) => {
-  await $api.delete(`task/${cardId}/${id}`)
+export const deleteTask = (id) => async (dispatch) => {
+  await $api.delete(`task/${id}`)
   dispatch({ type: DELETE_TASK })
-  dispatch(fetchCards(userId))
+  dispatch(getTasks())
 }

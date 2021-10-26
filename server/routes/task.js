@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 
-const authMiddleware = require('../middlewares/auth-middleware');
+const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 const {
@@ -10,13 +10,13 @@ const {
   editTask,
   replaceTask,
   fetchTask,
-} = require('../controllers/task');
+} = require("../controllers/task");
 
-router.get('/', authMiddleware, getTasks);
-router.get('/:id', authMiddleware, fetchTask);
-router.post('/:id', authMiddleware, addTask);
-router.patch('/:prev/:cur', authMiddleware, replaceTask);
-router.delete('/:cardId/:id', authMiddleware, deleteTask);
-router.patch('/:id', authMiddleware, editTask);
+router.get("/", authMiddleware, getTasks);
+router.get("/:taskId", authMiddleware, fetchTask);
+router.post("/:id", authMiddleware, addTask);
+router.patch("/:prev/:cur", authMiddleware, replaceTask);
+router.delete("/:id", authMiddleware, deleteTask);
+router.patch("/:id", authMiddleware, editTask);
 
 module.exports = router;

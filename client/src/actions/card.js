@@ -2,7 +2,7 @@ import { FETCH_CARDS, POST_CARD, CHANGE_CARD, DELETE_CARD } from "./types"
 import { $api } from "../http"
 
 export const fetchCards = (userId) => async (dispatch) => {
-  const cards = await $api.get(`cards/${userId}`)
+  const cards = await $api.get(`card/${userId}`)
   dispatch({
     type: FETCH_CARDS,
     payload: cards,

@@ -7,7 +7,10 @@ const TaskSchema = new Schema({
   },
   description: {
     type: String,
-  }
+  },
+  card: {
+    type: Schema.Types.ObjectId, ref: "Card",
+  },
 });
 
 module.exports = Task = model("Task", TaskSchema);
