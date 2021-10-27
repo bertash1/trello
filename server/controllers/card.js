@@ -1,14 +1,12 @@
 const Card = require("../models/Card");
 const Task = require("../models/Task");
 
-//It will be changed in future: when we'll add Board model and oppotunity to add another users as board users.
-
 const postCard = async (req, res) => {
   try {
     const { title } = req.body;
-    const { id } = req.params;
+    const { boardId } = req.params;
 
-    const card = await Card.create({ title, user: id });
+    const card = await Card.create({ title, board: boardId });
 
     res.status(200).json(card);
   } catch (err) {
@@ -18,11 +16,11 @@ const postCard = async (req, res) => {
 
 const getCards = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { boardId } = req.params;
 
-    const cards = await Card.find({ user: { _id: id } }).populate({
-      path: "user",
-      match: { _id: id },
+    const cards = await Card.find({ board: { _id: boardId } }).populate({
+      path: "board",
+      match: { _id: boardId },
       select: "_id",
     });
 
@@ -33,19 +31,19 @@ const getCards = async (req, res) => {
 };
 
 const deleteCard = async (req, res) => {
-  const { id } = req.params;
+  const { cardId } = req.params;
 
-  await Task.deleteMany({ card: { _id: id } });
-  const card = await Card.findByIdAndDelete(id);
+  await Task.deleteMany({ card: { _id: cardId } });
+  const card = await Card.findByIdAndDelete(cardId);
 
   res.status(200).json(card);
 };
 
 const editCard = async (req, res) => {
   const { title } = req.body;
-  const { id } = req.params;
+  const { cardId } = req.params;
 
-  const filter = id;
+  const filter = cardId;
   const update = { title };
 
   const changedCard = await Card.findByIdAndUpdate(filter, update, {

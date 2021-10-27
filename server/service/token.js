@@ -40,6 +40,15 @@ const validateAccessToken = (token) => {
   }
 }
 
+const getUserData = (token) => {
+  try {
+    const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    return userData;
+  } catch (error) {
+    return null
+  }
+}
+
 const validateRefreshToken = (token) => {
   try {
     const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
@@ -56,3 +65,4 @@ exports.removeToken = removeToken;
 exports.validateAccessToken = validateAccessToken;
 exports.validateRefreshToken = validateRefreshToken;
 exports.findToken = findToken;
+exports.getUserData = getUserData;
