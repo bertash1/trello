@@ -2,13 +2,14 @@ const Task = require("../models/Task");
 
 const postTask = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { cardId, boardId } = req.params;
     const { title } = req.body;
 
     const task = await Task.create({
       title,
       description: "",
-      card: id,
+      card: cardId,
+      board: boardId,
     });
 
     res.status(200).json(task);
@@ -19,9 +20,9 @@ const postTask = async (req, res) => {
 
 const getTask = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { taskId } = req.params;
 
-    const task = await Task.findById(id);
+    const task = await Task.findById(taskId);
 
     res.status(200).json(task);
   } catch (error) {
@@ -31,7 +32,11 @@ const getTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({}, { description: 0 });
+    const { boardId } = req.params;
+    const tasks = await Task.find(
+      { board: { _id: boardId } },
+      { description: 0 }
+    );
 
     res.status(200).json(tasks);
   } catch (error) {
@@ -41,9 +46,9 @@ const getTasks = async (req, res) => {
 
 const editTask = async (req, res) => {
   const { title, description } = req.body;
-  const { id } = req.params;
+  const { taskId } = req.params;
 
-  const filter = id;
+  const filter = taskId;
   const update = { title, description };
 
   const changedTask = await Task.findByIdAndUpdate(filter, update, {
@@ -55,9 +60,9 @@ const editTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { taskId } = req.params;
 
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedTask = await Task.findByIdAndDelete(taskId);
 
     res.status(200).json(deletedTask);
   } catch (error) {

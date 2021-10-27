@@ -11,6 +11,9 @@ const TaskSchema = new Schema({
   card: {
     type: Schema.Types.ObjectId, ref: "Card",
   },
+  board: {
+    type: Schema.Types.ObjectId, ref: "Board",
+  },
 });
 
 module.exports = Task = model("Task", TaskSchema);

@@ -1,6 +1,9 @@
 const express = require("express");
 
 const authMiddleware = require("../middlewares/auth-middleware");
+const checkUserPermissions = require("../middlewares/checkUserPermissions");
+const checkOwnerPermissions = require("../middlewares/checkOwnerPermissions")
+
 const router = express.Router();
 
 const {
@@ -11,10 +14,10 @@ const {
   getTask,
 } = require("../controllers/task");
 
-router.get("/", authMiddleware, getTasks);
-router.get("/:id", authMiddleware, getTask);
-router.post("/:id", authMiddleware, postTask);
-router.delete("/:id", authMiddleware, deleteTask);
-router.patch("/:id", authMiddleware, editTask);
+router.get("/:boardId", authMiddleware, checkUserPermissions, getTasks);
+router.get("/info/:taskId", authMiddleware, checkUserPermissions, getTask);
+router.post("/:cardId/:boardId", authMiddleware, checkUserPermissions, postTask);
+router.delete("/:taskId", authMiddleware, checkOwnerPermissions, deleteTask);
+router.patch("/:taskId", authMiddleware, checkUserPermissions, editTask);
 
 module.exports = router;
