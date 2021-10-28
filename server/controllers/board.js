@@ -4,7 +4,7 @@ const getBoards = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const boards = await Board.find({ users: { _id: userId } });
+    const boards = await Board.find({ users: { _id: userId } }, {_id: 1, title: 1});
     res.status(200).json(boards);
   } catch (error) {
     throw error;
