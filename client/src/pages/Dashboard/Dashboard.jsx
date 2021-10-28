@@ -6,7 +6,6 @@ import { getUserBoards } from "../../actions/board"
 import Header from "../../components/Header/Header"
 import "./style.sass"
 import Board from "../../components/Board/Board"
-import ActiveBoard from "../ActiveBoard/ActiveBoard"
 
 const Dashboard = ({ userId }) => {
   const dispatch = useDispatch()
@@ -26,7 +25,6 @@ const Dashboard = ({ userId }) => {
             <Board key={item._id} title={item.title} boardId={item._id} />
           ))}
       </div>
-      <ActiveBoard />
     </div>
   )
 }
