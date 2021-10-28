@@ -54,7 +54,6 @@ const Task = ({ title, taskId, cardId, cardTitle }) => {
           taskId={taskId}
           setIsModalShown={handleOpenModal}
           title={title}
-          cardId={cardId}
           cardTitle={cardTitle}
         />
       )}

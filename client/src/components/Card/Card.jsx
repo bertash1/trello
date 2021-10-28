@@ -10,20 +10,20 @@ import "./style.sass"
 import CardMenu from "./CardMenu/CardMenu"
 import AddTask from "../Task/AddTask/AddTask"
 
-const Card = ({ title, _id }) => {
+const Card = ({ title, cardId }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
 
-  const userId = useSelector((state) => state.userData.user._id)
+  const boardId = useSelector((state) => state.boards.activeBoard._id)
   const taskData = useSelector((state) => state.task.tasks)
-  const tasks = taskData.filter((item) => item.card === _id)
+  const tasks = taskData.filter((item) => item.card === cardId)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (inputValue) {
-      dispatch(editCard(_id, inputValue, userId))
+      dispatch(editCard(cardId, inputValue, boardId))
       setIsEdited(false)
     }
   }
@@ -54,7 +54,7 @@ const Card = ({ title, _id }) => {
         ) : (
           <form className="card__form" onSubmit={handleSubmit}>
             <Input
-              parentId={_id}
+              parentId={cardId}
               componentType="card"
               value={inputValue}
               handleInputChange={handleInputChange}
@@ -65,7 +65,11 @@ const Card = ({ title, _id }) => {
 
         <Options handleShowMenu={handleShowMenu} />
         {isMenuShown && (
-          <CardMenu handleShowMenu={handleShowMenu} id={_id} userId={userId} />
+          <CardMenu
+            handleShowMenu={handleShowMenu}
+            id={cardId}
+            boardId={boardId}
+          />
         )}
       </div>
 
@@ -74,12 +78,12 @@ const Card = ({ title, _id }) => {
           title={item.title}
           taskId={item._id}
           key={item._id}
-          cardId={_id}
+          cardId={cardId}
           cardTitle={title}
         />
       ))}
 
-      <AddTask _id={_id} />
+      <AddTask cardId={cardId} />
 
       <div className="card__tasks-wrapper" />
     </div>
@@ -88,7 +92,7 @@ const Card = ({ title, _id }) => {
 
 Card.propTypes = {
   title: PropTypes.string,
-  _id: PropTypes.string,
+  cardId: PropTypes.string,
 }
 
 export default Card

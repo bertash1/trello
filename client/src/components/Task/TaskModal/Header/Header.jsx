@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import { grey } from "@mui/material/colors"
 
@@ -20,6 +20,8 @@ const Header = ({
   const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
+  const boardId = useSelector((state) => state.boards.activeBoard._id)
+
   const handleInputChange = (e) => {
     setEditedTitle(e.target.value)
   }
@@ -27,7 +29,7 @@ const Header = ({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (editedTitle) {
-      dispatch(editTask(taskId, { title: editedTitle }))
+      dispatch(editTask(taskId, { title: editedTitle }, boardId))
       setIsTitleEdited(false)
     }
   }

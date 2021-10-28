@@ -9,7 +9,7 @@ import Content from "./Content/Content"
 import { getTask, cancelPickedTask } from "../../../actions/task"
 import "./style.sass"
 
-const TaskModal = ({ setIsModalShown, title, taskId, cardId, cardTitle }) => {
+const TaskModal = ({ setIsModalShown, title, taskId, cardTitle }) => {
   const [isTitleEdited, setIsTitleEdited] = useState(false)
 
   const dispatch = useDispatch()
@@ -52,7 +52,7 @@ const TaskModal = ({ setIsModalShown, title, taskId, cardId, cardTitle }) => {
             cardTitle={cardTitle}
             taskId={taskId}
           />
-          <Content cardId={cardId} taskId={taskId} />
+          <Content taskId={taskId} />
         </div>
       </div>
     </Portal>
@@ -63,7 +63,6 @@ TaskModal.propTypes = {
   setIsModalShown: PropTypes.func,
   title: PropTypes.string,
   taskId: PropTypes.string,
-  cardId: PropTypes.string,
   cardTitle: PropTypes.string,
 }
 

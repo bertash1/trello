@@ -13,8 +13,8 @@ const Board = ({ title, boardId }) => {
   }
 
   return (
-    <div className="board" onClick={handleClick} role="none">
-      <span className="board__title">{title}</span>
+    <div className="board-item" onClick={handleClick} role="none">
+      <span className="board-item__title">{title}</span>
     </div>
   )
 }

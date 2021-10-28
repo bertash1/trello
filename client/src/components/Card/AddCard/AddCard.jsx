@@ -10,7 +10,7 @@ const AddCard = () => {
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
 
-  const userId = useSelector((state) => state.userData.user._id)
+  const boardId = useSelector((state) => state.boards.activeBoard._id)
 
   const handleClick = () => {
     setIsEdited(!isEdited)
@@ -19,7 +19,7 @@ const AddCard = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newItem) {
-      dispatch(postCard(newItem, userId))
+      dispatch(postCard(newItem, boardId))
       setNewItem("")
     }
   }

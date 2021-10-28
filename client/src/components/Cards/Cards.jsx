@@ -20,7 +20,7 @@ const Cards = () => {
     <div className="cards-wrapper">
       {cards.map((item) => {
         const { title, _id } = item
-        return <Card title={title} _id={_id} key={_id} />
+        return <Card title={title} cardId={_id} key={_id} />
       })}
     </div>
   )
