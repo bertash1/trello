@@ -1,20 +1,20 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import PropTypes from "prop-types"
 
 import { getCards } from "../../actions/card"
 import { getTasks } from "../../actions/task"
 import Card from "../Card/Card"
 import "./style.sass"
 
-const Cards = ({ userId }) => {
+const Cards = () => {
   const dispatch = useDispatch()
+  const boardId = useSelector((state) => state.boards.activeBoard._id)
   const cards = useSelector((state) => state.cards)
 
   useEffect(() => {
-    dispatch(getCards(userId))
-    dispatch(getTasks())
-  }, [dispatch, userId])
+    dispatch(getCards(boardId))
+    dispatch(getTasks(boardId))
+  }, [dispatch, boardId])
 
   return (
     <div className="cards-wrapper">
@@ -24,10 +24,6 @@ const Cards = ({ userId }) => {
       })}
     </div>
   )
-}
-
-Cards.propTypes = {
-  userId: PropTypes.string,
 }
 
 export default Cards

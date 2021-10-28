@@ -1,8 +1,19 @@
-.board
-  display: flex
-  align-items: flex-start
-
-  &__wrapper
-    min-height: 100vh
-    background: url("../../assets/bg-main.jfif")
+@import ../../constants/colors
   
+.board
+  box-sizing: border-box
+  width: 250px
+  height: 100px
+  padding: 10px
+  margin: 10px
+  border-radius: 5px
+  background-color: $mainBg
+  transition: 0.2s
+  
+  &:hover
+    cursor: pointer
+    background-color: #dddcdc
+
+  &__title
+    font-weight: bold
+    color: #2a2929

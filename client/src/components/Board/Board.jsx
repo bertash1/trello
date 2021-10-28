@@ -1,24 +1,27 @@
 import React from "react"
+import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 
-import AddCard from "../Card/AddCard/AddCard"
-import Header from "../Header/Header"
-
-import Cards from "../Cards/Cards"
 import "./style.sass"
+import { getBoard } from "../../actions/board"
 
-const Board = ({ userId }) => (
-  <div className="board__wrapper">
-    <Header />
-    <div className="board">
-      <Cards userId={userId} />
-      <AddCard type="card" />
+const Board = ({ title, boardId }) => {
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(getBoard(boardId))
+  }
+
+  return (
+    <div className="board" onClick={handleClick} role="none">
+      <span className="board__title">{title}</span>
     </div>
-  </div>
-)
+  )
+}
 
 Board.propTypes = {
-  userId: PropTypes.string,
+  title: PropTypes.string,
+  boardId: PropTypes.string,
 }
 
 export default Board
