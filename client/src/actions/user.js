@@ -1,4 +1,4 @@
-import { USER_REGISTRATION, USER_LOGIN } from "./types"
+import { USER_REGISTRATION, USER_LOGIN, GET_USER_DATA } from "./types"
 import { $api } from "../http"
 
 export const userRegistration = (email, password) => async (dispatch) => {
@@ -16,5 +16,14 @@ export const userLogin = (email, password) => async (dispatch) => {
   dispatch({
     type: USER_LOGIN,
     payload: user,
+  })
+}
+
+export const getUserData = () => async (dispatch) => {
+  const userData = await $api.get("userdata")
+
+  dispatch({
+    type: GET_USER_DATA,
+    payload: userData,
   })
 }

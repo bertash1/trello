@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import { getCards } from "../../actions/card"
 import { getTasks } from "../../actions/task"
@@ -8,8 +9,8 @@ import "./style.sass"
 
 const Cards = () => {
   const dispatch = useDispatch()
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
   const cards = useSelector((state) => state.cards)
+  const { boardId } = useParams()
 
   useEffect(() => {
     dispatch(getCards(boardId))

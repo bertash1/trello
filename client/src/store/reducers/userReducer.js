@@ -1,6 +1,11 @@
-import { USER_LOGIN, USER_LOGOUT, USER_REGISTRATION } from "../../actions/types"
+import {
+  USER_LOGIN,
+  USER_LOGOUT,
+  USER_REGISTRATION,
+  GET_USER_DATA,
+} from "../../actions/types"
 
-const initialState = {}
+const initialState = []
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,6 +14,8 @@ export const userReducer = (state = initialState, action) => {
     case USER_LOGOUT:
       return state
     case USER_LOGIN:
+      return state
+    case GET_USER_DATA:
       return action.payload
     default:
       return state
