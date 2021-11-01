@@ -14,7 +14,6 @@ const TaskMenu = ({ taskId, setIsEdited }) => {
   const menu = useRef()
   const dispatch = useDispatch()
 
-  // const boardId = useSelector((state) => state.boards.activeBoard._id)
   const { boardId } = useParams()
 
   const menuClassName = classNames([
