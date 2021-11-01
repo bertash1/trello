@@ -8,6 +8,7 @@ const {
   login,
   logout,
   refresh,
+  getUserTokenData
 } = require('../controllers/user');
 
 router.post(
@@ -20,5 +21,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.get('/activate/:link', activate);
 router.get('/refresh', refresh);
+router.get('/userdata', getUserTokenData)
 
 module.exports = router;

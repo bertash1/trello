@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import Options from "../Common/Options/Options"
 import Task from "../Task/Task"
@@ -15,8 +16,8 @@ const Card = ({ title, cardId }) => {
   const [inputValue, setInputValue] = useState(title)
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
+  const { boardId } = useParams()
 
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
   const taskData = useSelector((state) => state.task.tasks)
   const tasks = taskData.filter((item) => item.card === cardId)
 

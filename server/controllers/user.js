@@ -6,6 +6,7 @@ const {
   refreshUserToken,
 } = require('../service/user');
 const { validationResult } = require('express-validator');
+const { getUserData } = require('../service/token')
 const ApiError = require('../exceptions/api-error');
 
 const registration = async (req, res) => {
@@ -77,8 +78,18 @@ const refresh = async (req, res, next) => {
   }
 };
 
+const getUserTokenData = async (req, res) => {
+  const authorizationHeader = req.headers.authorization;
+
+  const accessToken = authorizationHeader.split(" ")[1];
+  const userData = getUserData(accessToken);
+
+  res.status(200).json(userData)
+}
+
 exports.registration = registration;
 exports.activate = activate;
 exports.login = login;
 exports.logout = logout;
 exports.refresh = refresh;
+exports.getUserTokenData = getUserTokenData;

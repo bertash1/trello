@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import AddButton from "../../Common/AddButton/AddButton"
 import Form from "../../Common/Form/Form"
@@ -10,8 +11,7 @@ const AddTask = ({ cardId }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
-
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
+  const { boardId } = useParams()
 
   const handleClick = () => {
     setIsEdited(!isEdited)

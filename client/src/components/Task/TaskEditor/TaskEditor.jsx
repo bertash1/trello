@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch, useSelector } from "react-redux"
-import { editTask } from "../../../actions/task"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
+import { editTask } from "../../../actions/task"
 import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
 import Input from "../../Common/Input/Input"
 import TaskMenu from "../TaskMenu/TaskMenu"
@@ -18,7 +19,7 @@ const TaskEditor = ({
   const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
+  const { boardId } = useParams()
 
   const handleSubmit = (e) => {
     e.preventDefault()
