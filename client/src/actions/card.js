@@ -18,11 +18,11 @@ export const postCard = (title, boardId) => async (dispatch) => {
 }
 
 export const editCard =
-  (id, title = "", cardId) =>
+  (cardId, title = "", boardId) =>
   async (dispatch) => {
-    await $api.patch(`card/${id}`, { title })
+    await $api.patch(`card/${cardId}`, { title })
     dispatch({ type: EDIT_CARD })
-    dispatch(getCards(cardId))
+    dispatch(getCards(boardId))
   }
 
 export const deleteCard = (cardId, boardId) => async (dispatch) => {

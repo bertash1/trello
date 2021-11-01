@@ -4,8 +4,8 @@ import { useSelector } from "react-redux"
 import "./style.sass"
 
 const MemberBar = () => {
-  const userEmail = useSelector((state) => state.userData.user.email)
-  const letter = userEmail.slice(0, 1).toUpperCase()
+  const userEmail = useSelector((state) => state.userData.email)
+  const letter = userEmail ? userEmail.slice(0, 1).toUpperCase() : " "
 
   return (
     <div className="member-bar">

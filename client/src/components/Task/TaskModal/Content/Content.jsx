@@ -6,7 +6,7 @@ import Info from "../Info/Info"
 import Menu from "../Menu/Menu"
 import "./style.sass"
 
-const Content = ({ cardId, taskId }) => {
+const Content = ({ taskId }) => {
   const [isDescriptionEdited, setIsDescriptionEdited] = useState(false)
 
   const { description } = useSelector((state) => state.task.pickedTask)
@@ -23,13 +23,12 @@ const Content = ({ cardId, taskId }) => {
         description={description}
         handleCloseDescription={handleCloseDescription}
       />
-      <Menu cardId={cardId} taskId={taskId} />
+      <Menu taskId={taskId} />
     </div>
   )
 }
 
 Content.propTypes = {
-  cardId: PropTypes.string,
   taskId: PropTypes.string,
 }
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import { grey } from "@mui/material/colors"
+import { useParams } from "react-router-dom"
 
 import CloseButton from "../../../Common/CloseButton/CloseButton"
 import Input from "../../../Common/Input/Input"
@@ -20,6 +21,8 @@ const Header = ({
   const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
+  const boardId = useParams()
+
   const handleInputChange = (e) => {
     setEditedTitle(e.target.value)
   }
@@ -27,7 +30,7 @@ const Header = ({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (editedTitle) {
-      dispatch(editTask(taskId, { title: editedTitle }))
+      dispatch(editTask(taskId, { title: editedTitle }, boardId))
       setIsTitleEdited(false)
     }
   }

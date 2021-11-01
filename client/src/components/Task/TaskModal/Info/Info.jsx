@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import LineWeightOutlinedIcon from "@mui/icons-material/LineWeightOutlined"
 import { grey } from "@mui/material/colors"
+import { useParams } from "react-router-dom"
 
 import Form from "../../../Common/Form/Form"
 import ModalButton from "../ModalButton/ModalButton"
@@ -19,6 +20,8 @@ const Info = ({
   const [editedDescription, setEditedDescription] = useState(null)
   const dispatch = useDispatch()
 
+  const boardId = useParams()
+
   useEffect(() => {
     setEditedDescription(description)
   }, [description])
@@ -30,7 +33,7 @@ const Info = ({
 
   const handleDescriptionSubmit = async (e) => {
     e.preventDefault()
-    dispatch(editTask(taskId, { description: editedDescription }))
+    dispatch(editTask(taskId, { description: editedDescription }, boardId))
     handleCloseDescription()
   }
 

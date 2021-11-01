@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import AddButton from "../../Common/AddButton/AddButton"
 import Form from "../../Common/Form/Form"
@@ -10,7 +11,7 @@ const AddCard = () => {
   const [newItem, setNewItem] = useState("")
   const dispatch = useDispatch()
 
-  const userId = useSelector((state) => state.userData.user._id)
+  const { boardId } = useParams()
 
   const handleClick = () => {
     setIsEdited(!isEdited)
@@ -19,7 +20,7 @@ const AddCard = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newItem) {
-      dispatch(postCard(newItem, userId))
+      dispatch(postCard(newItem, boardId))
       setNewItem("")
     }
   }

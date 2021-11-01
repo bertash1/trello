@@ -1,18 +1,20 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import PropTypes from "prop-types"
 
 import { getUserBoards } from "../../actions/board"
 import Header from "../../components/Header/Header"
 import "./style.sass"
 import Board from "../../components/Board/Board"
 
-const Dashboard = ({ userId }) => {
+const Dashboard = () => {
   const dispatch = useDispatch()
+  const userId = useSelector((state) => state.userData?._id)
   const { userBoards = [] } = useSelector((state) => state.boards)
 
   useEffect(() => {
-    dispatch(getUserBoards(userId))
+    if (userId) {
+      dispatch(getUserBoards(userId))
+    }
   }, [userId, dispatch])
 
   return (
@@ -27,10 +29,6 @@ const Dashboard = ({ userId }) => {
       </div>
     </div>
   )
-}
-
-Dashboard.propTypes = {
-  userId: PropTypes.string,
 }
 
 export default Dashboard
