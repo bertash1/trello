@@ -11,8 +11,6 @@ const Dashboard = () => {
   const userId = useSelector((state) => state.userData?._id)
   const { userBoards = [] } = useSelector((state) => state.boards)
 
-  console.log(userId)
-
   useEffect(() => {
     if (userId) {
       dispatch(getUserBoards(userId))

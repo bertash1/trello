@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import { grey } from "@mui/material/colors"
+import { useParams } from "react-router-dom"
 
 import CloseButton from "../../../Common/CloseButton/CloseButton"
 import Input from "../../../Common/Input/Input"
@@ -20,7 +21,7 @@ const Header = ({
   const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
+  const boardId = useParams()
 
   const handleInputChange = (e) => {
     setEditedTitle(e.target.value)

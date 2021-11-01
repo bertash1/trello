@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import LineWeightOutlinedIcon from "@mui/icons-material/LineWeightOutlined"
 import { grey } from "@mui/material/colors"
+import { useParams } from "react-router-dom"
 
 import Form from "../../../Common/Form/Form"
 import ModalButton from "../ModalButton/ModalButton"
@@ -19,7 +20,7 @@ const Info = ({
   const [editedDescription, setEditedDescription] = useState(null)
   const dispatch = useDispatch()
 
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
+  const boardId = useParams()
 
   useEffect(() => {
     setEditedDescription(description)

@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import "./style.sass"
 import { deleteCard } from "../../../actions/card"
 import OutsideClickHandler from "../../Common/OutsideClickHandler/OutsideClickHandler"
 import CloseButton from "../../Common/CloseButton/CloseButton"
 
-const CardMenu = ({ handleShowMenu = () => null, id, boardId }) => {
+const CardMenu = ({ handleShowMenu = () => null, id }) => {
   const dispatch = useDispatch()
+  const { boardId } = useParams()
 
   const handleKeyPress = useCallback(
     (e) => {
@@ -53,7 +55,6 @@ const CardMenu = ({ handleShowMenu = () => null, id, boardId }) => {
 CardMenu.propTypes = {
   handleShowMenu: PropTypes.func,
   id: PropTypes.string,
-  boardId: PropTypes.string,
 }
 
 export default CardMenu

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
@@ -13,7 +14,8 @@ const TaskMenu = ({ taskId, setIsEdited }) => {
   const menu = useRef()
   const dispatch = useDispatch()
 
-  const boardId = useSelector((state) => state.boards.activeBoard._id)
+  // const boardId = useSelector((state) => state.boards.activeBoard._id)
+  const { boardId } = useParams()
 
   const menuClassName = classNames([
     "task__menu",
