@@ -5,7 +5,7 @@ import "./style.sass"
 
 const MemberBar = () => {
   const userEmail = useSelector((state) => state.userData.email)
-  const letter = userEmail.slice(0, 1).toUpperCase()
+  const letter = userEmail ? userEmail.slice(0, 1).toUpperCase() : " "
 
   return (
     <div className="member-bar">
