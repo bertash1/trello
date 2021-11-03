@@ -17,3 +17,4 @@ export const GET_USER_DATA = "GET_USER_DATA"
 
 export const GET_USER_BOARDS = "GET_USER_BOARDS"
 export const GET_BOARD = "GET_BOARD"
+export const ADD_BOARD = "ADD_BOARD"
