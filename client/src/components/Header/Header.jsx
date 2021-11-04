@@ -1,20 +1,17 @@
 import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import MemberBar from "./MemberBar/MemberBar"
 import { getUserData } from "../../actions/user"
 import "./style.sass"
 
 const Header = () => {
   const dispatch = useDispatch()
-  const userId = useSelector((state) => state.userData._id)
   useEffect(() => {
-    if (!userId) {
-      const getData = async () => {
-        await dispatch(getUserData())
-      }
-      getData()
+    const getData = async () => {
+      await dispatch(getUserData())
     }
-  }, [dispatch, userId])
+    getData()
+  }, [dispatch])
   return (
     <header className="header">
       <span className="header__logo">Custom Trello</span>

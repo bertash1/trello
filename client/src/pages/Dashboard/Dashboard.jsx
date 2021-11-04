@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(getUserBoards(userId))
+      dispatch(getUserBoards())
     }
   }, [userId, dispatch])
 

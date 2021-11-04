@@ -1,8 +1,8 @@
 import { GET_BOARD, GET_USER_BOARDS, ADD_BOARD } from "./types"
 import { $api } from "../http"
 
-export const getUserBoards = (userId) => async (dispatch) => {
-  const userBoards = await $api.get(`board/userBoards/${userId}`)
+export const getUserBoards = () => async (dispatch) => {
+  const userBoards = await $api.get(`board/userBoards`)
   dispatch({
     type: GET_USER_BOARDS,
     payload: userBoards,
@@ -17,8 +17,8 @@ export const getBoard = (boardId) => async (dispatch) => {
   })
 }
 
-export const addBoard = (userId, title) => async (dispatch) => {
-  const board = await $api.post(`board/${userId}`, { title })
+export const addBoard = (title) => async (dispatch) => {
+  const board = await $api.post(`board`, { title })
   dispatch({
     type: ADD_BOARD,
     payload: board,
