@@ -10,6 +10,7 @@ import "./style.sass"
 
 const BoardModal = ({ handleShowMenu }) => {
   const [inputValue, setInputValue] = useState("")
+  const userId = useSelector((state) => state.userData?._id)
   const { activeBoard } = useSelector((state) => state.boards)
 
   const dispatch = useDispatch()
@@ -21,9 +22,9 @@ const BoardModal = ({ handleShowMenu }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addBoard(inputValue))
+    dispatch(addBoard(userId, inputValue))
     setInputValue("")
-    dispatch(getUserBoards())
+    dispatch(getUserBoards(userId))
   }
 
   useEffect(() => {
