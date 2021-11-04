@@ -9,14 +9,11 @@ import AddBoard from "../../components/Board/AddBoard/AddBoard"
 
 const Dashboard = () => {
   const dispatch = useDispatch()
-  const userId = useSelector((state) => state.userData?._id)
   const { userBoards = [] } = useSelector((state) => state.boards)
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getUserBoards(userId))
-    }
-  }, [userId, dispatch])
+    dispatch(getUserBoards())
+  }, [dispatch])
 
   return (
     <div className="dashboard__wrapper">
