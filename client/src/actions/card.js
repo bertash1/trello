@@ -1,11 +1,39 @@
-import { GET_CARDS, POST_CARD, EDIT_CARD, DELETE_CARD } from "./types"
+import {
+  GET_CARDS,
+  POST_CARD,
+  EDIT_CARD,
+  DELETE_CARD,
+  CHANGE_ORDER,
+  CHANGE_LOCAL_ORDER,
+} from "./types"
 import { $api } from "../http"
 
 export const getCards = (boardId) => async (dispatch) => {
   const cards = await $api.get(`card/${boardId}`)
+  const sortedCards = cards.sort((a, b) => (a.position > b.position ? 1 : -1))
   dispatch({
     type: GET_CARDS,
-    payload: cards,
+    payload: sortedCards,
+  })
+}
+
+export const changeOrder =
+  (cardId, newPosition, oldPosition, boardId) => async (dispatch) => {
+    await $api.patch(`card/changeorder/${cardId}`, {
+      newPosition,
+      oldPosition,
+      boardId,
+    })
+
+    await dispatch({
+      type: CHANGE_ORDER,
+    })
+  }
+
+export const changeLocalOrder = (items) => (dispatch) => {
+  dispatch({
+    type: CHANGE_LOCAL_ORDER,
+    payload: items,
   })
 }
 
