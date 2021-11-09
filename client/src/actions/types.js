@@ -1,7 +1,11 @@
 export const GET_CARDS = "FETCH_CARDS"
+
 export const POST_CARD = "POST_CARD"
 export const EDIT_CARD = "CHANGE_CARD"
 export const DELETE_CARD = "DELETE_CARD"
+
+export const CHANGE_ORDER = "CHANGE_ORDER"
+export const CHANGE_LOCAL_ORDER = "CHANGE_LOCAL_ORDER"
 
 export const GET_TASK = "FETCH_TASK"
 export const GET_TASKS = "GET TASKS"

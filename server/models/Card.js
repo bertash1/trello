@@ -9,6 +9,7 @@ const CardSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Board",
   },
+  position: Number
 });
 
 module.exports = Card = model("Card", CardSchema);
