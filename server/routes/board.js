@@ -14,9 +14,9 @@ const {
   getBoard,
 } = require("../controllers/board");
 
-router.post("/:userId", authMiddleware, addBoard);
+router.post("/", authMiddleware, addBoard);
+router.get("/userBoards", authMiddleware, getBoards);
 router.get("/:boardId", authMiddleware, checkUserPermissions, getBoard);
-router.get("/userBoards/:userId", authMiddleware, getBoards);
 
 router.patch(
   "/addUser/:boardId/:userId",

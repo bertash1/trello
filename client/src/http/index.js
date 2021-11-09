@@ -18,7 +18,7 @@ export const $api = {
 
   async patch(url, body) {
     try {
-      await fetch(`${process.env.REACT_APP_URL}/${url}`, {
+      const data = await fetch(`${process.env.REACT_APP_URL}/${url}`, {
         method: "PATCH",
         body: JSON.stringify(body),
         headers: {
@@ -26,6 +26,7 @@ export const $api = {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
+      return await data.json()
     } catch (error) {
       console.log(error)
     }

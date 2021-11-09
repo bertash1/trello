@@ -42,7 +42,7 @@ const Card = ({ title, cardId }) => {
   }
 
   return (
-    <div className="card">
+    <>
       <div className="card__header">
         {!isEdited ? (
           <span
@@ -87,7 +87,7 @@ const Card = ({ title, cardId }) => {
       <AddTask cardId={cardId} />
 
       <div className="card__tasks-wrapper" />
-    </div>
+    </>
   )
 }
 
@@ -96,4 +96,4 @@ Card.propTypes = {
   cardId: PropTypes.string,
 }
 
-export default Card
+export default React.memo(Card)

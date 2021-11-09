@@ -2,7 +2,7 @@ const Board = require("../models/Board");
 
 const getBoards = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const  userId  = req.user._id
 
     const boards = await Board.find({ users: { _id: userId } }, {_id: 1, title: 1});
     res.status(200).json(boards);
@@ -25,7 +25,7 @@ const getBoard = async (req, res) => {
 const addBoard = async (req, res) => {
   try {
     const { title } = req.body;
-    const { userId } = req.params;
+    const  userId  = req.user._id
 
     const board = await Board.create({
       title,
