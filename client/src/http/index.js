@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 export const $api = {
   async post(url, body, id = "") {
     try {
