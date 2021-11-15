@@ -10,6 +10,8 @@ import {
   changeTaskOrder,
 } from "../../actions/task"
 import Card from "../Card/Card"
+import getSortedCards from "../../utils/sorting/getSortedCards"
+import getSortedTasks from "../../utils/sorting/getSortedTasks"
 import "./style.sass"
 
 const Cards = () => {
@@ -25,9 +27,7 @@ const Cards = () => {
       if (!result.destination) return
 
       if (result.type === "card") {
-        const elements = Array.from(localCards)
-        const [reorderedElement] = elements.splice(result.source.index, 1)
-        elements.splice(result.destination.index, 0, reorderedElement)
+        const elements = getSortedCards(localCards, result)
 
         dispatch(
           changeOrder(
@@ -41,83 +41,7 @@ const Cards = () => {
       }
 
       if (result.type === "task") {
-        const elements = [...taskData]
-
-        if (result.source.droppableId === result.destination.droppableId) {
-          if (
-            result.source.index - result.destination.index === 1 ||
-            result.source.index - result.destination.index === -1
-          ) {
-            const newEl = elements.find(
-              (item) => item._id === result.draggableId
-            )
-
-            const oldEl = elements.find(
-              (item) =>
-                item.position === result.destination.index &&
-                item.card === result.source.droppableId
-            )
-
-            newEl.position = result.destination.index
-            oldEl.position = result.source.index
-          }
-
-          if (result.source.index - result.destination.index < -1) {
-            const currentTask = elements.find(
-              (item) => item._id === result.draggableId
-            )
-
-            elements.map((item) => {
-              if (
-                item.position <= result.destination.index &&
-                item.position > result.source.index &&
-                item.card === result.source.droppableId
-              ) {
-                return (item.position += -1)
-              }
-            })
-            currentTask.position = result.destination.index
-          }
-
-          if (result.source.index - result.destination.index > 1) {
-            const currentTask = elements.find(
-              (item) => item._id === result.draggableId
-            )
-            elements.map((item) => {
-              if (
-                item.position >= result.destination.index &&
-                item.position < result.source.index &&
-                item.card === result.source.droppableId
-              ) {
-                return (item.position += 1)
-              }
-            })
-            currentTask.position = result.destination.index
-          }
-        } else if (
-          result.source.droppableId !== result.destination.droppableId
-        ) {
-          const currentTask = elements.find(
-            (item) => item._id === result.draggableId
-          )
-          elements.map((item) => {
-            if (
-              item.position >= result.destination.index &&
-              item.card === result.destination.droppableId
-            ) {
-              return (item.position += 1)
-            }
-            if (
-              item.position > result.source.index &&
-              item.card === result.source.droppableId
-            ) {
-              return (item.position -= 1)
-            }
-          })
-          currentTask.position = result.destination.index
-          currentTask.card = result.destination.droppableId
-          // }
-        }
+        const elements = getSortedTasks(taskData, result)
 
         dispatch(changeTaskLocalOrder(elements))
         dispatch(
