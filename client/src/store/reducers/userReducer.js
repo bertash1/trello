@@ -12,7 +12,7 @@ export const userReducer = (state = initialState, action) => {
     case USER_REGISTRATION:
       return action.payload
     case USER_LOGOUT:
-      return state
+      return []
     case USER_LOGIN:
       return state
     case GET_USER_DATA:
