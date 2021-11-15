@@ -1,17 +1,22 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
 
 import "./style.sass"
 
-const MemberBar = () => {
+const MemberBar = ({ handleShowMenu }) => {
   const userEmail = useSelector((state) => state.userData.email)
   const letter = userEmail ? userEmail.slice(0, 1).toUpperCase() : " "
 
   return (
-    <div className="member-bar">
+    <div className="member-bar" onClick={handleShowMenu} role="none">
       <span className="member-bar__member-letter">{letter}</span>
     </div>
   )
+}
+
+MemberBar.propTypes = {
+  handleShowMenu: PropTypes.func,
 }
 
 export default MemberBar
