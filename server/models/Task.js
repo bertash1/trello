@@ -14,6 +14,7 @@ const TaskSchema = new Schema({
   board: {
     type: Schema.Types.ObjectId, ref: "Board",
   },
+  position: Number,
 });
 
 module.exports = Task = model("Task", TaskSchema);

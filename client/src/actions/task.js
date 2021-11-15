@@ -5,14 +5,24 @@ import {
   EDIT_TASK,
   CANCEL_PICKED_TASK,
   GET_TASKS,
+  CHANGE_TASK_LOCAL_ORDER,
+  CHANGE_TASK_ORDER,
 } from "./types"
 import { $api } from "../http"
 
+export const changeTaskLocalOrder = (items) => (dispatch) => {
+  dispatch({
+    type: CHANGE_TASK_LOCAL_ORDER,
+    payload: items,
+  })
+}
+
 export const getTasks = (boardId) => async (dispatch) => {
   const tasks = await $api.get(`task/${boardId}`)
+  const sortedTasks = tasks.sort((a, b) => (a.position > b.position ? 1 : -1))
   dispatch({
     type: GET_TASKS,
-    payload: tasks,
+    payload: sortedTasks,
   })
 }
 
@@ -50,3 +60,18 @@ export const deleteTask = (id, boardId) => async (dispatch) => {
   dispatch({ type: DELETE_TASK })
   dispatch(getTasks(boardId))
 }
+
+export const changeTaskOrder =
+  (taskId, newPosition, oldPosition, oldCardId, newCardId) =>
+  async (dispatch) => {
+    await $api.patch(`task/changeorder/${taskId}`, {
+      newPosition,
+      oldPosition,
+      oldCardId,
+      newCardId,
+    })
+
+    dispatch({
+      type: CHANGE_TASK_ORDER,
+    })
+  }

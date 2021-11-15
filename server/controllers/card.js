@@ -36,8 +36,11 @@ const getCards = async (req, res) => {
 const deleteCard = async (req, res) => {
   const { cardId } = req.params;
 
+  const card = await Card.findById(cardId)
+
   await Task.deleteMany({ card: { _id: cardId } });
-  const card = await Card.findByIdAndDelete(cardId);
+  await Card.updateMany({"board": card.board, position: {$gt: card.position}}, {$inc: {position: -1}})
+  await card.remove()
 
   res.status(200).json(card);
 };

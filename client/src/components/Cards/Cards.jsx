@@ -1,39 +1,61 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { DragDropContext, Droppable } from "react-beautiful-dnd"
 
 import { getCards, changeOrder, changeLocalOrder } from "../../actions/card"
-import { getTasks } from "../../actions/task"
+import {
+  getTasks,
+  changeTaskLocalOrder,
+  changeTaskOrder,
+} from "../../actions/task"
 import Card from "../Card/Card"
+import getSortedCards from "../../utils/sorting/getSortedCards"
+import getSortedTasks from "../../utils/sorting/getSortedTasks"
 import "./style.sass"
 
 const Cards = () => {
   const dispatch = useDispatch()
 
   const localCards = useSelector((state) => state.cards.local)
+  const taskData = useSelector((state) => state.task.tasks)
+
   const { boardId } = useParams()
 
   const handleOnDragEnd = useCallback(
     async (result) => {
       if (!result.destination) return
-      const elements = Array.from(localCards)
-      const [reorderedElement] = elements.splice(result.source.index, 1)
-      elements.splice(result.destination.index, 0, reorderedElement)
 
-      dispatch(
-        changeOrder(
-          result.draggableId,
-          result.destination.index,
-          result.source.index,
-          boardId
+      if (result.type === "card") {
+        const elements = getSortedCards(localCards, result)
+
+        dispatch(
+          changeOrder(
+            result.draggableId,
+            result.destination.index,
+            result.source.index,
+            boardId
+          )
         )
-      )
-      dispatch(changeLocalOrder(elements))
+        dispatch(changeLocalOrder(elements))
+      }
+
+      if (result.type === "task") {
+        const elements = getSortedTasks(taskData, result)
+
+        dispatch(changeTaskLocalOrder(elements))
+        dispatch(
+          changeTaskOrder(
+            result.draggableId,
+            result.destination.index,
+            result.source.index,
+            result.source.droppableId,
+            result.destination.droppableId
+          )
+        )
+      }
     },
-    [boardId, dispatch, localCards]
+    [boardId, dispatch, localCards, taskData]
   )
 
   useEffect(() => {
@@ -43,7 +65,7 @@ const Cards = () => {
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="cards-wrapper" direction="horizontal">
+      <Droppable droppableId="cards-wrapper" direction="horizontal" type="card">
         {(provided) => (
           <div
             className="cards-wrapper"
@@ -52,18 +74,12 @@ const Cards = () => {
           >
             {localCards &&
               localCards.map((item, index) => (
-                <Draggable key={item._id} draggableId={item._id} index={index}>
-                  {(provided) => (
-                    <div
-                      className="card"
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <Card title={item.title} cardId={item._id} />
-                    </div>
-                  )}
-                </Draggable>
+                <Card
+                  key={item._id}
+                  title={item.title}
+                  cardId={item._id}
+                  index={index}
+                />
               ))}
             {provided.placeholder}
           </div>
@@ -73,4 +89,4 @@ const Cards = () => {
   )
 }
 
-export default Cards
+export default React.memo(Cards)
