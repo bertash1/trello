@@ -19,7 +19,7 @@ router.get("/userBoards", authMiddleware, getBoards);
 router.get("/:boardId", authMiddleware, checkUserPermissions, getBoard);
 
 router.patch(
-  "/addUser/:boardId/:userId",
+  "/addUser/:boardId",
   authMiddleware,
   checkOwnerPermissions,
   addBoardUser

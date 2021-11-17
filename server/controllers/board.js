@@ -1,4 +1,5 @@
 const Board = require("../models/Board");
+const User = require("../models/User");
 
 const getBoards = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ const getBoard = async (req, res) => {
   try {
     const { boardId } = req.params;
 
-    const board = await Board.findById(boardId);
+    const board = await Board.findById(boardId).populate('users');
     res.status(200).json(board);
   } catch (error) {
     throw error;
@@ -41,20 +42,22 @@ const addBoard = async (req, res) => {
 
 const addBoardUser = async (req, res) => {
   try {
-    const { boardId, userId } = req.params;
+    const { boardId } = req.params;
+    const {email} = req.body
 
     const board = await Board.findById(boardId);
+    const user = await User.findOne({email})
 
-    if (board.users.includes(userId)) {
+    if (board.users.includes(user._id)) {
       res.status(403).json({ message: "User has already been added" });
     } else {
       const board = await Board.findByIdAndUpdate(
         boardId,
         {
-          $push: { users: userId },
+          $push: { users: user._id },
         },
         { new: true }
-      );
+      ).populate('users')
       res.status(200).json(board);
     }
   } catch (error) {

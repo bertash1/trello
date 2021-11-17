@@ -1,12 +1,17 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import Input from "../../../../Common/Input/Input"
 import ConfirmButton from "../../../../Common/ConfirmButton/ConfirmButton"
+import { addBoardUser } from "../../../../../actions/board"
 import "./style.sass"
 
 const Form = ({ handleButtonClick }) => {
   const [inputValue, setInputValue] = useState("")
+  const dispatch = useDispatch()
+  const { boardId } = useParams()
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
@@ -14,7 +19,7 @@ const Form = ({ handleButtonClick }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    dispatch(addBoardUser(inputValue, boardId))
     setInputValue("")
     handleButtonClick()
   }

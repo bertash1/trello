@@ -21,8 +21,8 @@ const Dashboard = () => {
       <h3 className="dashboard__title">Your boards</h3>
       <div className="boards-wrapper">
         {userBoards &&
-          userBoards.map((item) => (
-            <Board key={item._id} title={item.title} boardId={item._id} />
+          userBoards.map((board) => (
+            <Board key={board._id} title={board.title} boardId={board._id} />
           ))}
         <AddBoard />
       </div>
