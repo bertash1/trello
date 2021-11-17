@@ -4,8 +4,6 @@ import PropTypes from "prop-types"
 import "./style.sass"
 
 const Confirmation = ({ handleIconClick, setModalContent }) => {
-  const char = "<"
-
   const handleButtonClick = () => {
     handleIconClick(false)
   }
@@ -17,7 +15,7 @@ const Confirmation = ({ handleIconClick, setModalContent }) => {
         onClick={() => setModalContent("info")}
         role="none"
       >
-        {char}
+        {"<"}
       </span>
       <p className="remove-modal__title">Remove memeber?</p>
       <span className="remove-modal__line" />
