@@ -21,7 +21,7 @@ const Card = ({ title, cardId, index }) => {
 
   const taskData = useSelector((state) => state.task.tasks)
   const tasks = taskData
-    .filter((item) => item.card === cardId)
+    .filter((task) => task.card === cardId)
     .sort((a, b) => (a.position > b.position ? 1 : -1))
 
   const handleSubmit = (e) => {
@@ -90,12 +90,12 @@ const Card = ({ title, cardId, index }) => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {tasks.map((item, index) => (
+                {tasks.map((task, index) => (
                   <Task
                     index={index}
-                    title={item.title}
-                    taskId={item._id}
-                    key={item._id}
+                    title={task.title}
+                    taskId={task._id}
+                    key={task._id}
                     cardId={cardId}
                     cardTitle={title}
                   />

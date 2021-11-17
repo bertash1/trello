@@ -73,11 +73,11 @@ const Cards = () => {
             ref={provided.innerRef}
           >
             {localCards &&
-              localCards.map((item, index) => (
+              localCards.map((card, index) => (
                 <Card
-                  key={item._id}
-                  title={item.title}
-                  cardId={item._id}
+                  key={card._id}
+                  title={card.title}
+                  cardId={card._id}
                   index={index}
                 />
               ))}
