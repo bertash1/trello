@@ -1,10 +1,17 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
+import { deleteBoardUser } from "../../../../../../actions/board"
 import "./style.sass"
 
-const Confirmation = ({ handleIconClick, setModalContent }) => {
+const Confirmation = ({ handleIconClick, setModalContent, userId }) => {
+  const dispatch = useDispatch()
+  const { boardId } = useParams()
+
   const handleButtonClick = () => {
+    dispatch(deleteBoardUser(userId, boardId))
     handleIconClick(false)
   }
 
@@ -36,6 +43,7 @@ const Confirmation = ({ handleIconClick, setModalContent }) => {
 Confirmation.propTypes = {
   handleIconClick: PropTypes.func,
   setModalContent: PropTypes.func,
+  userId: PropTypes.string,
 }
 
 export default Confirmation

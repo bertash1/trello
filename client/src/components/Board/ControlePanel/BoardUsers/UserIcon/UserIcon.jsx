@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import RemoveModal from "../../RemoveModal/RemoveModal"
 import "./style.sass"
 
-const UserIcon = ({ email }) => {
+const UserIcon = ({ email, userId }) => {
   const [isModalShown, setIsModalShown] = useState(false)
 
   const handleIconClick = () => {
@@ -17,7 +17,11 @@ const UserIcon = ({ email }) => {
         {email ? email[0].toUpperCase() : ""}
       </div>
       {isModalShown && (
-        <RemoveModal email={email} handleIconClick={handleIconClick} />
+        <RemoveModal
+          userId={userId}
+          email={email}
+          handleIconClick={handleIconClick}
+        />
       )}
     </>
   )
@@ -25,6 +29,7 @@ const UserIcon = ({ email }) => {
 
 UserIcon.propTypes = {
   email: PropTypes.string,
+  userId: PropTypes.string,
 }
 
 export default UserIcon

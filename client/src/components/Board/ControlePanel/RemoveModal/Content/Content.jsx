@@ -6,7 +6,7 @@ import Info from "./Info/Info"
 import Confirmation from "./Confirmation/Confirmation"
 import "./style.sass"
 
-const Content = ({ email, handleIconClick }) => {
+const Content = ({ email, userId, handleIconClick }) => {
   const [modalContent, setModalContent] = useState("info")
 
   return (
@@ -15,6 +15,7 @@ const Content = ({ email, handleIconClick }) => {
         <Info email={email} setModalContent={setModalContent} />
       ) : (
         <Confirmation
+          userId={userId}
           setModalContent={setModalContent}
           handleIconClick={handleIconClick}
         />
@@ -28,6 +29,7 @@ const Content = ({ email, handleIconClick }) => {
 
 Content.propTypes = {
   email: PropTypes.string,
+  userId: PropTypes.string,
   handleIconClick: PropTypes.func,
 }
 

@@ -83,8 +83,21 @@ const editBoard = async (req, res) => {
   }
 };
 
+const deleteBoardUser = async (req, res) => {
+  try {
+    const {boardId} = req.params;
+    const {userId} = req.body;
+
+    const board = await Board.findByIdAndUpdate(boardId, {$pull: {users: userId}}, {new: true}).populate('users');
+    res.status(200).json(board);
+  } catch (error) {
+    throw error
+  }
+}
+
 exports.addBoard = addBoard;
 exports.addBoardUser = addBoardUser;
 exports.getBoards = getBoards;
 exports.editBoard = editBoard;
 exports.getBoard = getBoard;
+exports.deleteBoardUser = deleteBoardUser;
