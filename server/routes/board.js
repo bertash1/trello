@@ -12,6 +12,7 @@ const {
   getBoards,
   editBoard,
   getBoard,
+  deleteBoardUser,
 } = require("../controllers/board");
 
 router.post("/", authMiddleware, addBoard);
@@ -31,5 +32,7 @@ router.patch(
   checkOwnerPermissions,
   editBoard
 );
+
+router.patch("/deleteUser/:boardId", checkUserPermissions, deleteBoardUser)
 
 module.exports = router;

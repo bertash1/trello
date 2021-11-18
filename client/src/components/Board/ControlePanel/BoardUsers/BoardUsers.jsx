@@ -10,7 +10,9 @@ const BoardUsers = () => {
   return (
     <div className="board-users">
       {users &&
-        users.map((user) => <UserIcon key={user._id} email={user.email} />)}
+        users.map((user) => (
+          <UserIcon userId={user._id} key={user._id} email={user.email} />
+        ))}
     </div>
   )
 }

@@ -5,16 +5,21 @@ import Content from "./Content/Content"
 import OutsideClickHandler from "../../../Common/OutsideClickHandler/OutsideClickHandler"
 import "./style.sass"
 
-const RemoveModal = ({ email, handleIconClick }) => (
+const RemoveModal = ({ email, userId, handleIconClick }) => (
   <OutsideClickHandler handleClose={handleIconClick}>
     <div className="remove-modal__wrapper">
-      <Content email={email} handleIconClick={handleIconClick} />
+      <Content
+        userId={userId}
+        email={email}
+        handleIconClick={handleIconClick}
+      />
     </div>
   </OutsideClickHandler>
 )
 
 RemoveModal.propTypes = {
   email: PropTypes.string,
+  userId: PropTypes.string,
   handleIconClick: PropTypes.func,
 }
 
