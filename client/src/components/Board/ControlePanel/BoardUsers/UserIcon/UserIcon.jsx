@@ -7,8 +7,6 @@ import "./style.sass"
 const UserIcon = ({ email }) => {
   const [isModalShown, setIsModalShown] = useState(false)
 
-  const char = email[0].toUpperCase()
-
   const handleIconClick = () => {
     setIsModalShown((prev) => !prev)
   }
@@ -16,7 +14,7 @@ const UserIcon = ({ email }) => {
   return (
     <>
       <div className="user-icon" onClick={handleIconClick} role="none">
-        {char}
+        {email ? email[0].toUpperCase() : ""}
       </div>
       {isModalShown && (
         <RemoveModal email={email} handleIconClick={handleIconClick} />
