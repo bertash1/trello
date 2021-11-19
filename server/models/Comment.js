@@ -17,8 +17,7 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Task",
   }, 
-  created_at: String,
-  edited_at: String,
-})
+  
+},{timestamps: true ,})
 
 module.exports = Comment = model("Coment", CommentSchema);

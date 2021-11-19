@@ -5,9 +5,7 @@ const postComment = async (req, res) => {
     const { boardId } = req.params;
     const {text, authorId, taskId } = req.body;
 
-    const date = new Date();
-
-    const comment = await Comment.create({task: taskId, text, author: authorId, board: boardId, created_at: date, edited_at: date});
+    const comment = await Comment.create({task: taskId, text, author: authorId, board: boardId});
     res.status(200).json(comment);
   } catch (error) {
     throw error
@@ -18,9 +16,7 @@ const editComment = async (req,res) => {
   try {
     const { commentId, text } = req.body;
 
-    const date = new Date();
-
-    const comment = await Comment.findByIdAndUpdate(commentId, {text, edited_at: date}, {new: true});
+    const comment = await Comment.findByIdAndUpdate(commentId, {text}, {new: true});
 
     res.status(200).json(comment)
   } catch (error) {
