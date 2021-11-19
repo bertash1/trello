@@ -6,6 +6,7 @@ const cardRouter = require("./routes/card");
 const taskRouter = require("./routes/task");
 const userRouter = require("./routes/user");
 const boardRouter = require("./routes/Board");
+const commentRouter = require("./routes/comment");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const errorMiddleware = require("./middlewares/error-middleware");
@@ -21,6 +22,7 @@ app.use("/api", userRouter);
 app.use("/api/card", cardRouter);
 app.use("/api/task", taskRouter);
 app.use("/api/board", boardRouter);
+app.use("/api/comment", commentRouter);
 
 app.use(errorMiddleware);
 
