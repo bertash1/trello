@@ -26,3 +26,6 @@ export const GET_BOARD = "GET_BOARD"
 export const ADD_BOARD = "ADD_BOARD"
 export const ADD_BOARD_USER = "ADD_BOARD_USER"
 export const DELETE_BOARD_USER = "DELETE_BOARD_USER"
+
+export const DELETE_COMMENT = "DELETE_COMMENT"
+export const EDIT_COMMENT = "EDIT_COMMENT"

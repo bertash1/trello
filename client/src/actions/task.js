@@ -50,14 +50,14 @@ export const getTask = (taskId) => async (dispatch) => {
 export const editTask = (taskId, newTask, boardId) => async (dispatch) => {
   const { title, description } = newTask
   await $api.patch(`task/${taskId}`, { title, description })
-  dispatch({ type: EDIT_TASK })
-  dispatch(getTask(taskId))
+  await dispatch({ type: EDIT_TASK })
+  await dispatch(getTask(taskId))
   dispatch(getTasks(boardId))
 }
 
 export const deleteTask = (id, boardId) => async (dispatch) => {
   await $api.delete(`task/${id}`)
-  dispatch({ type: DELETE_TASK })
+  await dispatch({ type: DELETE_TASK })
   dispatch(getTasks(boardId))
 }
 

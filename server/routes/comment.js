@@ -6,11 +6,10 @@ const checkIsUserCommentAuthor = require("../middlewares/checkIsUserCommentAutho
 
 const router = express.Router();
 
-const { postComment, editComment, deleteComment, getTasks } = require("../controllers/comment");
+const { postComment, editComment, deleteComment } = require("../controllers/comment");
 
 router.post("/:boardId", authMiddleware, checkUserPermissions, postComment);
 router.patch("/", authMiddleware, checkUserPermissions, checkIsUserCommentAuthor, editComment);
-router.delete("/", authMiddleware, checkUserPermissions, checkIsUserCommentAuthor, deleteComment)
-router.get("/", authMiddleware, checkUserPermissions, getTasks)
+router.delete("/:commentId", authMiddleware, checkUserPermissions, checkIsUserCommentAuthor, deleteComment)
 
 module.exports = router;
