@@ -4,7 +4,7 @@ const { getUserData } = require("../service/token");
 const Comment = require("../models/Comment");
 
 module.exports = async (req, res, next) => {
-  const {commentId} = req.body;
+  const {commentId} = req.params;
 
   const authorizationHeader = req.headers.authorization;
 

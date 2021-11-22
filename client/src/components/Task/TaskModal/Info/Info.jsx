@@ -10,6 +10,7 @@ import Form from "../../../Common/Form/Form"
 import ModalButton from "../ModalButton/ModalButton"
 import { editTask } from "../../../../actions/task"
 import "./style.sass"
+import Comments from "../Comments/Comments"
 
 const Info = ({
   isDescriptionEdited,
@@ -67,6 +68,7 @@ const Info = ({
           newItem={editedDescription}
         />
       )}
+      <Comments taskId={taskId} />
     </div>
   )
 }

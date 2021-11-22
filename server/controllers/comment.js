@@ -26,7 +26,7 @@ const editComment = async (req,res) => {
 
 const deleteComment = async (req, res) => {
   try {
-    const {commentId} = req.body;
+    const {commentId} = req.params;
 
     const comment = await Comment.findByIdAndDelete(commentId);
 
@@ -36,15 +36,6 @@ const deleteComment = async (req, res) => {
   }
 }
 
-const getTasks = async (req, res) => {
-  const {taskId} = req.body;
-
-  const comments = await Comment.find({task: taskId})
-
-  res.status(200).json(comments);
-}
-
 exports.postComment = postComment;
 exports.editComment = editComment;
 exports.deleteComment = deleteComment;
-exports.getTasks = getTasks;

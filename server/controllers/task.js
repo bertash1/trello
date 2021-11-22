@@ -1,4 +1,5 @@
 const Task = require("../models/Task");
+const Comment = require("../models/Comment");
 
 const postTask = async (req, res) => {
   try {
@@ -27,8 +28,13 @@ const getTask = async (req, res) => {
     const { taskId } = req.params;
 
     const task = await Task.findById(taskId);
+    const comments = await (await Comment.find({task: taskId}).populate("author")).reverse()
 
-    res.status(200).json(task);
+    const taskData = {
+      task, comments
+    }
+
+    res.status(200).json(taskData);
   } catch (error) {
     throw error;
   }
