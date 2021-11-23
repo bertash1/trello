@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 
-import { getCards, changeOrder, changeLocalOrder } from "../../actions/card"
+import getSortedCards from "src/utils/sorting/getSortedCards"
+import getSortedTasks from "src/utils/sorting/getSortedTasks"
+import { getCards, changeOrder, changeLocalOrder } from "src/actions/card"
 import {
   getTasks,
   changeTaskLocalOrder,
   changeTaskOrder,
-} from "../../actions/task"
+} from "src/actions/task"
 import Card from "../Card/Card"
-import getSortedCards from "../../utils/sorting/getSortedCards"
-import getSortedTasks from "../../utils/sorting/getSortedTasks"
 import "./style.sass"
 
 const Cards = () => {

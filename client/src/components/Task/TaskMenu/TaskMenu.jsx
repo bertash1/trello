@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
-import { deleteTask } from "../../../actions/task"
+import { deleteTask } from "src/actions/task"
 import "./style.sass"
-import Portal from "../../Common/Portal/Portal"
-import Overlay from "../../Common/Overlay/Overlay"
+import Portal from "src/components/Common/Portal/Portal"
+import Overlay from "src/components/Common/Overlay/Overlay"
 
 const TaskMenu = ({ taskId, setIsEdited }) => {
   const [menuPosition, setMenuPosition] = useState("right")

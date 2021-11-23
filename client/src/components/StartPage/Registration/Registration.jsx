@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
-import { userRegistration } from "../../../actions/user"
+import ConfirmButton from "src/components/Common/ConfirmButton/ConfirmButton"
+import { userRegistration } from "src/actions/user"
 import "./style.sass"
 
 const Registration = () => {

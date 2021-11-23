@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react"
 import PropTypes from "prop-types"
 
-import CloseButton from "../../../Common/CloseButton/CloseButton"
+import OutsideClickHandler from "src/components/Common/OutsideClickHandler/OutsideClickHandler"
+import CloseButton from "src/components/Common/CloseButton/CloseButton"
 import Form from "./Form/Form"
-import OutsideClickHandler from "../../../Common/OutsideClickHandler/OutsideClickHandler"
 import "./style.sass"
 
 const InviteModal = ({ handleButtonClick }) => {

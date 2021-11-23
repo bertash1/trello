@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
-import { deleteBoardUser } from "../../../../../../actions/board"
+import { deleteBoardUser } from "src/actions/board"
 import "./style.sass"
 
 const Confirmation = ({ handleIconClick, setModalContent, userId }) => {

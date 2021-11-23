@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { getUserData } from "src/actions/user"
 import MemberBar from "./MemberBar/MemberBar"
 import MemberBarMenu from "./MemberBarMenu/MemberBarMenu"
-import { getUserData } from "../../actions/user"
 import "./style.sass"
 
 const Header = () => {

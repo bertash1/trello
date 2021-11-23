@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import { addBoard, getUserBoards } from "../../../actions/board"
-import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
-import Overlay from "../../Common/Overlay/Overlay"
+import ConfirmButton from "src/components/Common/ConfirmButton/ConfirmButton"
+import Overlay from "src/components/Common/Overlay/Overlay"
+import { addBoard, getUserBoards } from "src/actions/board"
 import "./style.sass"
 
 const BoardModal = ({ handleShowMenu }) => {

@@ -1,6 +1,6 @@
 import React, { useRef } from "react"
 import PropTypes from "prop-types"
-import { useOutsideClickHadler } from "../../../hooks/useOutsideClickHadler"
+import { useOutsideClickHadler } from "src/hooks/useOutsideClickHadler"
 
 const OutsideClickHandler = ({ children, handleClose }) => {
   const wrapperRef = useRef(null)

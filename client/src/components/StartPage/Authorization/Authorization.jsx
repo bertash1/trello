@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 
-import { userLogin } from "../../../actions/user"
-import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
+import { userLogin } from "src/actions/user"
+import ConfirmButton from "src/components/Common/ConfirmButton/ConfirmButton"
 import "./style.sass"
 
 const Authorization = () => {

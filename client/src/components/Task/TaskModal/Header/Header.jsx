@@ -5,9 +5,9 @@ import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined"
 import { grey } from "@mui/material/colors"
 import { useParams } from "react-router-dom"
 
-import CloseButton from "../../../Common/CloseButton/CloseButton"
-import Input from "../../../Common/Input/Input"
-import { editTask } from "../../../../actions/task"
+import CloseButton from "src/components/Common/CloseButton/CloseButton"
+import Input from "src/components/Common/Input/Input"
+import { editTask } from "src/actions/task"
 import "./style.sass"
 
 const Header = ({
@@ -21,7 +21,7 @@ const Header = ({
   const [editedTitle, setEditedTitle] = useState(title)
   const dispatch = useDispatch()
 
-  const boardId = useParams()
+  const { boardId } = useParams()
 
   const handleInputChange = (e) => {
     setEditedTitle(e.target.value)
@@ -46,7 +46,7 @@ const Header = ({
               role="none"
               onClick={() => setIsTitleEdited(true)}
             >
-              {title}
+              {editedTitle}
             </span>
           </div>
         ) : (

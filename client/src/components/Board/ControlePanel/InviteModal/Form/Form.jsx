@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
-import Input from "../../../../Common/Input/Input"
-import ConfirmButton from "../../../../Common/ConfirmButton/ConfirmButton"
-import { addBoardUser } from "../../../../../actions/board"
+import { addBoardUser } from "src/actions/board"
+import ConfirmButton from "src/components/Common/ConfirmButton/ConfirmButton"
+import Input from "src/components/Common/Input/Input"
 import "./style.sass"
 
 const Form = ({ handleButtonClick }) => {

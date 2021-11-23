@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import OutsideClickHandler from "src/components/Common/OutsideClickHandler/OutsideClickHandler"
 import Content from "./Content/Content"
-import OutsideClickHandler from "../../../Common/OutsideClickHandler/OutsideClickHandler"
 import "./style.sass"
 
 const RemoveModal = ({ email, userId, handleIconClick }) => (

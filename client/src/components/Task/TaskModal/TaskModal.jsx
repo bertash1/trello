@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 
-import Portal from "../../Common/Portal/Portal"
-import Overlay from "../../Common/Overlay/Overlay"
+import Portal from "src/components/Common/Portal/Portal"
+import Overlay from "src/components/Common/Overlay/Overlay"
+import { getTask, cancelPickedTask } from "src/actions/task"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
-import { getTask, cancelPickedTask } from "../../../actions/task"
 import "./style.sass"
 
 const TaskModal = ({ setIsModalShown, title, taskId, cardTitle }) => {
