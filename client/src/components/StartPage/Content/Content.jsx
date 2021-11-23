@@ -1,5 +1,5 @@
 import React from "react"
-import img from "../../../assets/task.jpg"
+import img from "src/assets/task.jpg"
 import "./style.sass"
 
 const Content = () => (

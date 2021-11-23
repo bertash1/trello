@@ -9,18 +9,21 @@ import "./style.sass"
 const Content = ({ taskId }) => {
   const [isDescriptionEdited, setIsDescriptionEdited] = useState(false)
 
-  const { description } = useSelector((state) => state.task.pickedTask)
+  const { task } = useSelector((state) => state)
 
   const handleCloseDescription = () => {
     setIsDescriptionEdited((prev) => !prev)
   }
+
+  if (!task.pickedTask.task) return <h1>loading...</h1>
+  // it will be replaced by spiner in the next PR. Now it's only for avoiding the error
 
   return (
     <div className="task-modal__content">
       <Info
         isDescriptionEdited={isDescriptionEdited}
         taskId={taskId}
-        description={description}
+        description={task.pickedTask.task.description}
         handleCloseDescription={handleCloseDescription}
       />
       <Menu taskId={taskId} />

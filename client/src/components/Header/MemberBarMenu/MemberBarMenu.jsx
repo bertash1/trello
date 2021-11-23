@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import { useHistory } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-import CloseButton from "../../Common/CloseButton/CloseButton"
-import OutsideClickHandler from "../../Common/OutsideClickHandler/OutsideClickHandler"
-import { userLogout } from "../../../actions/user"
+import { userLogout } from "src/actions/user"
+import OutsideClickHandler from "src/components/Common/OutsideClickHandler/OutsideClickHandler"
+import CloseButton from "src/components/Common/CloseButton/CloseButton"
 import "./style.sass"
 
 const MemberBarMenu = ({ handleShowMenu = () => null, account }) => {

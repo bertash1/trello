@@ -61,6 +61,10 @@
       "no-param-reassign": "off",
       "array-callback-return": "off",
       "consistent-return": "off",
+      "import/no-unresolved": [
+        0, 
+        { "caseSensitive": false }
+     ],
       "react/jsx-filename-extension": [
         1,
         {

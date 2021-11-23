@@ -52,7 +52,7 @@ export const editTask = (taskId, newTask, boardId) => async (dispatch) => {
   await $api.patch(`task/${taskId}`, { title, description })
   await dispatch({ type: EDIT_TASK })
   await dispatch(getTask(taskId))
-  dispatch(getTasks(boardId))
+  await dispatch(getTasks(boardId))
 }
 
 export const deleteTask = (id, boardId) => async (dispatch) => {

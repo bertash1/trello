@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 
-import CloseButton from "../../../../Common/CloseButton/CloseButton"
+import CloseButton from "src/components/Common/CloseButton/CloseButton"
 import Info from "./Info/Info"
 import Confirmation from "./Confirmation/Confirmation"
 import "./style.sass"

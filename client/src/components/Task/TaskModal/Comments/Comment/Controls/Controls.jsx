@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
-import { deleteComment } from "../../../../../../actions/comment"
+import { deleteComment } from "src/actions/comment"
 import "./style.sass"
 
 const Controls = ({ taskId, commentId, author }) => {
@@ -13,19 +13,17 @@ const Controls = ({ taskId, commentId, author }) => {
     dispatch(deleteComment(commentId, taskId))
   }
 
+  if (author._id !== userId) return null
+
   return (
-    <>
-      {author._id === userId && (
-        <div className="comment__controls">
-          <div className="comment__action" role="none">
-            Edit
-          </div>
-          <div className="comment__action" onClick={handleDelete} role="none">
-            Delete
-          </div>
-        </div>
-      )}
-    </>
+    <div className="comment__controls">
+      <div className="comment__action" role="none">
+        Edit
+      </div>
+      <div className="comment__action" onClick={handleDelete} role="none">
+        Delete
+      </div>
+    </div>
   )
 }
 

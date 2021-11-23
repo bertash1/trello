@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
 import "./style.sass"
-import { deleteCard } from "../../../actions/card"
-import OutsideClickHandler from "../../Common/OutsideClickHandler/OutsideClickHandler"
-import CloseButton from "../../Common/CloseButton/CloseButton"
+import { deleteCard } from "src/actions/card"
+import OutsideClickHandler from "src/components/Common/OutsideClickHandler/OutsideClickHandler"
+import CloseButton from "src/components/Common/CloseButton/CloseButton"
 
 const CardMenu = ({ handleShowMenu = () => null, id }) => {
   const dispatch = useDispatch()

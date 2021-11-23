@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
-import { editTask } from "../../../actions/task"
-import ConfirmButton from "../../Common/ConfirmButton/ConfirmButton"
-import Input from "../../Common/Input/Input"
+import { editTask } from "src/actions/task"
+import ConfirmButton from "src/components/Common/ConfirmButton/ConfirmButton"
+import Input from "src/components/Common/Input/Input"
 import TaskMenu from "../TaskMenu/TaskMenu"
 import "./style.sass"
 

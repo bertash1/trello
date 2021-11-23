@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
-import AddButton from "../../Common/AddButton/AddButton"
-import Form from "../../Common/Form/Form"
-import { postCard } from "../../../actions/card"
+import AddButton from "src/components/Common/AddButton/AddButton"
+import Form from "src/components/Common/Form/Form"
+import { postCard } from "src/actions/card"
 
 const AddCard = () => {
   const [isEdited, setIsEdited] = useState(false)

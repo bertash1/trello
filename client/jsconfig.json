@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["src"],
+  "exculde": ["node_modules",  "build"]
+}
