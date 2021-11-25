@@ -3,7 +3,10 @@ import PropTypes from "prop-types"
 import { useHistory } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
+import { cancelFetchedCards } from "src/actions/card"
+import { cancelFetchedTasks } from "src/actions/task"
 import { userLogout } from "src/actions/user"
+import { cancelFetchedBoards } from "src/actions/board"
 import OutsideClickHandler from "src/components/Common/OutsideClickHandler/OutsideClickHandler"
 import CloseButton from "src/components/Common/CloseButton/CloseButton"
 import "./style.sass"
@@ -30,8 +33,18 @@ const MemberBarMenu = ({ handleShowMenu = () => null, account }) => {
     }
   }, [handleKeyPress])
 
+  const handleBoardOut = () => {
+    dispatch(cancelFetchedCards())
+    dispatch(cancelFetchedTasks())
+    dispatch(cancelFetchedBoards())
+    history.push("/dashboard")
+  }
+
   const handleLogout = () => {
     dispatch(userLogout())
+    dispatch(cancelFetchedCards())
+    dispatch(cancelFetchedTasks())
+    dispatch(cancelFetchedBoards())
     history.push("/")
   }
 
@@ -46,7 +59,7 @@ const MemberBarMenu = ({ handleShowMenu = () => null, account }) => {
         <ul className="member-bar__list">
           <li
             className="member-bar__list-item"
-            onClick={() => history.push("/dashboard")}
+            onClick={handleBoardOut}
             role="menuitem"
           >
             Go to boards

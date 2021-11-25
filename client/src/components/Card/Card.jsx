@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Droppable, Draggable } from "react-beautiful-dnd"
 
 import { editCard } from "src/actions/card"
+import Circular from "../Common/Spinners/Circular"
 import Options from "../Common/Options/Options"
 import Task from "../Task/Task"
 import Input from "../Common/Input/Input"
@@ -12,17 +13,12 @@ import "./style.sass"
 import CardMenu from "./CardMenu/CardMenu"
 import AddTask from "../Task/AddTask/AddTask"
 
-const Card = ({ title, cardId, index }) => {
+const Card = ({ title, cardId, index, taskData }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [inputValue, setInputValue] = useState(title)
   const [isMenuShown, setIsMenuShown] = useState(false)
   const dispatch = useDispatch()
   const { boardId } = useParams()
-
-  const taskData = useSelector((state) => state.task.tasks)
-  const tasks = taskData
-    .filter((task) => task.card === cardId)
-    .sort((a, b) => (a.position > b.position ? 1 : -1))
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -43,6 +39,8 @@ const Card = ({ title, cardId, index }) => {
   const handleClick = () => {
     setIsEdited(true)
   }
+
+  if (!taskData) return <Circular />
 
   return (
     <Draggable draggableId={cardId} index={index}>
@@ -90,16 +88,19 @@ const Card = ({ title, cardId, index }) => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {tasks.map((task, index) => (
-                  <Task
-                    index={index}
-                    title={task.title}
-                    taskId={task._id}
-                    key={task._id}
-                    cardId={cardId}
-                    cardTitle={title}
-                  />
-                ))}
+                {taskData
+                  .filter((task) => task.card === cardId)
+                  .sort((a, b) => (a.position > b.position ? 1 : -1))
+                  .map((task, index) => (
+                    <Task
+                      index={index}
+                      title={task.title}
+                      taskId={task._id}
+                      key={task._id}
+                      cardId={cardId}
+                      cardTitle={title}
+                    />
+                  ))}
                 {provided.placeholder}
               </div>
             )}
@@ -118,6 +119,7 @@ Card.propTypes = {
   title: PropTypes.string,
   cardId: PropTypes.string,
   index: PropTypes.number,
+  taskData: PropTypes.array,
 }
 
 export default React.memo(Card)

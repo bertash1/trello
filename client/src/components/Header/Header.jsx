@@ -8,7 +8,7 @@ import "./style.sass"
 const Header = () => {
   const [isModalShown, setIsModalShown] = useState(false)
 
-  const email = useSelector((state) => state.userData.email)
+  const userData = useSelector((state) => state.userData)
 
   const handleShowMenu = () => {
     setIsModalShown((prev) => !prev)
@@ -26,7 +26,10 @@ const Header = () => {
       <span className="header__logo">Custom Trello</span>
       <MemberBar handleShowMenu={handleShowMenu} />
       {isModalShown && (
-        <MemberBarMenu account={email} handleShowMenu={handleShowMenu} />
+        <MemberBarMenu
+          account={userData.email}
+          handleShowMenu={handleShowMenu}
+        />
       )}
     </header>
   )

@@ -4,8 +4,31 @@ import {
   ADD_BOARD,
   ADD_BOARD_USER,
   DELETE_BOARD_USER,
+  CANCEL_FETCHED_BOARDS,
+  CANCEL_FETCHED_ACTIVE_BOARD,
+  CANCEL_FETCHED_USER_BOARDS,
 } from "./types"
 import { $api } from "../http"
+
+export const cancelFetchedActiveBoard = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_FETCHED_ACTIVE_BOARD,
+    payload: null,
+  })
+}
+export const cancelFetchedUserBoards = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_FETCHED_USER_BOARDS,
+    payload: null,
+  })
+}
+
+export const cancelFetchedBoards = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_FETCHED_BOARDS,
+    payload: { activeBoard: null, userBoards: null },
+  })
+}
 
 export const getUserBoards = () => async (dispatch) => {
   const userBoards = await $api.get(`board/userBoards`)
@@ -19,7 +42,7 @@ export const getBoard = (boardId) => async (dispatch) => {
   const board = await $api.get(`board/${boardId}`)
   dispatch({
     type: GET_BOARD,
-    payload: board,
+    payload: { activeBoard: board, userBoards: null },
   })
 }
 
