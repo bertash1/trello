@@ -11,6 +11,7 @@ import {
   changeTaskLocalOrder,
   changeTaskOrder,
 } from "src/actions/task"
+import Circular from "../Common/Spinners/Circular"
 import Card from "../Card/Card"
 import "./style.sass"
 
@@ -19,6 +20,7 @@ const Cards = () => {
 
   const localCards = useSelector((state) => state.cards.local)
   const taskData = useSelector((state) => state.task.tasks)
+  const { cards } = useSelector((state) => state)
 
   const { boardId } = useParams()
 
@@ -63,6 +65,10 @@ const Cards = () => {
     dispatch(getTasks(boardId))
   }, [dispatch, boardId])
 
+  if (!taskData && !cards.DB) {
+    return <Circular />
+  }
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="cards-wrapper" direction="horizontal" type="card">
@@ -75,6 +81,7 @@ const Cards = () => {
             {localCards &&
               localCards.map((card, index) => (
                 <Card
+                  taskData={taskData}
                   key={card._id}
                   title={card.title}
                   cardId={card._id}

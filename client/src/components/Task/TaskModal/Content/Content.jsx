@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
 
+import Linear from "src/components/Common/Spinners/Linear"
 import Info from "../Info/Info"
 import Menu from "../Menu/Menu"
 import "./style.sass"
@@ -15,8 +16,7 @@ const Content = ({ taskId }) => {
     setIsDescriptionEdited((prev) => !prev)
   }
 
-  if (!task.pickedTask.task) return <h1>loading...</h1>
-  // it will be replaced by spiner in the next PR. Now it's only for avoiding the error
+  if (!task.pickedTask.task) return <Linear />
 
   return (
     <div className="task-modal__content">

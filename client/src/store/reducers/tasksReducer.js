@@ -7,12 +7,15 @@ import {
   GET_TASKS,
   CHANGE_TASK_LOCAL_ORDER,
   CHANGE_TASK_ORDER,
+  CANCEL_FETCHED_TASKS,
 } from "../../actions/types"
 
-const initialState = { pickedTask: {}, tasks: [] }
+const initialState = { pickedTask: {}, tasks: null }
 
 export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CANCEL_FETCHED_TASKS:
+      return { ...state, tasks: action.payload }
     case CHANGE_TASK_ORDER:
       return state
     case CHANGE_TASK_LOCAL_ORDER:

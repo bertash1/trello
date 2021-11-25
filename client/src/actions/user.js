@@ -3,8 +3,16 @@ import {
   USER_LOGIN,
   GET_USER_DATA,
   USER_LOGOUT,
+  CANCEL_USER_DATA,
 } from "./types"
 import { $api } from "../http"
+
+export const cancelUserData = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_USER_DATA,
+    payload: null,
+  })
+}
 
 export const userRegistration = (email, password) => async (dispatch) => {
   const user = await $api.post("/registration", { email, password })

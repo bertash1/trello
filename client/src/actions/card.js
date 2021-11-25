@@ -5,8 +5,16 @@ import {
   DELETE_CARD,
   CHANGE_ORDER,
   CHANGE_LOCAL_ORDER,
+  CANCEL_FETCHED_CARDS,
 } from "./types"
 import { $api } from "../http"
+
+export const cancelFetchedCards = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_FETCHED_CARDS,
+    payload: { DB: null, local: null },
+  })
+}
 
 export const getCards = (boardId) => async (dispatch) => {
   const cards = await $api.get(`card/${boardId}`)

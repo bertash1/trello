@@ -7,8 +7,16 @@ import {
   GET_TASKS,
   CHANGE_TASK_LOCAL_ORDER,
   CHANGE_TASK_ORDER,
+  CANCEL_FETCHED_TASKS,
 } from "./types"
 import { $api } from "../http"
+
+export const cancelFetchedTasks = () => (dispatch) => {
+  dispatch({
+    type: CANCEL_FETCHED_TASKS,
+    payload: null,
+  })
+}
 
 export const changeTaskLocalOrder = (items) => (dispatch) => {
   dispatch({

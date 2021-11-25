@@ -3,12 +3,15 @@ import {
   USER_LOGOUT,
   USER_REGISTRATION,
   GET_USER_DATA,
+  CANCEL_USER_DATA,
 } from "../../actions/types"
 
-const initialState = []
+const initialState = null
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CANCEL_USER_DATA:
+      return action.payload
     case USER_REGISTRATION:
       return action.payload
     case USER_LOGOUT:

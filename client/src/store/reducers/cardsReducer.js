@@ -5,15 +5,18 @@ import {
   DELETE_CARD,
   CHANGE_ORDER,
   CHANGE_LOCAL_ORDER,
+  CANCEL_FETCHED_CARDS,
 } from "../../actions/types"
 
 const initialState = {
-  DB: [],
-  local: [],
+  DB: null,
+  local: null,
 }
 
 export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CANCEL_FETCHED_CARDS:
+      return action.payload
     case CHANGE_ORDER:
       return state
     case GET_CARDS:

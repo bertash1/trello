@@ -27,10 +27,10 @@ const BoardModal = ({ handleShowMenu }) => {
   }
 
   useEffect(() => {
-    if (activeBoard._id) {
+    if (activeBoard) {
       history.push(`/board/${activeBoard._id}`)
     }
-  }, [activeBoard._id, history])
+  }, [activeBoard, history])
 
   const handleKeyPress = useCallback(
     (e) => {
