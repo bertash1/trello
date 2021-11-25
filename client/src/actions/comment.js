@@ -1,4 +1,4 @@
-import { DELETE_COMMENT, EDIT_COMMENT } from "./types"
+import { DELETE_COMMENT, EDIT_COMMENT, POST_COMMENT } from "./types"
 import { $api } from "../http"
 import { getTask } from "./task"
 
@@ -19,3 +19,12 @@ export const editComment = (commentId, text, taskId) => async (dispatch) => {
   })
   dispatch(getTask(taskId))
 }
+
+export const postComment =
+  (text, authorId, taskId, boardId) => async (dispatch) => {
+    await $api.post(`comment/${boardId}`, { text, authorId, taskId })
+
+    dispatch({
+      type: POST_COMMENT,
+    })
+  }

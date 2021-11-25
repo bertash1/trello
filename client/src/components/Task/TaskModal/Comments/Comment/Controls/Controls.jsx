@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteComment } from "src/actions/comment"
 import "./style.sass"
 
-const Controls = ({ taskId, commentId, author }) => {
+const Controls = ({ taskId, commentId, author, setIsCommentEditing }) => {
   const dispatch = useDispatch()
   const userId = useSelector((state) => state.userData._id)
 
@@ -17,7 +17,11 @@ const Controls = ({ taskId, commentId, author }) => {
 
   return (
     <div className="comment__controls">
-      <div className="comment__action" role="none">
+      <div
+        className="comment__action"
+        onClick={() => setIsCommentEditing((prev) => !prev)}
+        role="none"
+      >
         Edit
       </div>
       <div className="comment__action" onClick={handleDelete} role="none">
@@ -31,6 +35,7 @@ Controls.propTypes = {
   taskId: PropTypes.string,
   commentId: PropTypes.string,
   author: PropTypes.object,
+  setIsCommentEditing: PropTypes.func,
 }
 
 export default Controls
