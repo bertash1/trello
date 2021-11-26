@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted"
 import { grey } from "@mui/material/colors"
 
+import CommentForm from "./CommentForm/CommentForm"
 import Comment from "./Comment/Comment"
 import "./style.sass"
 
@@ -16,6 +17,7 @@ const Comments = ({ taskId }) => {
         <FormatListBulletedIcon sx={{ color: grey[700] }} fontSize="small" />
         <div className="comments__title">Activity</div>
       </div>
+      <CommentForm taskId={taskId} />
       <div className="comments">
         {comments &&
           comments.map(({ _id, author, createdAt, updatedAt, text }) => (
