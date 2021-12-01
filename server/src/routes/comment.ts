@@ -1,16 +1,14 @@
-export {}
+import express from "express";
 
-const express = require("express");
-
-const authMiddleware = require("../middlewares/auth-middleware");
-const checkUserPermissions = require("../middlewares/checkUserPermissions");
+import authMiddleware from "../middlewares/auth-middleware";
+import checkUserPermissions from "../middlewares/checkUserPermissions";
 
 const router = express.Router();
 
-const { postComment, editComment, deleteComment } = require("../controllers/comment");
+import { postComment, editComment, deleteComment } from "../controllers/comment";
 
 router.post("/:boardId", authMiddleware, checkUserPermissions, postComment);
 router.patch("/", authMiddleware, checkUserPermissions, editComment);
 router.delete("/:commentId", authMiddleware, checkUserPermissions, deleteComment)
 
-module.exports = router;
+export default router;

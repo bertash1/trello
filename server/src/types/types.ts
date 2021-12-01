@@ -1,38 +1,39 @@
-import {Request} from "express"
+import { Request } from "express";
+import { Document, Types } from "mongoose";
 
-export interface IBoard {
+export interface IBoard extends Document {
   title: string, 
   owner: string,
-  users: string[]
+  users: Array<string>
 }
 
-export interface ICard {
+export interface ICard extends Document {
   title: string,
-  board: string,
+  board: Types.ObjectId,
   position: number
 }
 
-export interface IComment {
+export interface IComment extends Document {
   text: string,
-  author: string,
-  board: string,
-  task: string
+  author: Types.ObjectId,
+  board: Types.ObjectId,
+  task: Types.ObjectId
 }
 
-export interface ITask {
+export interface ITask extends Document {
   title: string,
   description: string,
-  card: string,
-  board: string,
+  card: Types.ObjectId,
+  board: Types.ObjectId,
   position: number
 }
 
-export interface IToken {
-  user: string,
+export interface IToken extends Document {
+  user: Types.ObjectId,
   refreshToken: string
 }
 
-export interface IUser {
+export interface IUser extends Document {
   email: string,
   password: string,
   isActivated: boolean,
@@ -46,7 +47,7 @@ export interface IUserData {
 }
 
 export interface IRequest extends Request {
-  user: IUserData
+  user?: IUserData
 }
 
 export interface IHttpException {

@@ -1,17 +1,15 @@
-export {}
-
-const express = require('express');
-const { body } = require('express-validator');
+import express from 'express';
+import { body } from 'express-validator';
 const router = express.Router();
 
-const {
+import {
   registration,
   activate,
   login,
   logout,
   refresh,
   getUserTokenData
-} = require('../controllers/user');
+} from '../controllers/user';
 
 router.post(
   '/registration',
@@ -25,4 +23,4 @@ router.get('/activate/:link', activate);
 router.get('/refresh', refresh);
 router.get('/userdata', getUserTokenData)
 
-module.exports = router;
+export default router;

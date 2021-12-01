@@ -1,17 +1,18 @@
-const Card = require("../models/Card");
-const Task = require("../models/Task");
+import Card from "../models/Card";
+import Task from "../models/Task";
 
 import {Request, Response} from "express"
+import { ICard } from "../types/types";
 
-const postCard = async (req:Request, res:Response) => {
+export const postCard = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { title } = req.body;
-    const { boardId } = req.params;
+    const title: string = req.body.title;
+    const boardId: string = req.params.boardId;
 
-    const cards = await Card.find({ board: { _id: boardId } });
-    const position = cards.length
+    const cards: Array<ICard> = await Card.find({ board: boardId });
+    const position: number = cards.length
 
-    const card = await Card.create({ title, board: boardId, position });
+    const card: ICard = await Card.create({ title, board: boardId, position });
 
     res.status(200).json(card);
   } catch (err) {
@@ -19,11 +20,11 @@ const postCard = async (req:Request, res:Response) => {
   }
 };
 
-const getCards = async (req:Request, res:Response) => {
+export const getCards = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
+    const boardId: string = req.params.boardId;
 
-    const cards = await Card.find({ board: { _id: boardId } }).populate({
+    const cards: Array<ICard> = await Card.find({ board: boardId }).populate({
       path: "board",
       match: { _id: boardId },
       select: "_id",
@@ -35,35 +36,32 @@ const getCards = async (req:Request, res:Response) => {
   }
 };
 
-const deleteCard = async (req:Request, res:Response) => {
-  const { cardId } = req.params;
+export const deleteCard = async (req:Request, res:Response): Promise<void> => {
+  const cardId: string = req.params.cardId;
 
   const card = await Card.findById(cardId)
 
-  await Task.deleteMany({ card: { _id: cardId } });
-  await Card.updateMany({"board": card.board, position: {$gt: card.position}}, {$inc: {position: -1}})
-  await card.remove()
+  await Task.deleteMany({ card: cardId });
+  await Card.updateMany({"board": card?.board, position: {$gt: card?.position}}, {$inc: {position: -1}})
+  await card?.remove()
 
   res.status(200).json(card);
 };
 
-const editCard = async (req:Request, res:Response) => {
-  const { title } = req.body;
-  const { cardId } = req.params;
+export const editCard = async (req:Request, res:Response): Promise<void> => {
+  const title: string = req.body.title;
+  const cardId: string = req.params.cardId;
 
-  const filter = cardId;
-  const update = { title };
-
-  const changedCard = await Card.findByIdAndUpdate(filter, update, {
+  const changedCard = await Card.findByIdAndUpdate(cardId, { title }, {
     new: true,
   });
 
   res.status(200).json(changedCard);
 };
 
-const changeOrder = async(req:Request, res:Response) => {
-  const {cardId} = req.params;
-  const {newPosition, oldPosition, boardId} = req.body;
+export const changeOrder = async(req:Request, res:Response): Promise<void> => {
+  const cardId: string = req.params.cardId;
+  const {newPosition, oldPosition, boardId} : {newPosition: number; oldPosition: number; boardId: string} = req.body;
 
   if(newPosition - oldPosition === 0) {
     return
@@ -96,9 +94,3 @@ const changeOrder = async(req:Request, res:Response) => {
     res.status(200).json(card)
   }
 }
-
-exports.editCard = editCard;
-exports.deleteCard = deleteCard;
-exports.getCards = getCards;
-exports.postCard = postCard;
-exports.changeOrder = changeOrder;

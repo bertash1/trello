@@ -1,21 +1,21 @@
-const {
+import {
   userRegistration,
   activateUser,
   loginUser,
   logoutUser,
   refreshUserToken,
-} = require('../service/user');
-const { validationResult } = require('express-validator');
-const { getUserData } = require('../service/token');
-const ApiError = require('../exceptions/api-error');
+} from '../service/user';
+import { validationResult } from 'express-validator';
+import { getUserData } from '../service/token';
+import ApiError from '../exceptions/api-error';
 
 import {Request, Response, NextFunction} from "express"
 
-const registration = async (req:Request, res:Response, next:NextFunction) => {
+export const registration = async (req:Request, res:Response, next:NextFunction) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.BadRequest('Validation error!', errors.array()));
+      return next(ApiError.BadRequest('Validation error!', errors.array() as never));
     }
 
     const { email, password } = req.body;
@@ -31,9 +31,9 @@ const registration = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-const login = async (req:Request, res:Response, next:NextFunction) => {
+export const login = async (req:Request, res:Response, next:NextFunction) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } : {email: string, password: string} = req.body;
     const userData = await loginUser(email, password);
     res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -45,9 +45,9 @@ const login = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-const logout = async (req:Request, res:Response, next:NextFunction) => {
+export const logout = async (req:Request, res:Response, next:NextFunction) => {
   try {
-    const { refreshToken } = req.cookies;
+    const { refreshToken } : { refreshToken: string} = req.cookies;
     const token = await logoutUser(refreshToken);
     res.clearCookie('refreshToken');
     return res.json(token);
@@ -56,9 +56,9 @@ const logout = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-const activate = async (req:Request, res:Response, next:NextFunction) => {
+export const activate = async (req:Request, res:Response, next:NextFunction) => {
   try {
-    const activationLink = req.params.link;
+    const activationLink: string = req.params.link;
     await activateUser(activationLink);
     return res.redirect(process.env.CLIENT_URL as string);
   } catch (error) {
@@ -66,11 +66,11 @@ const activate = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-const refresh = async (req:Request, res:Response, next:NextFunction) => {
+export const refresh = async (req:Request, res:Response, next:NextFunction) => {
   try {
-    const { refreshToken } = req.cookies;
+    const { refreshToken } : {refreshToken: string} = req.cookies;
     const userData = await refreshUserToken(refreshToken);
-    res.cookie('refreshToken', userData.refreshToken, {
+    res.cookie('refreshToken', userData?.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -80,18 +80,11 @@ const refresh = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-const getUserTokenData = async (req:Request, res:Response) => {
+export const getUserTokenData = async (req:Request, res:Response) => {
   const authorizationHeader = req.headers.authorization;
 
-  const accessToken = authorizationHeader?.split(" ")[1];
+  const accessToken = authorizationHeader?.split(" ")[1] as string;
   const userData = getUserData(accessToken);
 
   res.status(200).json(userData)
 }
-
-exports.registration = registration;
-exports.activate = activate;
-exports.login = login;
-exports.logout = logout;
-exports.refresh = refresh;
-exports.getUserTokenData = getUserTokenData;

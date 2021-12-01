@@ -1,18 +1,20 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const uuid = require("uuid");
-const {sendActivationMail} = require("./mail");
-const {generateTokens, saveToken, removeToken, findToken, validateRefreshToken} = require("./token");
-const ApiError = require('../exceptions/api-error');
+import User from"../models/User";
+import bcrypt from "bcrypt";
+import uuid from "uuid";
+import sendActivationMail from "./mail";
+import {generateTokens, saveToken, removeToken, findToken, validateRefreshToken} from "./token";
+import ApiError from '../exceptions/api-error';
+import { JwtPayload } from "jsonwebtoken";
+import { IToken } from "../types/types";
 
-const userRegistration = async (email:string, password:string) => {
+export const userRegistration = async (email:string, password:string) => {
   const candidate = await User.findOne({email});
   if (candidate) {
     throw ApiError.BadRequest("User already exists")
   }
 
   const hashPassword = await bcrypt.hash(password, 3);
-  const activationLink = uuid.v4();
+  const activationLink: string = uuid.v4();
 
   const user = await User.create({
     email, 
@@ -34,7 +36,7 @@ const userRegistration = async (email:string, password:string) => {
   }
 }
 
-const activateUser = async (activationLink:string) => {
+export const activateUser = async (activationLink:string) => {
   const user = await User.findOne({activationLink});
 
   if (!user) {
@@ -44,7 +46,7 @@ const activateUser = async (activationLink:string) => {
   await user.save();
 }
 
-const loginUser = async (email:string, password:string) => {
+export const loginUser = async (email:string, password:string) => {
   const user = await User.findOne({email});
   if(!user) {
     throw ApiError.BadRequest("User was not found")
@@ -68,29 +70,27 @@ const loginUser = async (email:string, password:string) => {
   }
 }
 
-const logoutUser = async (refreshToken:string) => {
+export const logoutUser = async (refreshToken:string) => {
   const token = await removeToken(refreshToken);
   return token;
 }
 
-const refreshUserToken = async (refreshToken:string) => {
+export const refreshUserToken = async (refreshToken:string):Promise<IToken | null> => {
   if(!refreshToken) {
     throw ApiError.UnauthorizedError();
   }
-  const userData = validateRefreshToken(refreshToken);
+  const userData = validateRefreshToken(refreshToken) as JwtPayload;
   const tokenFromDb = await findToken(refreshToken);
   if(!userData || !tokenFromDb) {
     throw ApiError.UnauthorizedError();
   }
 
   const user = await User.findById(userData.id)
-  const tokens = generateTokens({_id: user._id, email: user.email, isActivated: user.isActivated});
-  await saveToken(user._id, tokens.refreshToken)
+
+  if(user) {
+    const tokens = generateTokens({_id: user._id, email: user.email, isActivated: user.isActivated});
+    const tokenData = await saveToken(user._id, tokens.refreshToken);
+    return tokenData;
+  }
+  return null
 }
-
-
-exports.userRegistration = userRegistration;
-exports.activateUser = activateUser;
-exports.loginUser = loginUser;
-exports.logoutUser = logoutUser;
-exports.refreshUserToken = refreshUserToken;

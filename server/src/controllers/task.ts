@@ -1,18 +1,18 @@
-export {}
-
-const Task = require("../models/Task");
-const Comment = require("../models/Comment");
+import Task from "../models/Task";
+import Comment from "../models/Comment";
+import { ITask } from "../types/types";
 import { Request, Response } from "express";
 
-const postTask = async (req:Request, res:Response) => {
+export const postTask = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { cardId, boardId } = req.params;
-    const { title } = req.body;
+    const cardId: string = req.params.cardId;
+    const boardId: string = req.params.boardId;
+    const { title } : {title: string} = req.body;
 
-    const tasks = await Task.find({ card: { _id: cardId } });
-    const position = tasks.length
+    const tasks: Array<ITask> = await Task.find({card: cardId}) ;
+    const position: number = tasks.length
 
-    const task = await Task.create({
+    const task: ITask = await Task.create({
       title,
       description: "",
       card: cardId,
@@ -26,12 +26,12 @@ const postTask = async (req:Request, res:Response) => {
   }
 };
 
-const getTask = async (req:Request, res:Response) => {
+export const getTask = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { taskId } = req.params;
+    const taskId: string = req.params.taskId;
 
     const task = await Task.findById(taskId);
-    const comments = await (await Comment.find({task: taskId}).populate("author")).reverse()
+    const comments = await (await Comment.find({ task: taskId }).populate("author")).reverse()
 
     const taskData = {
       task, comments
@@ -43,11 +43,11 @@ const getTask = async (req:Request, res:Response) => {
   }
 };
 
-const getTasks = async (req:Request, res:Response) => {
+export const getTasks = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
+    const boardId: string = req.params.boardId;
     const tasks = await Task.find(
-      { board: { _id: boardId } },
+      { board: boardId },
       { description: 0 }
     );
 
@@ -57,23 +57,20 @@ const getTasks = async (req:Request, res:Response) => {
   }
 };
 
-const editTask = async (req:Request, res:Response) => {
-  const { title, description } = req.body;
-  const { taskId } = req.params;
+export const editTask = async (req:Request, res:Response): Promise<void> => {
+  const { title, description }: {title: string; description: string} = req.body;
+  const taskId: string = req.params.taskId;
 
-  const filter = taskId;
-  const update = { title, description };
-
-  const changedTask = await Task.findByIdAndUpdate(filter, update, {
+  const changedTask = await Task.findByIdAndUpdate(taskId, { title, description }, {
     new: true,
   });
 
   res.status(200).json(changedTask);
 };
 
-const deleteTask = async (req:Request, res:Response) => {
+export const deleteTask = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { taskId } = req.params;
+    const taskId: string = req.params.taskId;
 
     const deletedTask = await Task.findByIdAndDelete(taskId);
 
@@ -83,9 +80,9 @@ const deleteTask = async (req:Request, res:Response) => {
   }
 };
 
-const changeTaskOrder = async (req:Request, res:Response) => {
-  const {taskId} = req.params
-  const {newPosition, oldPosition, oldCardId, newCardId} = req.body;
+export const changeTaskOrder = async (req:Request, res:Response): Promise<void> => {
+  const taskId: string = req.params.taskId
+  const { newPosition, oldPosition, oldCardId, newCardId } : { newPosition: number; oldPosition: number; oldCardId: string; newCardId: string } = req.body;
 
   if (oldCardId === newCardId && newPosition - oldPosition === 0) {
     return
@@ -128,10 +125,3 @@ const changeTaskOrder = async (req:Request, res:Response) => {
     res.status(200).json(task)
   }
 }
-
-exports.editTask = editTask;
-exports.postTask = postTask;
-exports.deleteTask = deleteTask;
-exports.getTasks = getTasks;
-exports.getTask = getTask;
-exports.changeTaskOrder = changeTaskOrder;

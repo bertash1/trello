@@ -1,11 +1,9 @@
-export {};
-
-const nodemailer = require("nodemailer")
+import nodemailer from "nodemailer";
 
 const sendActivationMail = async(to:string, link:string) => {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
+    host: process.env.SMTP_HOST as string,
+    port: process.env.SMTP_PORT as any,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
@@ -28,4 +26,4 @@ const sendActivationMail = async(to:string, link:string) => {
   })
 }
 
-exports.sendActivationMail = sendActivationMail;
+export default sendActivationMail;

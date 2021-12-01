@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IComment } from "../types/types"
 
-const CommentSchema = new Schema({
+const CommentSchema = model<IComment>("Comment", new Schema({
   text: {
     type: String,
     required: true,
@@ -19,6 +19,6 @@ const CommentSchema = new Schema({
     ref: "Task",
   }, 
   
-},{timestamps: true ,})
+},{timestamps: true}))
 
-module.exports = model<IComment>("Coment", CommentSchema);
+export default CommentSchema;

@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { ITask } from "../types/types"
 
-const TaskSchema = new Schema({
+const TaskSchema = model<ITask>('Task', new Schema({
   title: {
     type: String,
     required: true
@@ -15,7 +15,7 @@ const TaskSchema = new Schema({
   board: {
     type: Schema.Types.ObjectId, ref: "Board",
   },
-  position: Number,
-});
+  position: Number
+}));
 
-module.exports = model<ITask>("Task", TaskSchema);
+export default TaskSchema;

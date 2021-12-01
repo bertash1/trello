@@ -1,21 +1,19 @@
+import express from "express";
 
-export {}
-const express = require("express");
-
-const authMiddleware = require("../middlewares/auth-middleware");
-const checkUserPermissions = require("../middlewares/checkUserPermissions");
-const checkOwnerPermissions = require("../middlewares/checkOwnerPermissions")
+import authMiddleware from "../middlewares/auth-middleware";
+import checkUserPermissions from "../middlewares/checkUserPermissions";
+import checkOwnerPermissions from "../middlewares/checkOwnerPermissions";
 
 const router = express.Router();
 
-const {
+import {
   postTask,
   deleteTask,
   getTasks,
   editTask,
   getTask,
   changeTaskOrder
-} = require("../controllers/task");
+} from "../controllers/task";
 
 router.get("/:boardId", authMiddleware, checkUserPermissions, getTasks);
 router.get("/info/:taskId", authMiddleware, checkUserPermissions, getTask);
@@ -24,4 +22,4 @@ router.delete("/:taskId", authMiddleware, checkOwnerPermissions, deleteTask);
 router.patch("/:taskId", authMiddleware, checkUserPermissions, editTask);
 router.patch("/changeorder/:taskId", authMiddleware, checkUserPermissions, changeTaskOrder);
 
-module.exports = router;
+export default router;

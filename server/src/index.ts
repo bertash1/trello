@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-const cardRouter = require("./routes/card");
-const taskRouter = require("./routes/task");
-const userRouter = require("./routes/user");
-const boardRouter = require("./routes/board");
-const commentRouter = require("./routes/comment");
+
+import cardRouter from "./routes/card";
+import taskRouter from "./routes/task";
+import userRouter from "./routes/user";
+import boardRouter from "./routes/board";
+import commentRouter from "./routes/comment";
+
 import dotenv from "dotenv";
 import errorMiddleware from "./middlewares/error-middleware";
 

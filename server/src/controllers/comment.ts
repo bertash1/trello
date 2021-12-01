@@ -1,23 +1,23 @@
-export {};
-const Comment = require("../models/Comment");
+import Comment from "../models/Comment";
 
 import { Request, Response } from "express";
+import { IComment } from "../types/types";
 
-const postComment = async (req:Request, res:Response) => {
+export const postComment = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
-    const {text, authorId, taskId } = req.body;
+    const boardId: string  = req.params.boardId;
+    const {text, authorId, taskId } : {text: string; authorId: string; taskId: string } = req.body;
 
-    const comment = await Comment.create({task: taskId, text, author: authorId, board: boardId});
+    const comment: IComment = await Comment.create({task: taskId, text, author: authorId, board: boardId});
     res.status(200).json(comment);
   } catch (error) {
     throw error
   }
 }
 
-const editComment = async (req:Request, res:Response) => {
+export const editComment = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { commentId, text } = req.body;
+    const { commentId, text } : {commentId: string; text: string} = req.body;
 
     const comment = await Comment.findByIdAndUpdate(commentId, {text}, {new: true});
 
@@ -27,9 +27,9 @@ const editComment = async (req:Request, res:Response) => {
   }
 }
 
-const deleteComment = async (req:Request, res:Response) => {
+export const deleteComment = async (req:Request, res:Response): Promise<void> => {
   try {
-    const {commentId} = req.params;
+    const commentId: string = req.params.commentId;
 
     const comment = await Comment.findByIdAndDelete(commentId);
 
@@ -38,7 +38,3 @@ const deleteComment = async (req:Request, res:Response) => {
     throw error
   }
 }
-
-exports.postComment = postComment;
-exports.editComment = editComment;
-exports.deleteComment = deleteComment;

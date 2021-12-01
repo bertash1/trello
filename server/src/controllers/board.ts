@@ -1,37 +1,35 @@
-const Board = require("../models/Board");
-const User = require("../models/User");
+import Board from "../models/Board";
+import User from "../models/User";
 
 import { Request, Response } from "express";
-import { IRequest } from "../types/types";
+import { IBoard, IRequest, IUser } from "../types/types";
 
-const getBoards = async (req:IRequest, res:Response) => {
+export const getBoards = async (req:IRequest, res:Response): Promise<void> => {
   try {
-    const  userId  = req.user._id
-
-    const boards = await Board.find({ users: { _id: userId } }, {_id: 1, title: 1});
+    const userId = req?.user?._id as string;
+    const boards: Array<IBoard> = await Board.find({ users: userId }, {_id: 1, title: 1});
     res.status(200).json(boards);
   } catch (error) {
     throw error;
   }
 };
 
-const getBoard = async (req:Request, res:Response) => {
+export const getBoard = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
-
-    const board = await Board.findById(boardId).populate('users');
+    const boardId: string = req.params.boardId;
+    const board = await Board.findById(boardId).populate('users') as IBoard;
     res.status(200).json(board);
   } catch (error) {
     throw error;
   }
 };
 
-const addBoard = async (req:IRequest, res:Response) => {
+export const addBoard = async (req:IRequest, res:Response): Promise<void> => {
   try {
-    const { title } = req.body;
-    const  userId  = req.user._id
+    const title = req.body.title as string;
+    const userId = req?.user?._id;
 
-    const board = await Board.create({
+    const board: IBoard = await Board.create({
       title,
       owner: userId,
       users: [userId],
@@ -43,21 +41,21 @@ const addBoard = async (req:IRequest, res:Response) => {
   }
 };
 
-const addBoardUser = async (req:Request, res:Response) => {
+export const addBoardUser = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
-    const {email} = req.body
+    const boardId: string = req.params.boardId;
+    const email: string = req.body.email;
 
-    const board = await Board.findById(boardId);
-    const user = await User.findOne({email})
+    const board = await Board.findById(boardId) as IBoard ;
+    const user = await User.findOne({email}) as IUser;
 
-    if (board.users.includes(user._id)) {
+    if (board?.users.includes(user?._id)) {
       res.status(403).json({ message: "User has already been added" });
     } else {
       const board = await Board.findByIdAndUpdate(
         boardId,
         {
-          $push: { users: user._id },
+          $push: { users: user?._id },
         },
         { new: true }
       ).populate('users')
@@ -68,15 +66,12 @@ const addBoardUser = async (req:Request, res:Response) => {
   }
 };
 
-const editBoard = async (req:Request, res:Response) => {
+export const editBoard = async (req:Request, res:Response): Promise<void> => {
   try {
-    const { boardId } = req.params;
-    const { title } = req.body;
+    const boardId: string = req.params.boardId;
+    const title: string = req.body.title;
 
-    const filter = boardId;
-    const update = { title };
-
-    const board = await Board.findByIdAndUpdate(filter, update, {
+    const board = await Board.findByIdAndUpdate(boardId, {title}, {
       new: true,
     });
 
@@ -86,10 +81,10 @@ const editBoard = async (req:Request, res:Response) => {
   }
 };
 
-const deleteBoardUser = async (req:Request, res:Response) => {
+export const deleteBoardUser = async (req:Request, res:Response): Promise<void> => {
   try {
-    const {boardId} = req.params;
-    const {userId} = req.body;
+    const boardId: string = req.params.boardId;
+    const userId: string = req.body.userId;
 
     const board = await Board.findByIdAndUpdate(boardId, {$pull: {users: userId}}, {new: true}).populate('users');
     res.status(200).json(board);
@@ -98,9 +93,3 @@ const deleteBoardUser = async (req:Request, res:Response) => {
   }
 }
 
-exports.addBoard = addBoard;
-exports.addBoardUser = addBoardUser;
-exports.getBoards = getBoards;
-exports.editBoard = editBoard;
-exports.getBoard = getBoard;
-exports.deleteBoardUser = deleteBoardUser;

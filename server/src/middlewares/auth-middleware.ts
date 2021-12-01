@@ -1,11 +1,11 @@
-const {validateAccessToken} = require("../service/token")
-const ApiError = require("../exceptions/api-error")
-import {Response, NextFunction} from "express"
-import {IRequest} from "../types/types"
+import {validateAccessToken} from "../service/token";
+import ApiError from "../exceptions/api-error";
+import {Response, NextFunction} from "express";
+import {IRequest, IUserData} from "../types/types";
 
-module.exports = function (req:IRequest, res:Response, next:NextFunction) {
+const authMiddleware = (req:IRequest, res:Response, next:NextFunction) => {
   try {
-    const authorizationHeader = req.headers.authorization;
+    const authorizationHeader = req.headers.authorization as string;
     if(!authorizationHeader) {
       return next(ApiError.UnauthorizedError())
     }
@@ -15,7 +15,7 @@ module.exports = function (req:IRequest, res:Response, next:NextFunction) {
       return next(ApiError.UnauthorizedError())
     }
 
-    const userData = validateAccessToken(accessToken);
+    const userData = validateAccessToken(accessToken) as IUserData;
     if(!userData) {
       return next(ApiError.UnauthorizedError());
     }
@@ -26,3 +26,5 @@ module.exports = function (req:IRequest, res:Response, next:NextFunction) {
     return next(ApiError.UnauthorizedError())
   }
 }
+
+export default authMiddleware;

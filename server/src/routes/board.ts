@@ -1,21 +1,19 @@
-export {}
+import express from "express";
 
-const express = require("express");
-
-const authMiddleware = require("../middlewares/auth-middleware");
-const checkOwnerPermissions = require("../middlewares/checkOwnerPermissions");
-const checkUserPermissions = require("../middlewares/checkUserPermissions");
+import authMiddleware from "../middlewares/auth-middleware";
+import checkOwnerPermissions from "../middlewares/checkOwnerPermissions";
+import checkUserPermissions from "../middlewares/checkUserPermissions";
 
 const router = express.Router();
 
-const {
+import {
   addBoard,
   addBoardUser,
   getBoards,
   editBoard,
   getBoard,
   deleteBoardUser,
-} = require("../controllers/board");
+} from "../controllers/board";
 
 router.post("/", authMiddleware, addBoard);
 router.get("/userBoards", authMiddleware, getBoards);
@@ -37,4 +35,4 @@ router.patch(
 
 router.patch("/deleteUser/:boardId", checkUserPermissions, deleteBoardUser)
 
-module.exports = router;
+export default router;

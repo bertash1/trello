@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { ICard } from "../types/types"
 
-const CardSchema = new Schema({
+const CardSchema = model<ICard>("Card", new Schema({
   title: {
     type: String,
     required: true,
@@ -11,6 +11,6 @@ const CardSchema = new Schema({
     ref: "Board",
   },
   position: Number
-});
+}));
 
-module.exports = model<ICard>("Card", CardSchema);
+export default CardSchema;
