@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer";
+import nodemailer from "nodemailer"
 
-const sendActivationMail = async(to:string, link:string) => {
+const sendActivationMail = async (to: string, link: string) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST as string,
     port: process.env.SMTP_PORT as any,
@@ -8,7 +8,7 @@ const sendActivationMail = async(to:string, link:string) => {
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASSWORD,
-    }
+    },
   })
 
   await transporter.sendMail({
@@ -16,14 +16,13 @@ const sendActivationMail = async(to:string, link:string) => {
     to,
     subject: "Account activation on " + process.env.API_URL,
     text: "",
-    html:
-    `
+    html: `
     <div>
       <h1>To activate your account click the following link</h1>
       <a href="${link}">${link}</a>
     </div>
-    `
+    `,
   })
 }
 
-export default sendActivationMail;
+export default sendActivationMail
