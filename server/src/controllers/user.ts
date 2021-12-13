@@ -81,6 +81,7 @@ export const activate = async (
     await activateUser(activationLink)
     return res.redirect(process.env.CLIENT_URL as string)
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }

@@ -1,5 +1,5 @@
-process.env.JWT_ACCESS_SECRET="jwt-secret-key"
-process.env.JWT_REFRESH_SECRET="jwt-refresh-secret-key"
+process.env.JWT_ACCESS_SECRET = "jwt-secret-key"
+process.env.JWT_REFRESH_SECRET = "jwt-refresh-secret-key"
 import mongoose from "mongoose"
 
 import { MongoMemoryServer } from "mongodb-memory-server"
@@ -13,15 +13,15 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   const password = await bcrypt.hash("12345", 3)
-  const user = new User({ email: "email@test.com", password })
+  const user = new User({
+    email: "email@test.com",
+    password,
+    isActivated: false,
+    activationLink: "someLink",
+  })
   await user.save()
 })
 
 afterEach(async () => {
-  User.collection.drop();
-})
-
-afterAll(async () => {
-  // await mongoose.disconnect()
-  // await mongoose.connection.close()s
+  User.collection.drop()
 })

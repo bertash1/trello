@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import supertest from "supertest"
 
-
 import createServer from "../../utils/server"
-import * as userService from "../../service/user"
+import * as SendActivationMail from "../../service/mail"
+import User from "../../models/User"
+import Token from "../../models/Token"
 
 const app = createServer()
 
@@ -33,9 +34,9 @@ describe("User", () => {
   }
 
   describe("User registration", () => {
-    test("should return a 200 status and user data", async () => {
+    test("should return a 200 status and user data, handle existing users and return a 400 status", async () => {
       jest
-        .spyOn(userService, "sendActivationMail")
+        .spyOn(SendActivationMail, "default")
         //@ts-ignore
         .mockReturnValueOnce(fakeUserResponse)
 
@@ -44,7 +45,13 @@ describe("User", () => {
         .send(userPayload)
 
       expect(response.status).toBe(200)
-      expect(response.body).toEqual(fakeUserResponse)
+      expect(response.body).toMatchSnapshot()
+
+      const failedResponse = await supertest(app)
+        .post("/api/registration")
+        .send(userPayload)
+
+      expect(failedResponse.status).toBe(400)
     })
 
     test("should handle missing required params and return a 400 status", async () => {
@@ -73,7 +80,6 @@ describe("User", () => {
   })
   describe("User login", () => {
     test("should return a 200 status and user data", async () => {
-
       const response = await supertest(app)
         .post("/api/login")
         .send({ email: "email@test.com", password: "12345" })
@@ -83,7 +89,6 @@ describe("User", () => {
     })
 
     test("should handle incorrect password and return a 404 status", async () => {
-
       const response = await supertest(app)
         .post("/api/login")
         .send({ email: "email@test.com", password: "Incorrect password" })
@@ -94,9 +99,28 @@ describe("User", () => {
     test("should handle incorrect email and return a 404 status", async () => {
       const response = await supertest(app)
         .post("/api/login")
-        .send({ email: "incorrect email", password: '12345' })
+        .send({ email: "incorrect email", password: "12345" })
 
       expect(response.status).toBe(404)
+    })
+  })
+
+  describe("User activation", () => {
+    test("should activate user", async () => {
+      const user = await User.findOne()
+      //@ts-ignore
+      expect(user.isActivated).toBe(false)
+      await supertest(app)
+        //@ts-ignore
+        .get(`/api/activate/${user.activationLink}`)
+      const activatedUser = await User.findOne()
+      //@ts-ignore
+      expect(activatedUser?.isActivated).toBe(true)
+    })
+
+    test("should handle incorrect activation link and return a 400 status", async () => {
+      const { status } = await supertest(app).get("/api/activate/incorrectLink")
+      expect(status).toBe(400)
     })
   })
 })
