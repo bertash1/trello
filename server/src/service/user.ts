@@ -60,6 +60,8 @@ export const activateUser = async (activationLink: string) => {
 }
 
 export const loginUser = async (email: string, password: string) => {
+  const users = await User.find()
+  console.log('USERSS>>>', users);
   const user = await User.findOne({ email })
   if (!user) {
     throw ApiError.BadRequest("User was not found")

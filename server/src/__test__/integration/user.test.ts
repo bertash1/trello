@@ -1,28 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import supertest from "supertest"
-import { MongoMemoryServer } from "mongodb-memory-server"
-import mongoose from "mongoose"
+
+
 import createServer from "../../utils/server"
 import * as userService from "../../service/user"
-import User from "../../models/User"
-
-import bcrypt from "bcrypt"
 
 const app = createServer()
 
 describe("User", () => {
-  beforeAll(async () => {
-    const mongoServer = await MongoMemoryServer.create()
-    await mongoose.connect(mongoServer.getUri(), { dbName: "trello" })
-  })
-
-  afterAll(async () => {
-    await mongoose.disconnect()
-    await mongoose.connection.close()
-  })
-
-  const userId = new mongoose.Types.ObjectId().toString()
-
   const userPayload = {
     email: "some@test.com",
     password: "12345",
@@ -35,7 +20,6 @@ describe("User", () => {
   const userData = {
     email: "some@test.com",
     isActivated: false,
-    _id: userId,
   }
 
   const fakeUserResponse = {
@@ -51,7 +35,7 @@ describe("User", () => {
   describe("User registration", () => {
     test("should return a 200 status and user data", async () => {
       jest
-        .spyOn(userService, "userRegistration")
+        .spyOn(userService, "sendActivationMail")
         //@ts-ignore
         .mockReturnValueOnce(fakeUserResponse)
 
@@ -89,9 +73,6 @@ describe("User", () => {
   })
   describe("User login", () => {
     test("should return a 200 status and user data", async () => {
-      const password = await bcrypt.hash("12345", 3)
-      const user = new User({ email: "email@test.com", password })
-      await user.save()
 
       const response = await supertest(app)
         .post("/api/login")
@@ -102,9 +83,6 @@ describe("User", () => {
     })
 
     test("should handle incorrect password and return a 404 status", async () => {
-      const password = await bcrypt.hash("12345", 3)
-      const user = new User({ email: "email@test.com", password })
-      await user.save()
 
       const response = await supertest(app)
         .post("/api/login")
@@ -114,13 +92,9 @@ describe("User", () => {
     })
 
     test("should handle incorrect email and return a 404 status", async () => {
-      const password = await bcrypt.hash("12345", 3)
-      const user = new User({ email: "email@test.com", password })
-      await user.save()
-
       const response = await supertest(app)
         .post("/api/login")
-        .send({ email: "incorrect email", password })
+        .send({ email: "incorrect email", password: '12345' })
 
       expect(response.status).toBe(404)
     })
