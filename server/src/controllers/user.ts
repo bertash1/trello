@@ -31,7 +31,7 @@ export const registration = async (
       httpOnly: true,
     })
 
-    return res.json(userData)
+    return res.status(200).json(userData)
   } catch (error) {
     next(error)
   }
@@ -51,7 +51,8 @@ export const login = async (
     })
     return res.json(userData)
   } catch (error) {
-    next(error)
+    console.log(error)
+    next(ApiError.UserDoesNotExist())
   }
 }
 

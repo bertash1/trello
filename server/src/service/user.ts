@@ -1,6 +1,6 @@
 import User from "../models/User"
 import bcrypt from "bcrypt"
-import uuid from "uuid"
+import * as uuid from "uuid"
 import sendActivationMail from "./mail"
 import {
   generateTokens,

@@ -19,4 +19,8 @@ export default class ApiError extends Error {
   static NotAllowed() {
     return new ApiError(401, "Not Allowed")
   }
+
+  static UserDoesNotExist() {
+    return new ApiError(404, "User doesn't exist")
+  }
 }

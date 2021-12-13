@@ -27,6 +27,7 @@ export const saveToken = async (userId: string, refreshToken: string) => {
     return tokenData.save()
   }
   const token = await Token.create({ user: userId, refreshToken })
+  console.log(token)
   return token
 }
 
