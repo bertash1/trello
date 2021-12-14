@@ -51,7 +51,6 @@ export const login = async (
     })
     return res.json(userData)
   } catch (error) {
-    console.log(error)
     next(ApiError.UserDoesNotExist())
   }
 }
@@ -81,7 +80,6 @@ export const activate = async (
     await activateUser(activationLink)
     return res.redirect(process.env.CLIENT_URL as string)
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }

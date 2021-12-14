@@ -1,10 +1,11 @@
 process.env.JWT_ACCESS_SECRET = "jwt-secret-key"
 process.env.JWT_REFRESH_SECRET = "jwt-refresh-secret-key"
 import mongoose from "mongoose"
-
-import { MongoMemoryServer } from "mongodb-memory-server"
-import User from "./src/models/User"
 import bcrypt from "bcrypt"
+import { MongoMemoryServer } from "mongodb-memory-server"
+
+import User from "./src/models/User"
+import Board from "./src/models/Board"
 
 beforeAll(async () => {
   const mongoServer = await MongoMemoryServer.create()
@@ -20,6 +21,13 @@ beforeEach(async () => {
     activationLink: "someLink",
   })
   await user.save()
+
+  const board = new Board({
+    title: "testBoard",
+    owner: user._id,
+    users: [user._id],
+  })
+  await board.save()
 })
 
 afterEach(async () => {

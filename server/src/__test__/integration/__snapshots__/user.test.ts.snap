@@ -2,10 +2,10 @@
 
 exports[`User User registration should return a 200 status and user data, handle existing users and return a 400 status 1`] = `
 Object {
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3NWE4MjBkZGQ2ZTAwYWZmNDE4YjEiLCJlbWFpbCI6InNvbWVAdGVzdC5jb20iLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTYzOTQwNjIxMCwiZXhwIjoxNjM5NDA4MDEwfQ.u4sshgjXSpu7kB7j__ZnTchbNqmZrXoFrAN-Z4LShfc",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI3NWE4MjBkZGQ2ZTAwYWZmNDE4YjEiLCJlbWFpbCI6InNvbWVAdGVzdC5jb20iLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTYzOTQwNjIxMCwiZXhwIjoxNjQxOTk4MjEwfQ.6XYBY2Enxlm7OuwpI5CiDxA1Gd3WC3kB8K5c4yckCzc",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI4YjNiMDU1MzRmOWMwNGU3YmUyMzgiLCJlbWFpbCI6InNvbWVAdGVzdC5jb20iLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTYzOTQ5NDU3NiwiZXhwIjoxNjM5NDk2Mzc2fQ.Btet3vd5wbFnwC4mLUBiw2dv-F-rAcndqiHvVeMyOyg",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI4YjNiMDU1MzRmOWMwNGU3YmUyMzgiLCJlbWFpbCI6InNvbWVAdGVzdC5jb20iLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTYzOTQ5NDU3NiwiZXhwIjoxNjQyMDg2NTc2fQ.oYkdemaCL1bNE4XoM-vGBDCOrEsn4CrDSxiI8S9MEVU",
   "user": Object {
-    "_id": "61b75a820ddd6e00aff418b1",
+    "_id": "61b8b3b05534f9c04e7be238",
     "email": "some@test.com",
     "isActivated": false,
   },
