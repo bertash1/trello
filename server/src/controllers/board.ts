@@ -16,6 +16,7 @@ export const getBoards = async (
     )
     res.status(200).json(boards)
   } catch (error) {
+    console.log(error)
     throw error
   }
 }

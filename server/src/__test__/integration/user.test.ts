@@ -4,7 +4,6 @@ import supertest from "supertest"
 import createServer from "../../utils/server"
 import * as SendActivationMail from "../../service/mail"
 import User from "../../models/User"
-import Token from "../../models/Token"
 
 const app = createServer()
 

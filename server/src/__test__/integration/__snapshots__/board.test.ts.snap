@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board should return all user boards 1`] = `
+Array [
+  Object {
+    "_id": "61b8b3b1bac41bce43873f0c",
+    "title": "testBoard",
+  },
+]
+`;
